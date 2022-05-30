@@ -1,0 +1,38 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "dev",
+			"path": "homelib-server",
+			"problemMatcher": [],
+			"label": "npm: dev - homelib-server",
+			"detail": "next dev"
+		},
+		{
+			"type": "npm",
+			"script": "build",
+			"path": "homelib-server",
+			"group": "build",
+			"problemMatcher": [],
+			"label": "npm: build - homelib-server",
+			"detail": "next build"
+		},
+		{
+			"type": "npm",
+			"script": "start",
+			"path": "homelib-server",
+			"problemMatcher": [],
+			"label": "npm: start - homelib-server",
+			"detail": "next start"
+		},
+		{
+			"type": "npm",
+			"script": "lint",
+			"path": "homelib-server",
+			"problemMatcher": [],
+			"label": "npm: lint - homelib-server",
+			"detail": "next lint"
+		}
+	]
+}

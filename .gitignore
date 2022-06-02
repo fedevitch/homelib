@@ -7,7 +7,7 @@
 node_modules/
 dist/
 homelib-server/node_modules/
-homelib-server/build/
+homelib-scanner/build/
 
 # Compiled Java class files
 *.class

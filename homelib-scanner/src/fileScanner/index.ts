@@ -1,4 +1,4 @@
-import { FileEntry } from '../directoryScanner';
+import { FileEntry } from '../directoryScanner/fileEntry';
 
 export class FileData {
     constructor(fileEntry: FileEntry) {

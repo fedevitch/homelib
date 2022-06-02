@@ -24,7 +24,7 @@ const fileScanner_1 = __importDefault(require("./fileScanner"));
 console.log('starting scanner...');
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
     var e_1, _a;
-    const fileList = yield (0, directoryScanner_1.default)('../');
+    const fileList = yield (0, directoryScanner_1.default)('/media/lyubomyr/Data/Файли/Бібліотека');
     try {
         for (var fileList_1 = __asyncValues(fileList), fileList_1_1; fileList_1_1 = yield fileList_1.next(), !fileList_1_1.done;) {
             const file = fileList_1_1.value;

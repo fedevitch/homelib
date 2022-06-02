@@ -1,17 +1,5 @@
-import { Dirent } from 'fs';
 import { opendir } from 'fs/promises';
-
-export class FileEntry {
-    constructor(_dirent: Dirent, _path: string) {
-        this.name = _dirent.name;
-        this.path = _path;
-    }
-
-    public getFullName = ():string => `${this.path}${this.name}`;
-
-    public path: string;
-    public name: string;
-}
+import { FileEntry } from './fileEntry';
 
 const processDir = async (directory: string): Promise<Array<FileEntry>> => {
 
@@ -22,7 +10,14 @@ const processDir = async (directory: string): Promise<Array<FileEntry>> => {
         for await (const dirent of dir) {
           
           if(dirent.isFile()) {
-            files.push(new FileEntry(dirent, dir.path));
+              const fileEntry = new FileEntry(dirent, dir.path);
+              if(fileEntry.supported){
+                files.push(fileEntry);
+              }
+          }
+          if(dirent.isDirectory()) {
+            const subDirFiles = await processDir(`${directory}/${dirent.name}`);
+            files.push(...subDirFiles);  
           }
         }
       } catch (err) {

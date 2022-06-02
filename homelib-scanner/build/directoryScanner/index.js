@@ -16,16 +16,8 @@ var __asyncValues = (this && this.__asyncValues) || function (o) {
     function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FileEntry = void 0;
 const promises_1 = require("fs/promises");
-class FileEntry {
-    constructor(_dirent, _path) {
-        this.getFullName = () => `${this.path}${this.name}`;
-        this.name = _dirent.name;
-        this.path = _path;
-    }
-}
-exports.FileEntry = FileEntry;
+const fileEntry_1 = require("./fileEntry");
 const processDir = (directory) => __awaiter(void 0, void 0, void 0, function* () {
     var e_1, _a;
     const files = [];
@@ -35,7 +27,14 @@ const processDir = (directory) => __awaiter(void 0, void 0, void 0, function* ()
             for (var dir_1 = __asyncValues(dir), dir_1_1; dir_1_1 = yield dir_1.next(), !dir_1_1.done;) {
                 const dirent = dir_1_1.value;
                 if (dirent.isFile()) {
-                    files.push(new FileEntry(dirent, dir.path));
+                    const fileEntry = new fileEntry_1.FileEntry(dirent, dir.path);
+                    if (fileEntry.supported) {
+                        files.push(fileEntry);
+                    }
+                }
+                if (dirent.isDirectory()) {
+                    const subDirFiles = yield processDir(`${directory}/${dirent.name}`);
+                    files.push(...subDirFiles);
                 }
             }
         }

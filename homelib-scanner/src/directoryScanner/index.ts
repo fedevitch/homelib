@@ -29,9 +29,11 @@ const processDir = async (directory: string): Promise<Array<FileEntry>> => {
 }
 
 const scan = async (directory: string): Promise<Array<FileEntry>> => {
-    console.log('scanning directories');
+    console.log('Scanning folders...');
 
     const fileList = await processDir(directory);
+
+    console.log(`Scanning folders done. Found ${fileList.length} files.`)
 
     return Promise.resolve(fileList);
 

@@ -8,7 +8,6 @@ const start = async () => {
 
     for await (const file of fileList) {
         const fileInfo = await scanFile(file);
-        console.log(fileInfo.entry.getFullName());
     }
 
 }

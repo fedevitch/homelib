@@ -36,7 +36,7 @@ const scan = async (directory: string): Promise<Array<FileEntry>> => {
 
     logger.info(`Scanning folders done. Found ${fileList.length} files.`)
 
-    return Promise.resolve(fileList);
+    return fileList;
 
 }
 

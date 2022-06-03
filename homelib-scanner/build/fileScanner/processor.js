@@ -12,37 +12,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.FileData = void 0;
-const promises_1 = require("fs/promises");
 const logger_1 = __importDefault(require("../logger"));
-const processor_1 = __importDefault(require("./processor"));
-class FileData {
-    constructor(fileEntry) {
-        this.setStats = (stats) => {
-            this.size = stats.size;
-            this.createdOnDisk = stats.ctime;
-        };
-        this.setMeta = (meta) => {
-            this.meta = meta;
-        };
-        this.size = 0;
-        this.createdOnDisk = new Date();
-        this.meta = {};
-        this.entry = fileEntry;
-    }
-}
-exports.FileData = FileData;
-const scan = (file) => __awaiter(void 0, void 0, void 0, function* () {
-    logger_1.default.info(`scanning file: ${file.getFullName()}`);
-    const fileData = new FileData(file);
-    try {
-        const stats = yield (0, promises_1.stat)(file.getFullName());
-        fileData.setStats(stats);
-        yield (0, processor_1.default)(fileData);
-    }
-    catch (e) {
-        logger_1.default.error(e);
+const fileExtensions_1 = require("../directoryScanner/fileExtensions");
+const pdfProcessor_1 = __importDefault(require("./pdfProcessor"));
+const fileProcessor = (fileData) => __awaiter(void 0, void 0, void 0, function* () {
+    const format = fileExtensions_1.FileExtensions.getFormat(fileData.entry.name);
+    switch (format) {
+        case fileExtensions_1.FileExtensions.Formats.pdf:
+            logger_1.default.debug("pdf");
+            yield (0, pdfProcessor_1.default)(fileData);
+            break;
+        case fileExtensions_1.FileExtensions.Formats.djvu:
+            break;
+        case fileExtensions_1.FileExtensions.Formats.fb2:
+            break;
+        default:
+            logger_1.default.error("Unknown format");
+            break;
     }
     return fileData;
 });
-exports.default = scan;
+exports.default = fileProcessor;

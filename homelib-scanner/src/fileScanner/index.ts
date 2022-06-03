@@ -2,6 +2,7 @@ import { Stats } from 'fs';
 import { stat } from 'fs/promises';
 import logger from '../logger';
 import { FileEntry } from '../directoryScanner/fileEntry';
+import fileProcessor from './processor';
 
 export class FileData {
     constructor(fileEntry: FileEntry) {
@@ -13,9 +14,14 @@ export class FileData {
         this.createdOnDisk = stats.ctime;
     }
 
+    public setMeta = (meta: object) => {
+        this.meta = meta;
+    }
+
     public entry: FileEntry;
     public size: Number = 0;
     public createdOnDisk: Date = new Date();
+    public meta = {};
 }
 
 const scan = async (file: FileEntry): Promise<FileData> => {
@@ -24,10 +30,20 @@ const scan = async (file: FileEntry): Promise<FileData> => {
 
     const fileData = new FileData(file);
 
-    const stats = await stat(file.getFullName());
-    fileData.setStats(stats);
+    try {
 
-    return Promise.resolve(fileData);
+        const stats = await stat(file.getFullName());
+        fileData.setStats(stats);
+
+        await fileProcessor(fileData);
+
+
+
+    } catch (e) {
+        logger.error(e);
+    }
+
+    return fileData;
 }
 
 export default scan;

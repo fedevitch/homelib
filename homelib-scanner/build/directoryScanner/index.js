@@ -59,6 +59,6 @@ const scan = (directory) => __awaiter(void 0, void 0, void 0, function* () {
     logger_1.default.info('Scanning folders...');
     const fileList = yield processDir(directory);
     logger_1.default.info(`Scanning folders done. Found ${fileList.length} files.`);
-    return Promise.resolve(fileList);
+    return fileList;
 });
 exports.default = scan;

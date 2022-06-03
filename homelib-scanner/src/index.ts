@@ -1,7 +1,8 @@
+import logger from './logger';
 import scanDirectories from './directoryScanner';
 import scanFile from './fileScanner';
 
-console.log('starting scanner...');
+logger.info('starting scanner...');
 const start = async () => {
 
     const fileList = await scanDirectories('/media/lyubomyr/Data/Файли/Бібліотека');

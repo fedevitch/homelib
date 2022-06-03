@@ -1,4 +1,5 @@
 import { opendir } from 'fs/promises';
+import logger from '../logger';
 import { FileEntry } from './fileEntry';
 
 const processDir = async (directory: string): Promise<Array<FileEntry>> => {
@@ -21,7 +22,7 @@ const processDir = async (directory: string): Promise<Array<FileEntry>> => {
           }
         }
       } catch (err) {
-        console.error(err);
+        logger.error(err);
       }
 
 
@@ -29,11 +30,11 @@ const processDir = async (directory: string): Promise<Array<FileEntry>> => {
 }
 
 const scan = async (directory: string): Promise<Array<FileEntry>> => {
-    console.log('Scanning folders...');
+    logger.info('Scanning folders...');
 
     const fileList = await processDir(directory);
 
-    console.log(`Scanning folders done. Found ${fileList.length} files.`)
+    logger.info(`Scanning folders done. Found ${fileList.length} files.`)
 
     return Promise.resolve(fileList);
 

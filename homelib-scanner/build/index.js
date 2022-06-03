@@ -19,9 +19,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const logger_1 = __importDefault(require("./logger"));
 const directoryScanner_1 = __importDefault(require("./directoryScanner"));
 const fileScanner_1 = __importDefault(require("./fileScanner"));
-console.log('starting scanner...');
+logger_1.default.info('starting scanner...');
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
     var e_1, _a;
     const fileList = yield (0, directoryScanner_1.default)('/media/lyubomyr/Data/Файли/Бібліотека');
@@ -29,7 +30,6 @@ const start = () => __awaiter(void 0, void 0, void 0, function* () {
         for (var fileList_1 = __asyncValues(fileList), fileList_1_1; fileList_1_1 = yield fileList_1.next(), !fileList_1_1.done;) {
             const file = fileList_1_1.value;
             const fileInfo = yield (0, fileScanner_1.default)(file);
-            console.log(fileInfo.entry.getFullName());
         }
     }
     catch (e_1_1) { e_1 = { error: e_1_1 }; }

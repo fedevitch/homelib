@@ -1,13 +1,10 @@
-import { Sequelize } from "sequelize";
+import db from "./models";
 
-const sequelize = 
-    new Sequelize({
-        database: process.env.DB_NAME, 
-        port: Number.parseInt(process.env.DB_PORT || "5432", 10),
-        username: process.env.DB_USER, 
-        password: process.env.DB_PASSWORD,    
-        dialect: "postgres",        
-        logging: console.log
-    });
+try {
+    db.sequelize.authenticate();
+    console.log('Connection has been established successfully.');
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
 
-export default sequelize;
+export default db;

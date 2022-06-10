@@ -1,9 +1,14 @@
 .main {
-    min-height: 100vh;
+    min-height: 50vh;
+    max-height: 60vh;
+    min-width: 40vw;
+    max-width: 50vw;
     padding: 4rem 0;
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    vertical-align: middle;
+    margin: 5rem auto;
   }

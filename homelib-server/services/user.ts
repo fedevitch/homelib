@@ -1,6 +1,6 @@
 import db from './database';
 import crypto from 'crypto';
-import { Users } from '@prisma/client';
+import { User } from '@prisma/client';
 
 class SignupData {
     name!: string;
@@ -10,7 +10,7 @@ class SignupData {
     password!: string;
 }
 
-export const signup = async (data: SignupData): Promise<Users> => {
+export const signup = async (data: SignupData): Promise<User> => {
 
     const hash = crypto.createHash('sha512');
     hash.update(data.password);
@@ -18,7 +18,7 @@ export const signup = async (data: SignupData): Promise<Users> => {
     hash.update(salt);
     const password = hash.digest('hex');
 
-    const user = await db.users.create({ data: {...data, password, salt} });
+    const user = await db.user.create({ data: {...data, password, salt} });
 
     return user;
 

@@ -1,25 +1,24 @@
-import db from '../db';
+import db from './database';
 import crypto from 'crypto';
+import { Users } from '@prisma/client';
 
 class SignupData {
+    name!: string;
     firstName!: string; 
     lastName!: string; 
     email!: string; 
     password!: string;
 }
 
-export const signup = async (data: SignupData): Promise<object> => {
+export const signup = async (data: SignupData): Promise<Users> => {
 
-    console.log(data);
     const hash = crypto.createHash('sha512');
     hash.update(data.password);
     const salt = crypto.randomBytes(32).toString('hex');
     hash.update(salt);
     const password = hash.digest('hex');
-    
-    console.log(db.User);
 
-    const user = await db.User.create({ ...data, password, salt });
+    const user = await db.users.create({ data: {...data, password, salt} });
 
     return user;
 

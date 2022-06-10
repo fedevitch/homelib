@@ -1,8 +1,13 @@
 import type { NextPage } from 'next'
-import styles from '../styles/Signup.module.css'
-
-import { Button, Card, Elevation, FormGroup, InputGroup } from "@blueprintjs/core";
 import { useState } from 'react';
+import styles from '../styles/Signup.module.css'
+import { AppToaster } from '../components/toaster';
+//import dynamic from 'next/dynamic'
+//const AppToaster = dynamic(() => import('../components/toaster').then(m => m.AppToaster), {ssr: false})
+
+import { Button, Card, Elevation, FormGroup, InputGroup, Intent } from "@blueprintjs/core";
+import { signUp } from '../components/api';
+
 
 const Signup: NextPage = () => {
 
@@ -17,9 +22,21 @@ const Signup: NextPage = () => {
     const [password, setPassword] = useState(String);
     const [passwordRepeat, setPasswordRepeat] = useState(String);
 
-    const onSubmit = (event: any) => {
+    const onSubmit = async (event: any) => {
         event.preventDefault();
-        console.log('submitting...', { name, firstName, lastName, email, password });
+        setLoading(true);
+        if(password !== passwordRepeat) {
+            AppToaster.show({ message: 'Passwords mismatch', intent: Intent.WARNING })
+        } else {
+            try{
+                const res = await signUp({ name, firstName, lastName, email, password })
+                AppToaster.show({ message: res.message, intent: Intent.PRIMARY })           
+            } catch(e) {
+                console.log(e)
+                AppToaster.show({ message: e.message, intent: Intent.DANGER })
+            }            
+        }
+        setLoading(false)
     }
 
     return (

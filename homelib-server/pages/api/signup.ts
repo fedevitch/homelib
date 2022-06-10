@@ -12,16 +12,16 @@ export default async function handler(
     if(req.method === 'POST'){
       const { error } = Signup.validate(req.body);
       if(error) {
-        res.status(httpStatus.BAD_REQUEST).json({ message: error.details });
+        return res.status(httpStatus.BAD_REQUEST).json({ message: error.details.map(d => d.message).join(" ") });
       }
       await signup(req.body);
       res.status(httpStatus.OK).json({ message: 'User created' })
     } else {
-        res.status(httpStatus.METHOD_NOT_ALLOWED).end();
+      res.status(httpStatus.METHOD_NOT_ALLOWED).end();
     }
   } catch(e) {
     if(_.get(e, 'meta.target', []).indexOf('email') > -1) {
-      res.status(httpStatus.CONFLICT).json({ message: 'Email is already registered' })
+      return res.status(httpStatus.CONFLICT).json({ message: 'Email is already registered' })
     }
     res.status(httpStatus.INTERNAL_SERVER_ERROR).end();
   }

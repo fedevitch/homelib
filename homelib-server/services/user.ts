@@ -2,12 +2,12 @@ import db from './database';
 import crypto from 'crypto';
 import { User } from '@prisma/client';
 
-class SignupData {
-    name!: string;
-    firstName!: string; 
-    lastName!: string; 
-    email!: string; 
-    password!: string;
+type SignupData = {
+    name: string,
+    firstName: string, 
+    lastName: string; 
+    email: string; 
+    password: string;
 }
 
 export const signup = async (data: SignupData): Promise<User> => {

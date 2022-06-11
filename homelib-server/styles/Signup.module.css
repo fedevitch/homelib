@@ -1,8 +1,8 @@
-.main {
-    min-height: 50vh;
-    max-height: 60vh;
-    min-width: 40vw;
-    max-width: 50vw;
+.signUp {
+    min-height: 30rem;
+    max-height: 40rem;
+    min-width: 40rem;
+    max-width: 50rem;
     padding: 4rem 0;
     flex: 1;
     display: flex;
@@ -11,4 +11,5 @@
     align-items: center;
     vertical-align: middle;
     margin: 5rem auto;
-  }
+    background-color: azure;
+}

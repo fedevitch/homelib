@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@blueprintjs/core": "^4.5.0",
+    "@blueprintjs/popover2": "^1.4.0",
     "@prisma/client": "^3.15.1",
     "http-status-codes": "^2.2.0",
     "joi": "^17.6.0",

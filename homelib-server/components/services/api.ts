@@ -1,21 +1,9 @@
-import httpStatus from 'http-status-codes';
-
-export type ApiResponse = {
-    message: string
-}
-
-export interface ApiErrorResponse extends ApiResponse {}
+import { Request, ApiResponse } from "./request"
 
 export const signUp = async(data: any = {}): Promise<ApiResponse> => {
-    const res = await fetch('/api/signup', { 
-        headers: {
-            'Content-Type': 'application/json'            
-        },
-        method: 'POST', body: JSON.stringify(data) 
-    })
-    if(res.status !== httpStatus.OK) {    
-        const errorResponse = await res.json()
-        throw errorResponse as ApiErrorResponse       
-    }
-    return res.json()
+    return Request.post('/api/signup', data)
+}
+
+export const login = async(data: any = {}): Promise<ApiResponse> => {
+    return Request.post('/api/login', data)
 }

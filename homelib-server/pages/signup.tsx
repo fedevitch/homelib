@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import { useState } from 'react';
-import styles from '../styles/Signup.module.css'
+import styles from '../styles/DialogFull.module.css'
 import AppLayout from '../components/layout/appLayout'
 import _ from 'lodash'
 import { AppToaster } from '../components/services/toaster'
@@ -30,7 +30,7 @@ const Signup: NextPage = () => {
             try{
                 const res = await signUp({ name, firstName, lastName, email, password })
                 AppToaster().show({ message: res.message, intent: Intent.PRIMARY })           
-            } catch(e) {                                
+            } catch(e) {                      
                 AppToaster().show({ message: _.get(e, 'message', 'Error'), intent: Intent.DANGER })                
             }            
         }
@@ -39,7 +39,7 @@ const Signup: NextPage = () => {
 
     return (
         <AppLayout>
-            <Card className={styles.signUp} interactive={true} elevation={Elevation.THREE}>
+            <Card className={styles.modal} interactive={true} elevation={Elevation.THREE}>
                 <h3>Signup on homelib</h3>
                 <form onSubmit={onSubmit}>
                     <div>

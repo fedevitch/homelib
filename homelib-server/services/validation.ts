@@ -7,3 +7,8 @@ export const Signup = joi.object({
     email: joi.string().email().required(),
     password: joi.string().min(6).max(64).required()
 });
+
+export const Login = joi.object({
+    email: joi.string().email().required(),
+    password: joi.string().min(6).max(64).required()
+});

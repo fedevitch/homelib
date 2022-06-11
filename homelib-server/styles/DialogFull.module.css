@@ -1,7 +1,7 @@
-.signUp {
+.modal {
     min-height: 30rem;
     max-height: 40rem;
-    min-width: 40rem;
+    min-width: 20rem;
     max-width: 50rem;
     padding: 4rem 0;
     flex: 1;
@@ -11,5 +11,5 @@
     align-items: center;
     vertical-align: middle;
     margin: 5rem auto;
-    background-color: azure;
+    background-color: rgb(237, 250, 212);
 }

@@ -1,8 +1,10 @@
 import httpStatus from 'http-status-codes';
 
-type ApiResponse = {
+export type ApiResponse = {
     message: string
 }
+
+export interface ApiErrorResponse extends ApiResponse {}
 
 export const signUp = async(data: any = {}): Promise<ApiResponse> => {
     const res = await fetch('/api/signup', { 
@@ -13,7 +15,7 @@ export const signUp = async(data: any = {}): Promise<ApiResponse> => {
     })
     if(res.status !== httpStatus.OK) {    
         const errorResponse = await res.json()
-        throw errorResponse        
+        throw errorResponse as ApiErrorResponse       
     }
     return res.json()
 }

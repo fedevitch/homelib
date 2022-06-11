@@ -1,12 +1,13 @@
 import type { NextPage } from 'next'
 import { useState } from 'react';
 import styles from '../styles/Signup.module.css'
-import { AppToaster } from '../components/toaster';
+import _ from 'lodash'
+import { AppToaster } from '../components/toaster'
 //import dynamic from 'next/dynamic'
 //const AppToaster = dynamic(() => import('../components/toaster').then(m => m.AppToaster), {ssr: false})
 
-import { Button, Card, Elevation, FormGroup, InputGroup, Intent } from "@blueprintjs/core";
-import { signUp } from '../components/api';
+import { Button, Card, Elevation, FormGroup, InputGroup, Intent } from "@blueprintjs/core"
+import { signUp, ApiResponse, ApiErrorResponse } from '../components/api'
 
 
 const Signup: NextPage = () => {
@@ -26,14 +27,13 @@ const Signup: NextPage = () => {
         event.preventDefault();
         setLoading(true);
         if(password !== passwordRepeat) {
-            AppToaster.show({ message: 'Passwords mismatch', intent: Intent.WARNING })
+            AppToaster().show({ message: 'Passwords mismatch', intent: Intent.WARNING })
         } else {
             try{
                 const res = await signUp({ name, firstName, lastName, email, password })
-                AppToaster.show({ message: res.message, intent: Intent.PRIMARY })           
-            } catch(e) {
-                console.log(e)
-                AppToaster.show({ message: e.message, intent: Intent.DANGER })
+                AppToaster().show({ message: res.message, intent: Intent.PRIMARY })           
+            } catch(e) {                                
+                AppToaster().show({ message: _.get(e, 'message', 'Error'), intent: Intent.DANGER })                
             }            
         }
         setLoading(false)

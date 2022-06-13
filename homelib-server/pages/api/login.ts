@@ -5,6 +5,7 @@ import { login } from '../../services/user'
 import { Login } from '../../services/validation';
 import jwt from 'jsonwebtoken';
 const jwtSecret = process.env.JWT_SECRET || 'chairs55';
+import { setCookies } from 'cookies-next';
 
 export default async function handler(
   req: NextApiRequest,
@@ -18,7 +19,8 @@ export default async function handler(
       }
       const user = await login(req.body);
       const token = jwt.sign({ id: user.id }, jwtSecret, { expiresIn: '7d' });
-      res.setHeader('Cookies', token);
+      
+      setCookies('Token', token, { req, res, maxAge: 6000, domain: '127.0.0.1', secure: false , httpOnly: true });
       res.status(httpStatus.OK).json({ message: 'Logged in' });
     } else {
       res.status(httpStatus.METHOD_NOT_ALLOWED).end();

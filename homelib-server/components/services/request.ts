@@ -1,17 +1,28 @@
 import httpStatus from 'http-status-codes';
 
 export type ApiResponse = {
-    message: string
+    message: string,
+}
+
+export type PaginatedApiResponse = {
+    data: Array<any>,
+    page: number,
+    pages: number,
+}
+
+export type RequestOptions = {
+    skipCredentials: boolean
 }
 
 export interface ApiErrorResponse extends ApiResponse {}
 
 export class Request {
-    public static send = async(method: string, url: string, data = {}): Promise<ApiResponse> => {
+    public static send = async(method: string, url: string, data = {}, options?: RequestOptions): Promise<any> => {
         const params: RequestInit = { 
             headers: {
                 'Content-Type': 'application/json'            
             },
+            credentials: 'include',
             method
         }
         if(method !== 'GET' && data) {
@@ -41,7 +52,7 @@ export class Request {
     }
     
     public static get = async(url: string) => this.send('GET', url)
-    public static post = async(url: string, data = {}) => this.send('POST', url, data)
-    public static put = async(url: string, data = {}) => this.send('PUT', url, data)
-    public static delete = async(url: string, data = {}) => this.send('DELETE', url, data)
+    public static post = async(url: string, data = {}, options?: RequestOptions) => this.send('POST', url, data, options)
+    public static put = async(url: string, data = {}, options?: RequestOptions) => this.send('PUT', url, data, options)
+    public static delete = async(url: string, data = {}, options?: RequestOptions) => this.send('DELETE', url, data, options)
 }

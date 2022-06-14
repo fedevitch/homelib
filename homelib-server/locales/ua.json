@@ -1,0 +1,15 @@
+{
+    "Header": {
+        "Login": "Увійти",
+        "Logout": "Вийти",
+        "Signup": "Зареєструватись",
+        "Language": "Мова",
+        "English": "Англійська",
+        "Ukrainian": "Українська",
+        "Home": "Головна",
+        "Books": "Книги"
+    },
+    "Home": {
+        "Welcome To homelib": "Вітаємо у homelib"
+    }
+}

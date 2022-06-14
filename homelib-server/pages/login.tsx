@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import { useState } from 'react';
+import { useRouter } from 'next/router'
 import styles from '../styles/DialogFull.module.css'
 import AppLayout from '../components/layout/appLayout'
 import _ from 'lodash'
@@ -8,6 +9,7 @@ import { Button, Card, Elevation, FormGroup, InputGroup, Intent } from "@bluepri
 import { login } from '../components/services/api'
 
 const Login: NextPage = () => {
+    const router = useRouter()
 
     // form state
     const [isLoading, setLoading] = useState(false);
@@ -23,7 +25,7 @@ const Login: NextPage = () => {
         try{
             const res = await login({ email, password })
             AppToaster().show({ message: res.message, intent: Intent.PRIMARY })
-            window.location.href = '/';           
+            router.push('/');           
         } catch(e) {                                
             AppToaster().show({ message: _.get(e, 'message', 'Error'), intent: Intent.DANGER })                
         }            

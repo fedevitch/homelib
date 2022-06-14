@@ -1,0 +1,15 @@
+{
+    "Header": {
+        "Login": "Login",
+        "Logout": "Logout",
+        "Signup": "Signup",
+        "Language": "Language",
+        "English": "English",
+        "Ukrainian": "Ukrainian",
+        "Home": "Home",
+        "Books": "Books"
+    },
+    "Home": {
+        "Welcome To homelib": "Welcome To homelib"
+    }
+}

@@ -5,10 +5,15 @@ import {
  } from "@blueprintjs/core"
 import { Popover2 } from "@blueprintjs/popover2";
 import React, { useEffect, useState } from "react"
+import { useRouter } from "next/router"
 import { getCookie } from "cookies-next"
 import { logout } from "../services/api"
+import {useTranslations} from 'next-intl'
 
 export default function Header() {
+
+    const router = useRouter()
+    const t = useTranslations('Header')
 
     const [ loggedIn, setLoggedIn ] = useState(false)
 
@@ -19,28 +24,35 @@ export default function Header() {
         }
     }, [])
 
+    const homeClick = () => router.push('/')
+    const booksClick = () => router.push('/books')
+
     const logoutClick = () => logout()
-    const loginClick = () => window.location.href = '/login'
-    const signupClick = () => window.location.href = '/signup'
+    const loginClick = () => router.push('/login')
+    const signupClick = () => router.push('/signup')
+    const switchLocale = (locale: string) => (e: any) => {
+        e.preventDefault()
+        router.push(router.asPath, undefined, { locale })
+    }
 
     const ProfileMenu = () => loggedIn ? (
         <Menu>
-            <MenuItem icon="log-out" text="Logout" onClick={logoutClick} />
+            <MenuItem icon="log-out" text={t('Logout')} onClick={logoutClick} />
         </Menu>
     ) : (
         <Menu>
-            <MenuItem icon="saved" text="Register" onClick={signupClick} />
-            <MenuItem icon="log-in" text="Login" onClick={loginClick} />                
+            <MenuItem icon="saved" text={t('Register')} onClick={signupClick} />
+            <MenuItem icon="log-in" text={t('Login')} onClick={loginClick} />                
         </Menu>
     )
 
     const SettingsMenu = () => (
         <Menu>
-            <MenuItem icon="flag" text="Language">
-                <MenuItem icon="flag" text="English" />
-                <MenuItem icon="flag" text="Ukrainian" />
+            <MenuItem icon="flag" text={t('Language')}>
+                <MenuItem icon="flag" text={t('English')} onClick={switchLocale('en')} />
+                <MenuItem icon="flag" text={t('Ukrainian')} onClick={switchLocale('ua')} />
             </MenuItem>
-            <MenuItem icon="map" text="Change Something" />                
+            <MenuItem icon="map" text={'Change Something'} />                
         </Menu>
     )
 
@@ -50,8 +62,8 @@ export default function Header() {
                 <NavbarGroup align={Alignment.LEFT}>
                     <NavbarHeading>Homelib</NavbarHeading>
                     <NavbarDivider />
-                    <Button className={Classes.MINIMAL} icon="home" text="Home" />
-                    <Button className={Classes.MINIMAL} icon="book" text="Books" />                        
+                    <Button className={Classes.MINIMAL} icon="home" text={t('Home')} onClick={homeClick} />
+                    <Button className={Classes.MINIMAL} icon="book" text={t('Books')} onClick={booksClick} />                        
                     <NavbarDivider />
                 </NavbarGroup>
                 <NavbarGroup align={Alignment.RIGHT}>    

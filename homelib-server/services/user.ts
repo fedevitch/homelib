@@ -1,6 +1,8 @@
 import db from './database';
 import crypto from 'crypto';
 import { User } from '@prisma/client';
+import jwt from 'jsonwebtoken';
+const jwtSecret = process.env.JWT_SECRET || 'chairs55';
 
 type SignupData = {
     name: string,
@@ -28,7 +30,11 @@ type LoginData = {
     password: string;
 }
 
-export const login = async (data: LoginData): Promise<User> => {
+type TokenData = {
+    id: number
+}
+
+export const login = async (data: LoginData): Promise<string> => {
     const user = await db.user.findFirst({ where: {email: data.email} });
     if(!user) {
         throw 'Wrong credentials';
@@ -40,5 +46,28 @@ export const login = async (data: LoginData): Promise<User> => {
         throw 'Wrong credentials'
     }
 
-    return user;
+    const token = jwt.sign({ id: user.id } as TokenData, jwtSecret, { expiresIn: '7d' });
+    return token;
+}
+
+export type AuthData = {
+    Token: string
+}
+
+export const checkAuth = async (authData: AuthData) => {
+    if(!authData.Token){
+        throw 'Unauthorized'
+    } else {
+        const decoded = jwt.verify(authData.Token, jwtSecret) as TokenData;
+        if(!decoded.id){
+            throw 'Unauthorized'
+        }
+
+        const user = await db.user.findFirst({ where: {id: decoded.id} });
+        if(!user) {
+            throw 'Unauthorized'
+        }
+
+    }
+
 }

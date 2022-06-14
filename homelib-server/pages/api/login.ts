@@ -3,8 +3,7 @@ import httpStatus from 'http-status-codes'
 import _ from 'lodash'
 import { login } from '../../services/user'
 import { Login } from '../../services/validation';
-import jwt from 'jsonwebtoken';
-const jwtSecret = process.env.JWT_SECRET || 'chairs55';
+
 import { setCookies } from 'cookies-next';
 
 export default async function handler(
@@ -17,10 +16,9 @@ export default async function handler(
       if(error) {
         return res.status(httpStatus.BAD_REQUEST).json({ message: 'Wrong credentials' });
       }
-      const user = await login(req.body);
-      const token = jwt.sign({ id: user.id }, jwtSecret, { expiresIn: '7d' });
+      const token = await login(req.body);      
       
-      setCookies('Token', token, { req, res, maxAge: 6000, domain: '127.0.0.1', secure: false , httpOnly: true });
+      setCookies('Token', token, { req, res, maxAge: 6000 });
       res.status(httpStatus.OK).json({ message: 'Logged in' });
     } else {
       res.status(httpStatus.METHOD_NOT_ALLOWED).end();

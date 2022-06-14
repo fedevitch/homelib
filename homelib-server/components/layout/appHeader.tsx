@@ -4,20 +4,33 @@ import {
     Navbar, NavbarDivider, NavbarGroup, NavbarHeading, Position
  } from "@blueprintjs/core"
 import { Popover2 } from "@blueprintjs/popover2";
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
+import { getCookie } from "cookies-next"
+import { logout } from "../services/api"
 
 export default function Header() {
 
     const [ loggedIn, setLoggedIn ] = useState(false)
 
+    useEffect(() => {
+        const cookieToken = getCookie('Token');
+        if(cookieToken && cookieToken !== '') {
+            setLoggedIn(true)
+        }
+    }, [])
+
+    const logoutClick = () => logout()
+    const loginClick = () => window.location.href = '/login'
+    const signupClick = () => window.location.href = '/signup'
+
     const ProfileMenu = () => loggedIn ? (
         <Menu>
-            <MenuItem icon="log-out" text="Logout" />
+            <MenuItem icon="log-out" text="Logout" onClick={logoutClick} />
         </Menu>
     ) : (
         <Menu>
-            <MenuItem icon="saved" text="Register" />
-            <MenuItem icon="log-in" text="Login" />                
+            <MenuItem icon="saved" text="Register" onClick={signupClick} />
+            <MenuItem icon="log-in" text="Login" onClick={loginClick} />                
         </Menu>
     )
 
@@ -42,10 +55,10 @@ export default function Header() {
                     <NavbarDivider />
                 </NavbarGroup>
                 <NavbarGroup align={Alignment.RIGHT}>    
-                    <Popover2 content={<ProfileMenu />} position={Position.BOTTOM}>
+                    <Popover2 content={<ProfileMenu />} position={Position.BOTTOM} usePortal>
                         <Button className={Classes.MINIMAL} icon="user" />
                     </Popover2>
-                    <Popover2 content={<SettingsMenu />} position={Position.BOTTOM}>
+                    <Popover2 content={<SettingsMenu />} position={Position.BOTTOM} usePortal>
                         <Button className={Classes.MINIMAL} icon="cog" />
                     </Popover2>
                 </NavbarGroup>                 

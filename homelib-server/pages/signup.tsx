@@ -1,4 +1,4 @@
-import type { NextPage } from 'next'
+import type { GetStaticPropsContext, NextPage } from 'next'
 import { useState } from 'react';
 import styles from '../styles/DialogFull.module.css'
 import AppLayout from '../components/layout/appLayout'
@@ -6,9 +6,11 @@ import _ from 'lodash'
 import { AppToaster } from '../components/services/toaster'
 import { Button, Card, Elevation, FormGroup, InputGroup, Intent } from "@blueprintjs/core"
 import { signUp } from '../components/services/api'
+import { useTranslations } from 'next-intl'
 
 
 const Signup: NextPage = () => {
+    const t = useTranslations('Signup');
 
     // form state
     const [isLoading, setLoading] = useState(false);
@@ -39,60 +41,61 @@ const Signup: NextPage = () => {
 
     return (
         <AppLayout>
+            <title>{t('Signup on homelib')}</title>
             <Card className={styles.modal} interactive={true} elevation={Elevation.THREE}>
-                <h3>Signup on homelib</h3>
+                <h3>{t('Signup on homelib')}</h3>
                 <form onSubmit={onSubmit}>
                     <div>
                         <FormGroup
                             disabled={isLoading}                  
-                            label={"Enter your name or nick"}
+                            label={t('Enter your name or nick')}
                             labelFor="name"
-                            labelInfo={"(required)"}>
-                            <InputGroup id="name" placeholder="Name" disabled={isLoading} required 
+                            labelInfo={t('(required)')}>
+                            <InputGroup id="name" placeholder={t('Name')} disabled={isLoading} required 
                                         onChange={(e) => setName(e.target.value)} />
                         </FormGroup>
                         <FormGroup
                             disabled={isLoading}                  
-                            label={"Enter First Name"}
+                            label={t('Enter First Name')}
                             labelFor="firstName"
-                            labelInfo={"(optional)"}>
-                            <InputGroup id="firstName" placeholder="First Name" disabled={isLoading} 
+                            labelInfo={t('(optional)')}>
+                            <InputGroup id="firstName" placeholder={t('First Name')} disabled={isLoading} 
                                         onChange={(e) => setFirstName(e.target.value)} />
                         </FormGroup>
                         <FormGroup
                             disabled={isLoading}                  
-                            label={"Enter Last Name"}
+                            label={t('Enter Last Name')}
                             labelFor="lastName"
-                            labelInfo={"(optional)"}>
-                            <InputGroup id="lastName" placeholder="Last Name" disabled={isLoading} 
+                            labelInfo={t('(optional)')}>
+                            <InputGroup id="lastName" placeholder={t('Last Name')} disabled={isLoading} 
                                         onChange={(e) => setLastName(e.target.value)} />
                         </FormGroup>
                         <FormGroup
                             disabled={isLoading}                  
-                            label={"Enter email"}
+                            label={t('Enter email')}
                             labelFor="email"
-                            labelInfo={"(required)"}>
-                            <InputGroup id="email" type="email" placeholder="Email" disabled={isLoading} required
+                            labelInfo={t('(required)')}>
+                            <InputGroup id="email" type="email" placeholder={t('Email')} disabled={isLoading} required
                                         onChange={(e) => setEmail(e.target.value)} />
                         </FormGroup>
                         <FormGroup
                             disabled={isLoading}                  
-                            label={"Enter Password"}
+                            label={t('Enter Password')}
                             labelFor="password"
-                            labelInfo={"(required)"}>
-                            <InputGroup id="password" type="password" placeholder="Placeholder text" disabled={isLoading} required 
+                            labelInfo={t('(required)')}>
+                            <InputGroup id="password" type="password" placeholder={t('Password')} disabled={isLoading} required 
                                         onChange={(e) => setPassword(e.target.value)} />
                         </FormGroup>
                         <FormGroup
                             disabled={isLoading}                  
-                            label={"Repeat Password"}
+                            label={t('Repeat Password')}
                             labelFor="passwordRepeat"
-                            labelInfo={"(required)"}>
-                            <InputGroup id="passwordRepeat" type="password" placeholder="Placeholder text" disabled={isLoading} required 
+                            labelInfo={t('(required)')}>
+                            <InputGroup id="passwordRepeat" type="password" placeholder={t('Password')} disabled={isLoading} required 
                                         onChange={(e) => setPasswordRepeat(e.target.value)} />
                         </FormGroup>
                     </div>
-                    <Button type="submit">Signup</Button>
+                    <Button type="submit">{t('Signup')}</Button>
                 </form>
             </Card>
         </AppLayout>
@@ -100,3 +103,15 @@ const Signup: NextPage = () => {
 }
 
 export default Signup;
+
+
+export async function getStaticProps(props: GetStaticPropsContext) {  
+    return {
+      props: {
+        // You can get the messages from anywhere you like. The recommended
+        // pattern is to put them in JSON files separated by language and read
+        // the desired one based on the `locale` received from Next.js.
+        messages: (await import(`../locales/${props.locale}.json`)).default
+      }
+    };
+  }

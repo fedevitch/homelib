@@ -11,5 +11,33 @@
     },
     "Home": {
         "Welcome To homelib": "Вітаємо у homelib"
+    },
+    "Login": {
+        "Login on homelib": "Увійти в homelib",
+        "Enter email": "Введіть e-mail",
+        "Enter Password": "Введіть пароль",
+        "Email": "Електронна пошта",
+        "Login": "Увійти",
+        "Password": "Пароль"
+    },
+    "Signup": {
+        "Signup on homelib": "Реєстрація в homelib",
+        "Enter your name or nick": "Введіть нікнейм",
+        "(required)": "(обов'язкове поле)",
+        "(optional)": "(необов'язково)",
+        "Name": "Ім'я або нік",
+        "Enter First Name": "Введіть ім'я",
+        "First Name": "Ім'я",
+        "Enter Last Name": "Введіть прізвище",
+        "Last Name": "Прізвище",
+        "Enter email": "Введіть е-мейл",
+        "Email": "Електронна пошта",
+        "Enter Password": "Введіть пароль",
+        "Password": "Пароль",
+        "Repeat Password": "Повторіть пароль",
+        "Signup": "Зареєструватись"
+    },
+    "Books": {
+        "Books": "Книги"
     }
 }

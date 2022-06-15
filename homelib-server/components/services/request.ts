@@ -36,6 +36,9 @@ export class Request {
         }
         const res = await fetch(url, params)
         if(res.status !== httpStatus.OK) {
+            if(res.status === httpStatus.UNAUTHORIZED) {
+                window.location.href = '/login'
+            }
             const contentTypeHeaders = res.headers.get('Content-Type') || ''
             console.log(contentTypeHeaders)    
             if(contentTypeHeaders.indexOf('application/json') > -1) {

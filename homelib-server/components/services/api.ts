@@ -17,3 +17,7 @@ export const logout = () => {
 export const fetchMain = async (): Promise<PaginatedApiResponse> => {
     return Request.get('/api')
 }
+
+export const fetchBooks = async (): Promise<PaginatedApiResponse> => {
+    return Request.get('/api/books')
+}

@@ -30,9 +30,10 @@ export default function Header() {
     const logoutClick = () => logout()
     const loginClick = () => router.push('/login')
     const signupClick = () => router.push('/signup')
-    const switchLocale = (locale: string) => (e: any) => {
+    const switchLocale = (locale: string) => (e: React.MouseEvent) => {
         e.preventDefault()
-        router.push(router.asPath, undefined, { locale })
+        router.push(router.asPath, undefined, { locale, shallow: false })
+              .then(() => router.reload())
     }
 
     const ProfileMenu = () => loggedIn ? (
@@ -41,7 +42,7 @@ export default function Header() {
         </Menu>
     ) : (
         <Menu>
-            <MenuItem icon="saved" text={t('Register')} onClick={signupClick} />
+            <MenuItem icon="saved" text={t('Signup')} onClick={signupClick} />
             <MenuItem icon="log-in" text={t('Login')} onClick={loginClick} />                
         </Menu>
     )
@@ -67,10 +68,10 @@ export default function Header() {
                     <NavbarDivider />
                 </NavbarGroup>
                 <NavbarGroup align={Alignment.RIGHT}>    
-                    <Popover2 content={<ProfileMenu />} position={Position.BOTTOM} usePortal>
+                    <Popover2 content={<ProfileMenu />} position={Position.BOTTOM}>
                         <Button className={Classes.MINIMAL} icon="user" />
                     </Popover2>
-                    <Popover2 content={<SettingsMenu />} position={Position.BOTTOM} usePortal>
+                    <Popover2 content={<SettingsMenu />} position={Position.BOTTOM}>
                         <Button className={Classes.MINIMAL} icon="cog" />
                     </Popover2>
                 </NavbarGroup>                 

@@ -1,23 +1,23 @@
 import type { GetStaticPropsContext, NextPage } from 'next'
 import { useEffect } from 'react'
 import AppLayout from '../components/layout/appLayout'
-import styles from '../styles/Home.module.css'
-import { fetchMain } from '../components/services/api'
+import styles from '../styles/Books.module.css'
+import { fetchBooks } from '../components/services/api'
 import { useTranslations } from 'next-intl'
 
 const Home: NextPage = () => {
-  const t = useTranslations('Home')
+  const t = useTranslations('Books')
 
   useEffect(() => {
-    fetchMain().then(main => {
-      console.log({ main });
+    fetchBooks().then(books => {
+      console.log({ books });
     });
   }, [])
 
   return (
     <AppLayout>
-      <title>{t('Welcome To homelib')}</title>
-      <div>{t('Welcome To homelib')}</div>
+      <title>{t('Books')}</title>
+      <div>{t('Books')}</div>
     </AppLayout>    
   )
 }

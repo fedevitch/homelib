@@ -11,5 +11,33 @@
     },
     "Home": {
         "Welcome To homelib": "Welcome To homelib"
+    },
+    "Login": {
+        "Login on homelib": "Login on homelib",
+        "Enter email": "Enter email",
+        "Enter Password": "Enter Password",
+        "Email": "Email",
+        "Login": "Login",
+        "Password": "Password"
+    },
+    "Signup": {
+        "Signup on homelib": "Signup on homelib",
+        "Enter your name or nick": "Enter your name or nick",
+        "(required)": "(required)",
+        "(optional)": "(optional)",
+        "Name": "Name",
+        "Enter First Name": "Enter First Name",
+        "First Name": "First Name",
+        "Enter Last Name": "Enter Last Name",
+        "Last Name": "Last Name",
+        "Enter email": "Enter email",
+        "Email": "Email",
+        "Enter Password": "Enter Password",
+        "Password": "Password",
+        "Repeat Password": "Repeat Password",
+        "Signup": "Signup"
+    },
+    "Books": {
+        "Books": "Books"
     }
 }

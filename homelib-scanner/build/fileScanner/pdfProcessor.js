@@ -19,7 +19,6 @@ const TAKE_START_PAGES = 5;
 const TAKE_END_PAGES = 3;
 const parsePdf = (fileName) => __awaiter(void 0, void 0, void 0, function* () {
     return new Promise((resolve, reject) => {
-        logger_1.default.debug(fileName);
         let rawText = "", meta = {};
         const pdfParserStream = new PDFparser();
         pdfParserStream.on("pdfParser_dataError", reject);
@@ -38,9 +37,10 @@ const parsePdf = (fileName) => __awaiter(void 0, void 0, void 0, function* () {
         pdfParserStream.loadPDF(fileName);
     });
 });
-const processPDF = (fileData) => __awaiter(void 0, void 0, void 0, function* () {
-    const [rawText, meta] = yield parsePdf(fileData.entry.getFullName());
-    logger_1.default.info(rawText);
-    logger_1.default.info(meta);
+const processPDF = (fileName) => __awaiter(void 0, void 0, void 0, function* () {
+    const [rawText, meta] = yield parsePdf(fileName);
+    // logger.info(rawText);
+    // logger.info(meta);
+    return { rawText, meta };
 });
 exports.default = processPDF;

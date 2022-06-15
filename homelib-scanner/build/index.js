@@ -22,14 +22,37 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const logger_1 = __importDefault(require("./logger"));
 const directoryScanner_1 = __importDefault(require("./directoryScanner"));
 const fileScanner_1 = __importDefault(require("./fileScanner"));
+const database_1 = __importDefault(require("./database"));
 logger_1.default.info('starting scanner...');
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
     var e_1, _a;
-    const fileList = yield (0, directoryScanner_1.default)('/media/lyubomyr/Data/temp/PROGAMES/2013/');
+    const fileList = yield (0, directoryScanner_1.default)('/media/lyubomyr/Data/Файли/Бібліотека');
     try {
         for (var fileList_1 = __asyncValues(fileList), fileList_1_1; fileList_1_1 = yield fileList_1.next(), !fileList_1_1.done;) {
             const file = fileList_1_1.value;
-            const fileInfo = yield (0, fileScanner_1.default)(file);
+            const fullName = file.getFullName();
+            const alreadyPresent = yield database_1.default.book.findFirst({ select: { id: true }, where: { fullName } });
+            if (alreadyPresent) {
+                logger_1.default.debug(`${fullName} is already scanned, skipping`);
+                continue;
+            }
+            const fileData = yield (0, fileScanner_1.default)(file);
+            try {
+                yield database_1.default.book.create({
+                    data: {
+                        name: fileData.entry.name,
+                        fullName: fileData.entry.getFullName(),
+                        format: fileData.entry.format || "",
+                        meta: fileData.meta || {},
+                        summary: fileData.summary || "",
+                        createdOnDisk: fileData.createdOnDisk,
+                        size: BigInt(fileData.size)
+                    }
+                });
+            }
+            catch (e) {
+                logger_1.default.error('Database error', e);
+            }
         }
     }
     catch (e_1_1) { e_1 = { error: e_1_1 }; }

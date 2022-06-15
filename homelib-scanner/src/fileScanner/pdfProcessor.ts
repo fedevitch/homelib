@@ -2,13 +2,13 @@ import _ from 'lodash';
 const PDFparser = require("pdf2json");
 import logger from "../logger";
 import { FileData } from ".";
+import { ProcessResult } from './processor';
 
 const TAKE_START_PAGES = 5;
 const TAKE_END_PAGES = 3;
 
 const parsePdf = async (fileName: string): Promise<[string, object]> => {
     return new Promise((resolve, reject) => {
-        logger.debug(fileName);
         let rawText = "", meta = {};
         const pdfParserStream = new PDFparser();
         pdfParserStream.on("pdfParser_dataError", reject);
@@ -29,12 +29,14 @@ const parsePdf = async (fileName: string): Promise<[string, object]> => {
     });
 }
 
-const processPDF = async (fileName: string) => {
+const processPDF = async (fileName: string): Promise<ProcessResult> => {
 
     const [rawText, meta] = await parsePdf(fileName);
 
-    logger.info(rawText);
-    logger.info(meta);
+    // logger.info(rawText);
+    // logger.info(meta);
+
+    return { rawText, meta }
 
 }
 

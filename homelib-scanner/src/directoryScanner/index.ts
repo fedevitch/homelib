@@ -4,7 +4,7 @@ import { FileEntry } from './fileEntry';
 
 const processDir = async (directory: string): Promise<Array<FileEntry>> => {
 
-    const files = [];
+    const files: Array<FileEntry> = [];
 
     try {        
         const dir = await opendir(directory);

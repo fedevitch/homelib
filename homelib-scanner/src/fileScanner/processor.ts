@@ -3,25 +3,28 @@ import { FileData } from "."
 import { FileExtensions } from "../directoryScanner/fileExtensions";
 import pdfProcessor from "./pdfProcessor";
 
-const fileProcessor = async (fileData: FileData) => {
+export type ProcessResult = {
+    rawText: string,
+    meta: object
+}
+
+const fileProcessor = async (fileData: FileData): Promise<ProcessResult> => {
     const format = FileExtensions.getFormat(fileData.entry.name);
     const fullName = fileData.entry.getFullName();
 
     switch(format) {
         case FileExtensions.Formats.pdf:
             logger.debug("pdf");
-            await pdfProcessor(fullName);
-            break;
+            return pdfProcessor(fullName);            
         case FileExtensions.Formats.djvu:
-            break;
+            return {} as ProcessResult;
         case FileExtensions.Formats.fb2:
-            break;
+            return {} as ProcessResult;
         default:
             logger.error("Unknown format");
-            break;    
+            return {} as ProcessResult;    
     }
-
-    return fileData;
+    
 }
 
 export default fileProcessor;

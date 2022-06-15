@@ -19,3 +19,4 @@ FileExtensions.getFormat = (fileName) => {
     }
     return null;
 };
+FileExtensions.getPureName = (fileName) => fileName.substring(0, fileName.lastIndexOf('.'));

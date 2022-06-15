@@ -18,10 +18,13 @@ export class FileData {
         this.meta = meta;
     }
 
+    public setSummary = (summary: string) => this.summary = summary;
+
     public entry: FileEntry;
-    public size: Number = 0;
+    public size: number = 0;
     public createdOnDisk: Date = new Date();
     public meta = {};
+    public summary = "";
 }
 
 const scan = async (file: FileEntry): Promise<FileData> => {
@@ -35,10 +38,10 @@ const scan = async (file: FileEntry): Promise<FileData> => {
         const stats = await stat(file.getFullName());
         fileData.setStats(stats);
 
-        await fileProcessor(fileData);
-
-
-
+        const processResult = await fileProcessor(fileData);
+        fileData.setSummary(processResult.rawText);
+        fileData.setMeta(processResult.meta);
+        
     } catch (e) {
         logger.error(e);
     }

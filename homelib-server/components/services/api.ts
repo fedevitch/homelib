@@ -1,5 +1,6 @@
 import { Request, ApiResponse, PaginatedApiResponse } from "./request"
 import { removeCookies } from "cookies-next"
+import { BookStats } from "../../services/books"
 
 export const signUp = async(data: any = {}): Promise<ApiResponse> => {
     return Request.post('/api/signup', data, { skipCredentials: true })
@@ -14,7 +15,7 @@ export const logout = () => {
     window.location.href = '/login'
 }
 
-export const fetchMain = async (): Promise<PaginatedApiResponse> => {
+export const fetchMain = async (): Promise<BookStats> => {
     return Request.get('/api')
 }
 

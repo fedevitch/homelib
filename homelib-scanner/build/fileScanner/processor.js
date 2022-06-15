@@ -17,19 +17,18 @@ const fileExtensions_1 = require("../directoryScanner/fileExtensions");
 const pdfProcessor_1 = __importDefault(require("./pdfProcessor"));
 const fileProcessor = (fileData) => __awaiter(void 0, void 0, void 0, function* () {
     const format = fileExtensions_1.FileExtensions.getFormat(fileData.entry.name);
+    const fullName = fileData.entry.getFullName();
     switch (format) {
         case fileExtensions_1.FileExtensions.Formats.pdf:
             logger_1.default.debug("pdf");
-            yield (0, pdfProcessor_1.default)(fileData);
-            break;
+            return (0, pdfProcessor_1.default)(fullName);
         case fileExtensions_1.FileExtensions.Formats.djvu:
-            break;
+            return {};
         case fileExtensions_1.FileExtensions.Formats.fb2:
-            break;
+            return {};
         default:
             logger_1.default.error("Unknown format");
-            break;
+            return {};
     }
-    return fileData;
 });
 exports.default = fileProcessor;

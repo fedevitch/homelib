@@ -18,7 +18,7 @@ export default async function handler(
       }
       const token = await login(req.body);      
       
-      setCookies('Token', token, { req, res, maxAge: 6000 });
+      setCookies('Token', token, { req, res, maxAge: 7 * 24 * 60 * 60 });
       res.status(httpStatus.OK).json({ message: 'Logged in' });
     } else {
       res.status(httpStatus.METHOD_NOT_ALLOWED).end();

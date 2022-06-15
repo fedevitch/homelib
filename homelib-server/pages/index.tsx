@@ -1,23 +1,52 @@
 import type { GetStaticPropsContext, NextPage } from 'next'
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import AppLayout from '../components/layout/appLayout'
 import styles from '../styles/Home.module.css'
 import { fetchMain } from '../components/services/api'
 import { useTranslations } from 'next-intl'
+import { BookStats } from '../services/books'
+
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Pie } from 'react-chartjs-2';
+ChartJS.register(ArcElement, Tooltip, Legend);
+
 
 const Home: NextPage = () => {
   const t = useTranslations('Home')
 
+  const [stats, setStats] = useState({} as BookStats);
   useEffect(() => {
-    fetchMain().then(main => {
-      console.log({ main });
-    });
+    fetchMain().then(setStats)
   }, [])
+
+  
+  const pieChartData = {
+    labels: ['PDF', 'Djvu', 'Fb2'],
+    datasets: [{
+      label: 'Books count by format',
+      data: [stats.pdfCount, stats.djvuCount, stats.fb2Count]
+    }],
+    backgroundColor: [
+      'rgba(255, 99, 132, 0.2)',
+      'rgba(54, 162, 235, 0.2)'
+    ],
+    borderColor: [
+      'rgba(255, 99, 132, 1)',
+      'rgba(54, 162, 235, 1)'
+    ],
+    borderWidth: 1,
+  }
 
   return (
     <AppLayout>
       <title>{t('Welcome To homelib')}</title>
       <div>{t('Welcome To homelib')}</div>
+      <p>{`PDF:${stats.pdfCount}`}</p>
+      <p>{`DJVU:${stats.djvuCount}`}</p>
+      <p>{`FB2:${stats.fb2Count}`}</p>
+      <div className={styles.chart}>
+        <Pie data={pieChartData} width={300} height={300} />
+      </div>
     </AppLayout>    
   )
 }

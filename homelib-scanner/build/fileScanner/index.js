@@ -25,9 +25,11 @@ class FileData {
         this.setMeta = (meta) => {
             this.meta = meta;
         };
+        this.setSummary = (summary) => this.summary = summary;
         this.size = 0;
         this.createdOnDisk = new Date();
         this.meta = {};
+        this.summary = "";
         this.entry = fileEntry;
     }
 }
@@ -38,7 +40,9 @@ const scan = (file) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const stats = yield (0, promises_1.stat)(file.getFullName());
         fileData.setStats(stats);
-        yield (0, processor_1.default)(fileData);
+        const processResult = yield (0, processor_1.default)(fileData);
+        fileData.setSummary(processResult.rawText);
+        fileData.setMeta(processResult.meta);
     }
     catch (e) {
         logger_1.default.error(e);

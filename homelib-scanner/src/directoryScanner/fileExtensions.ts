@@ -12,4 +12,6 @@ export class FileExtensions {
         }
         return null;
     }
+
+    public static getPureName = (fileName: string): string => fileName.substring(0, fileName.lastIndexOf('.'))
 }

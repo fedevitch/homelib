@@ -25,7 +25,7 @@ model Book {
   name String
   fullName String @unique
   format String
-  size BigInt
+  size Int
   createdOnDisk DateTime
   summary String
   meta Json

@@ -20,7 +20,7 @@ const Home: NextPage = () => {
   }, [])
 
   
-  const pieChartData = {
+  const formatChart = {
     labels: ['PDF', 'Djvu', 'Fb2'],
     datasets: [{
       label: 'Books count by format',
@@ -28,11 +28,34 @@ const Home: NextPage = () => {
     }],
     backgroundColor: [
       'rgba(255, 99, 132, 0.2)',
-      'rgba(54, 162, 235, 0.2)'
+      'rgba(54, 162, 235, 0.2)',
+      'rgba(58, 169, 239, 0.2)'
     ],
     borderColor: [
       'rgba(255, 99, 132, 1)',
-      'rgba(54, 162, 235, 1)'
+      'rgba(54, 162, 235, 1)',
+      'rgba(59, 169, 239, 1)'
+    ],
+    borderWidth: 1,
+  }
+
+  const sizeChart = {
+    labels: ['Small', 'Medium', 'Normal', 'Large'],
+    datasets: [{
+      label: 'Books size',
+      data: [stats.less1Mb, stats.mediumSize, stats.normalSize, stats.extraLargeSize]
+    }],
+    backgroundColor: [
+      'rgba(255, 99, 132, 0.2)',
+      'rgba(54, 162, 235, 0.2)',
+      'rgba(57, 167, 237, 0.2)',
+      'rgba(68, 178, 248, 0.2)'
+    ],
+    borderColor: [
+      'rgba(255, 99, 132, 1)',
+      'rgba(54, 162, 235, 1)',
+      'rgba(57, 167, 237, 0.2)',
+      'rgba(68, 178, 248, 0.2)'
     ],
     borderWidth: 1,
   }
@@ -40,12 +63,14 @@ const Home: NextPage = () => {
   return (
     <AppLayout>
       <title>{t('Welcome To homelib')}</title>
-      <div>{t('Welcome To homelib')}</div>
-      <p>{`PDF:${stats.pdfCount}`}</p>
-      <p>{`DJVU:${stats.djvuCount}`}</p>
-      <p>{`FB2:${stats.fb2Count}`}</p>
-      <div className={styles.chart}>
-        <Pie data={pieChartData} width={300} height={300} />
+      <div className={styles.title}><h2>{t('Welcome To homelib')}</h2></div>
+      <div className={styles.chartContainer}>
+        <div className={styles.chart}>
+          <Pie data={formatChart} width={300} height={300} />
+        </div>
+        <div className={styles.chart}>
+          <Pie data={sizeChart} width={300} height={300} />
+        </div>
       </div>
     </AppLayout>    
   )

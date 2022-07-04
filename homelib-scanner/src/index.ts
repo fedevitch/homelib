@@ -26,7 +26,7 @@ const start = async () => {
                     meta: fileData.meta || {},
                     summary: fileData.summary || "",
                     createdOnDisk: fileData.createdOnDisk,
-                    size: BigInt(fileData.size)               
+                    size: fileData.size               
                 }
             });
         } catch (e) {

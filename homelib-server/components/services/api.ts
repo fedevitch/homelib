@@ -1,4 +1,5 @@
-import { Request, ApiResponse, PaginatedApiResponse } from "./request"
+import { Request } from "./request"
+import { ApiResponse, PaginatedApiResponse } from "../schemas/apiResponses"
 import { removeCookies } from "cookies-next"
 import { BookStats } from "../../services/books"
 
@@ -19,6 +20,6 @@ export const fetchMain = async (): Promise<BookStats> => {
     return Request.get('/api')
 }
 
-export const fetchBooks = async (): Promise<PaginatedApiResponse> => {
-    return Request.get('/api/books')
+export const fetchBooks = async (page = 1, perPage = 20): Promise<PaginatedApiResponse> => {
+    return Request.get(`/api/books?page=${page}&perPage=${perPage}`)
 }

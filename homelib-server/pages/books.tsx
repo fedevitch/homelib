@@ -1,23 +1,36 @@
 import type { GetStaticPropsContext, NextPage } from 'next'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import AppLayout from '../components/layout/appLayout'
 import styles from '../styles/Books.module.css'
 import { fetchBooks } from '../components/services/api'
 import { useTranslations } from 'next-intl'
 
+import PaginatedList from '../components/layout/paginatedBooksList'
+
 const Home: NextPage = () => {
   const t = useTranslations('Books')
 
-  useEffect(() => {
-    fetchBooks().then(books => {
-      console.log({ books });
+  const [books, setBooks] = useState(Array<any>);
+  const [count, setCount] = useState(0)
+  const [page, setPage] = useState(1);
+
+  const getBooks = (page?: number, perPage?: number) => {
+    fetchBooks(page, perPage).then(response => {
+      setBooks(response.data)
+      setCount(response.count)
+      setPage(response.page)
     });
+  }
+
+  useEffect(() => {
+    getBooks(1, 20)
   }, [])
 
   return (
     <AppLayout>
       <title>{t('Books')}</title>
-      <div>{t('Books')}</div>
+      
+      <PaginatedList data={books} getData={getBooks} count={count} page={page} perPage={20} />
     </AppLayout>    
   )
 }

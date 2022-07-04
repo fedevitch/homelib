@@ -1,14 +1,5 @@
 import httpStatus from 'http-status-codes';
-
-export type ApiResponse = {
-    message: string,
-}
-
-export type PaginatedApiResponse = {
-    data: Array<any>,
-    page: number,
-    pages: number,
-}
+import { ApiResponse } from '../schemas/apiResponses';
 
 export type RequestOptions = {
     skipCredentials: boolean
@@ -48,6 +39,10 @@ export class Request {
             if(contentTypeHeaders.indexOf('text/html') > -1) {
                 const errorResponse = { message: 'Error occured' }
                 throw errorResponse as ApiErrorResponse       
+            }
+            if(res.status === httpStatus.INTERNAL_SERVER_ERROR) {
+                const errorResponse = { message: 'Error occured' }
+                throw errorResponse as ApiErrorResponse
             }
         }
     

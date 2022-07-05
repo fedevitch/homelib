@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const logger_1 = __importDefault(require("../logger"));
 const fileExtensions_1 = require("../directoryScanner/fileExtensions");
 const pdfProcessor_1 = __importDefault(require("./pdfProcessor"));
+const djvuProcessor_1 = __importDefault(require("./djvuProcessor"));
 const fileProcessor = (fileData) => __awaiter(void 0, void 0, void 0, function* () {
     const format = fileExtensions_1.FileExtensions.getFormat(fileData.entry.name);
     const fullName = fileData.entry.getFullName();
@@ -23,7 +24,8 @@ const fileProcessor = (fileData) => __awaiter(void 0, void 0, void 0, function* 
             logger_1.default.debug("pdf");
             return (0, pdfProcessor_1.default)(fullName);
         case fileExtensions_1.FileExtensions.Formats.djvu:
-            return {};
+            logger_1.default.debug("djvu");
+            return (0, djvuProcessor_1.default)(fullName);
         case fileExtensions_1.FileExtensions.Formats.fb2:
             return {};
         default:

@@ -27,6 +27,7 @@ class FileData {
         };
         this.setSummary = (summary) => this.summary = summary;
         this.size = 0;
+        this.pages = 0;
         this.createdOnDisk = new Date();
         this.meta = {};
         this.summary = "";
@@ -43,6 +44,7 @@ const scan = (file) => __awaiter(void 0, void 0, void 0, function* () {
         const processResult = yield (0, processor_1.default)(fileData);
         fileData.setSummary(processResult.rawText);
         fileData.setMeta(processResult.meta);
+        fileData.pages = processResult.pages;
     }
     catch (e) {
         logger_1.default.error(e);

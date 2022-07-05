@@ -1,28 +1,29 @@
 import _ from 'lodash';
 const PDFparser = require("pdf2json");
 import logger from "../logger";
-import { FileData } from ".";
 import { ProcessResult } from './processor';
+import config from '../scanConfig';
 
-const TAKE_START_PAGES = 5;
-const TAKE_END_PAGES = 3;
-
-const parsePdf = async (fileName: string): Promise<[string, object]> => {
+const parsePdf = async (fileName: string): Promise<ProcessResult> => {
     return new Promise((resolve, reject) => {
-        let rawText = "", meta = {};
+        let rawText = "", meta = {}, pages = 0;
         const pdfParserStream = new PDFparser();
         pdfParserStream.on("pdfParser_dataError", reject);
         pdfParserStream.on("pdfParser_dataReady", (rawData: object) => {
             logger.info(`Done parsing data from ${fileName}`);            
             meta = _.get(rawData, "Meta");
-            const pages = _.get(rawData, "Pages", []);
-            const selectedPages = [ ..._.take(pages, TAKE_START_PAGES), ..._.takeRight(pages, TAKE_END_PAGES) ];
-            _.forEach(selectedPages, page => {
-                _.forEach(_.get(page, "Texts"), textItem => {
-                    _.forEach(_.get(textItem, "R"), fragment => rawText += _.get(fragment, "T"));
+            const pagesArray = _.get(rawData, "Pages", []);
+            pages = pagesArray.length;
+            const selectedPages = [ ..._.take(pagesArray, config.TAKE_START_PAGES), ..._.takeRight(pagesArray, config.TAKE_END_PAGES) ];
+            logger.debug({selectedPages});
+            _.forEach(selectedPages, page => {                
+                _.forEach(_.get(page, "Texts"), textItem => {                    
+                    _.forEach(_.get(textItem, "R"), fragment => {                        
+                        rawText += _.get(fragment, "T");
+                    });
                 });
             });
-            resolve([decodeURIComponent(rawText), meta]);
+            resolve({ rawText: decodeURIComponent(rawText), meta, pages});
         });       
 
         pdfParserStream.loadPDF(fileName);
@@ -30,14 +31,8 @@ const parsePdf = async (fileName: string): Promise<[string, object]> => {
 }
 
 const processPDF = async (fileName: string): Promise<ProcessResult> => {
-
-    const [rawText, meta] = await parsePdf(fileName);
-
-    // logger.info(rawText);
-    // logger.info(meta);
-
-    return { rawText, meta }
-
+    logger.debug(`Parsing pdf ${fileName}`);
+    return parsePdf(fileName);
 }
 
 export default processPDF;

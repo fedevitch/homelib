@@ -22,6 +22,7 @@ export class FileData {
 
     public entry: FileEntry;
     public size: number = 0;
+    public pages: number = 0;
     public createdOnDisk: Date = new Date();
     public meta = {};
     public summary = "";
@@ -41,6 +42,7 @@ const scan = async (file: FileEntry): Promise<FileData> => {
         const processResult = await fileProcessor(fileData);
         fileData.setSummary(processResult.rawText);
         fileData.setMeta(processResult.meta);
+        fileData.pages = processResult.pages;
         
     } catch (e) {
         logger.error(e);

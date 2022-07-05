@@ -2,10 +2,12 @@ import logger from "../logger";
 import { FileData } from "."
 import { FileExtensions } from "../directoryScanner/fileExtensions";
 import pdfProcessor from "./pdfProcessor";
+import djvuProcessor from "./djvuProcessor";
 
 export type ProcessResult = {
     rawText: string,
-    meta: object
+    meta: object,
+    pages: number
 }
 
 const fileProcessor = async (fileData: FileData): Promise<ProcessResult> => {
@@ -17,7 +19,8 @@ const fileProcessor = async (fileData: FileData): Promise<ProcessResult> => {
             logger.debug("pdf");
             return pdfProcessor(fullName);            
         case FileExtensions.Formats.djvu:
-            return {} as ProcessResult;
+            logger.debug("djvu");
+            return djvuProcessor(fullName);
         case FileExtensions.Formats.fb2:
             return {} as ProcessResult;
         default:

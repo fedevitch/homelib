@@ -26,7 +26,8 @@ const start = async () => {
                     meta: fileData.meta || {},
                     summary: fileData.summary || "",
                     createdOnDisk: fileData.createdOnDisk,
-                    size: fileData.size               
+                    size: fileData.size,
+                    pages: fileData.pages               
                 }
             });
         } catch (e) {
@@ -36,4 +37,8 @@ const start = async () => {
 
 }
 
-start();
+try {
+    start();
+} catch(e) {
+    logger.error(e);
+}

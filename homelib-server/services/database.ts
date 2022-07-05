@@ -17,3 +17,5 @@ if (process.env.NODE_ENV === 'production') {
   prisma = global.prisma
 }
 export default prisma
+
+// npx prisma migrate dev --name Added_pages_count

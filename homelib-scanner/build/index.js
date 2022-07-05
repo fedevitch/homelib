@@ -46,7 +46,8 @@ const start = () => __awaiter(void 0, void 0, void 0, function* () {
                         meta: fileData.meta || {},
                         summary: fileData.summary || "",
                         createdOnDisk: fileData.createdOnDisk,
-                        size: BigInt(fileData.size)
+                        size: fileData.size,
+                        pages: fileData.pages
                     }
                 });
             }
@@ -63,4 +64,9 @@ const start = () => __awaiter(void 0, void 0, void 0, function* () {
         finally { if (e_1) throw e_1.error; }
     }
 });
-start();
+try {
+    start();
+}
+catch (e) {
+    logger_1.default.error(e);
+}

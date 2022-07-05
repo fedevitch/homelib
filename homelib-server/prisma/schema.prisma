@@ -26,6 +26,7 @@ model Book {
   fullName String @unique
   format String
   size Int
+  pages Int
   createdOnDisk DateTime
   summary String
   meta Json

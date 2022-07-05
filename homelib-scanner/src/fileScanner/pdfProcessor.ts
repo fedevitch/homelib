@@ -1,5 +1,5 @@
 import _ from 'lodash';
-const PDFparser = require("pdf2json");
+const PDFparser = require("../pdf2json");
 import logger from "../logger";
 import { ProcessResult } from './processor';
 import config from '../scanConfig';
@@ -8,14 +8,14 @@ const parsePdf = async (fileName: string): Promise<ProcessResult> => {
     return new Promise((resolve, reject) => {
         let rawText = "", meta = {}, pages = 0;
         const pdfParserStream = new PDFparser();
+        pdfParserStream.on("error", reject);
         pdfParserStream.on("pdfParser_dataError", reject);
         pdfParserStream.on("pdfParser_dataReady", (rawData: object) => {
             logger.info(`Done parsing data from ${fileName}`);            
             meta = _.get(rawData, "Meta");
             const pagesArray = _.get(rawData, "Pages", []);
             pages = pagesArray.length;
-            const selectedPages = [ ..._.take(pagesArray, config.TAKE_START_PAGES), ..._.takeRight(pagesArray, config.TAKE_END_PAGES) ];
-            logger.debug({selectedPages});
+            const selectedPages = [ ..._.take(pagesArray, config.TAKE_START_PAGES), ..._.takeRight(pagesArray, config.TAKE_END_PAGES) ];            
             _.forEach(selectedPages, page => {                
                 _.forEach(_.get(page, "Texts"), textItem => {                    
                     _.forEach(_.get(textItem, "R"), fragment => {                        

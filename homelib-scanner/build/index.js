@@ -27,13 +27,16 @@ logger_1.default.info('starting scanner...');
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
     var e_1, _a;
     const fileList = yield (0, directoryScanner_1.default)('/media/lyubomyr/Data/Файли/Бібліотека');
+    let counter = 1, size = fileList.length;
     try {
         for (var fileList_1 = __asyncValues(fileList), fileList_1_1; fileList_1_1 = yield fileList_1.next(), !fileList_1_1.done;) {
             const file = fileList_1_1.value;
+            logger_1.default.info(`Processing ${counter} of ${size} (${(counter / (size / 100)).toFixed(0)}%)`);
             const fullName = file.getFullName();
             const alreadyPresent = yield database_1.default.book.findFirst({ select: { id: true }, where: { fullName } });
             if (alreadyPresent) {
                 logger_1.default.debug(`${fullName} is already scanned, skipping`);
+                counter++;
                 continue;
             }
             const fileData = yield (0, fileScanner_1.default)(file);
@@ -54,6 +57,7 @@ const start = () => __awaiter(void 0, void 0, void 0, function* () {
             catch (e) {
                 logger_1.default.error('Database error', e);
             }
+            counter++;
         }
     }
     catch (e_1_1) { e_1 = { error: e_1_1 }; }

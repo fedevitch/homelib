@@ -8,11 +8,14 @@ const start = async () => {
 
     const fileList = await scanDirectories('/media/lyubomyr/Data/Файли/Бібліотека');
 
+    let counter = 1, size = fileList.length;
     for await (const file of fileList) {
+        logger.info(`Processing ${counter} of ${size} (${(counter / (size / 100)).toFixed(0)}%)`);
         const fullName = file.getFullName();
         const alreadyPresent = await db.book.findFirst({ select: { id: true }, where: { fullName } });
         if(alreadyPresent) {
             logger.debug(`${fullName} is already scanned, skipping`);
+            counter++;
             continue;
         }
         const fileData = await scanFile(file);
@@ -33,6 +36,7 @@ const start = async () => {
         } catch (e) {
             logger.error('Database error', e);
         }
+        counter++;
     }
 
 }

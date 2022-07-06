@@ -16,7 +16,7 @@ const parseRtf = async (fileName: string): Promise<ProcessResult> => {
 }
 
 const processRtf = async (fileName: string): Promise<ProcessResult> => {
-    logger.debug(`Parsing epub ${fileName}`);
+    logger.debug(`Parsing RTF ${fileName}`);
     return parseRtf(fileName);
 }
 

@@ -7,6 +7,7 @@ import processFb2 from "./fb2Processor";
 import processEpub from "./epubProcessor";
 import processWord from "./wordProcessor";
 import processRtf from "./rtfProcessor";
+import processComicBook from "./cbProcessor";
 
 export type ProcessResult = {
     rawText: string,
@@ -42,6 +43,10 @@ const fileProcessor = async (fileData: FileData): Promise<ProcessResult> => {
         case FileExtensions.Formats.rtf:
             logger.debug("RTF");
             return processRtf(fullName);
+        case FileExtensions.Formats.cbr:
+        case FileExtensions.Formats.cbz:
+            logger.debug("ComicBook");
+            return processComicBook(fullName);
         default:
             logger.error("Unknown format");
             return {} as ProcessResult;    

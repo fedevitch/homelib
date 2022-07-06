@@ -37,16 +37,12 @@ const getPdfText = async(fileName: string, startPage: number, endPage: number): 
 }
 
 const parsePdf = async (fileName: string): Promise<ProcessResult> => {    
-    let pages = 0;
     const meta = await getPdfInfo(fileName);
-    if(meta['Pages']) {
-        pages = Number.parseInt(meta['Pages']);
-    }
+    const pages = Number.parseInt(_.get(meta, 'Pages', '0'));
     const bookIndex = await getPdfText(fileName, 1, config.TAKE_START_PAGES);
     const bookAppendix = await getPdfText(fileName, pages - config.TAKE_END_PAGES, pages);
     
-    return { rawText: bookIndex + bookAppendix, meta, pages};
-        
+    return { rawText: bookIndex + bookAppendix, meta, pages};        
 }
 
 const processPDF = async (fileName: string): Promise<ProcessResult> => {

@@ -12,6 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const lodash_1 = __importDefault(require("lodash"));
 const child_process_1 = require("child_process");
 const logger_1 = __importDefault(require("../logger"));
 const scanConfig_1 = __importDefault(require("../scanConfig"));
@@ -45,11 +46,8 @@ const getPdfText = (fileName, startPage, endPage) => __awaiter(void 0, void 0, v
     });
 });
 const parsePdf = (fileName) => __awaiter(void 0, void 0, void 0, function* () {
-    let pages = 0;
     const meta = yield getPdfInfo(fileName);
-    if (meta['Pages']) {
-        pages = Number.parseInt(meta['Pages']);
-    }
+    const pages = Number.parseInt(lodash_1.default.get(meta, 'Pages', '0'));
     const bookIndex = yield getPdfText(fileName, 1, scanConfig_1.default.TAKE_START_PAGES);
     const bookAppendix = yield getPdfText(fileName, pages - scanConfig_1.default.TAKE_END_PAGES, pages);
     return { rawText: bookIndex + bookAppendix, meta, pages };

@@ -16,6 +16,7 @@ const logger_1 = __importDefault(require("../logger"));
 const fileExtensions_1 = require("../directoryScanner/fileExtensions");
 const pdfProcessor_1 = __importDefault(require("./pdfProcessor"));
 const djvuProcessor_1 = __importDefault(require("./djvuProcessor"));
+const fb2Processor_1 = __importDefault(require("./fb2Processor"));
 const fileProcessor = (fileData) => __awaiter(void 0, void 0, void 0, function* () {
     const format = fileExtensions_1.FileExtensions.getFormat(fileData.entry.name);
     const fullName = fileData.entry.getFullName();
@@ -27,7 +28,8 @@ const fileProcessor = (fileData) => __awaiter(void 0, void 0, void 0, function* 
             logger_1.default.debug("djvu");
             return (0, djvuProcessor_1.default)(fullName);
         case fileExtensions_1.FileExtensions.Formats.fb2:
-            return {};
+            logger_1.default.debug("fb2");
+            return (0, fb2Processor_1.default)(fullName);
         default:
             logger_1.default.error("Unknown format");
             return {};

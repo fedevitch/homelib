@@ -6,7 +6,7 @@ import db from './database';
 logger.info('starting scanner...');
 const start = async () => {
 
-    const fileList = await scanDirectories('/media/lyubomyr/Data/Файли/Бібліотека');
+    const fileList = await scanDirectories('/home/lyubomyr/Документи/Книги');
 
     let counter = 1, size = fileList.length;
     for await (const file of fileList) {
@@ -18,7 +18,7 @@ const start = async () => {
             counter++;
             continue;
         }
-                
+
         const fileData = await scanFile(file);
         try {
             await db.book.create({

@@ -26,7 +26,7 @@ const database_1 = __importDefault(require("./database"));
 logger_1.default.info('starting scanner...');
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
     var e_1, _a;
-    const fileList = yield (0, directoryScanner_1.default)('/media/lyubomyr/Data/Файли/Бібліотека');
+    const fileList = yield (0, directoryScanner_1.default)('/home/lyubomyr/Документи/Книги');
     let counter = 1, size = fileList.length;
     try {
         for (var fileList_1 = __asyncValues(fileList), fileList_1_1; fileList_1_1 = yield fileList_1.next(), !fileList_1_1.done;) {

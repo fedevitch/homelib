@@ -4,7 +4,13 @@ export class FileExtensions {
         djvu: "djvu",
         djv: "djv",
         fb2: "fb2",
-        epub: "epub"
+        epub: "epub",
+        doc: "doc",
+        docx: "docx",
+        rtf: "rtf",
+        chm: "chm",
+        cbr: "cbr",
+        cbz: "cbz"
     }
 
     public static getFormat = (fileName: string): string|null => {

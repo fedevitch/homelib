@@ -5,6 +5,8 @@ import processPDF from "./pdfProcessor";
 import processDjvu from "./djvuProcessor";
 import processFb2 from "./fb2Processor";
 import processEpub from "./epubProcessor";
+import processWord from "./wordProcessor";
+import processRtf from "./rtfProcessor";
 
 export type ProcessResult = {
     rawText: string,
@@ -30,6 +32,16 @@ const fileProcessor = async (fileData: FileData): Promise<ProcessResult> => {
         case FileExtensions.Formats.epub:
             logger.debug("epub");
             return processEpub(fullName);
+        case FileExtensions.Formats.chm:
+            logger.debug("chm");
+            return {} as ProcessResult; // chm is proprietary
+        case FileExtensions.Formats.docx:
+        case FileExtensions.Formats.doc:
+            logger.debug("Word");
+            return processWord(fullName);
+        case FileExtensions.Formats.rtf:
+            logger.debug("RTF");
+            return processRtf(fullName);
         default:
             logger.error("Unknown format");
             return {} as ProcessResult;    

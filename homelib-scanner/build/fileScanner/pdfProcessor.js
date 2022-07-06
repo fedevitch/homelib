@@ -12,33 +12,47 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const lodash_1 = __importDefault(require("lodash"));
-const PDFparser = require("../pdf2json");
+const child_process_1 = require("child_process");
 const logger_1 = __importDefault(require("../logger"));
 const scanConfig_1 = __importDefault(require("../scanConfig"));
-const parsePdf = (fileName) => __awaiter(void 0, void 0, void 0, function* () {
+const getPdfInfo = (fileName) => __awaiter(void 0, void 0, void 0, function* () {
     return new Promise((resolve, reject) => {
-        let rawText = "", meta = {}, pages = 0;
-        const pdfParserStream = new PDFparser();
-        pdfParserStream.on("error", reject);
-        pdfParserStream.on("pdfParser_dataError", reject);
-        pdfParserStream.on("pdfParser_dataReady", (rawData) => {
-            logger_1.default.info(`Done parsing data from ${fileName}`);
-            meta = lodash_1.default.get(rawData, "Meta");
-            const pagesArray = lodash_1.default.get(rawData, "Pages", []);
-            pages = pagesArray.length;
-            const selectedPages = [...lodash_1.default.take(pagesArray, scanConfig_1.default.TAKE_START_PAGES), ...lodash_1.default.takeRight(pagesArray, scanConfig_1.default.TAKE_END_PAGES)];
-            lodash_1.default.forEach(selectedPages, page => {
-                lodash_1.default.forEach(lodash_1.default.get(page, "Texts"), textItem => {
-                    lodash_1.default.forEach(lodash_1.default.get(textItem, "R"), fragment => {
-                        rawText += lodash_1.default.get(fragment, "T");
-                    });
-                });
+        const dumpProcess = (0, child_process_1.spawn)('pdfinfo', [fileName]);
+        let infoDump = "";
+        dumpProcess.stdout.on('data', data => infoDump += data);
+        dumpProcess.on('close', () => {
+            const info = { infoDump };
+            infoDump.split('\n')
+                .forEach(v => {
+                const name = v.split(':')[0];
+                const value = v.substring(v.indexOf(':') + 1).trim();
+                info[name] = value;
             });
-            resolve({ rawText: decodeURIComponent(rawText), meta, pages });
+            resolve(info);
         });
-        pdfParserStream.loadPDF(fileName);
+        dumpProcess.on('error', reject);
+        dumpProcess.stderr.on('data', err => reject(err.toString()));
     });
+});
+const getPdfText = (fileName, startPage, endPage) => __awaiter(void 0, void 0, void 0, function* () {
+    return new Promise((resolve, reject) => {
+        const dumpProcess = (0, child_process_1.spawn)('pdftotext', ['-f', startPage.toString(), '-l', endPage.toString(), fileName, '-']);
+        let text = "";
+        dumpProcess.stdout.on('data', data => text += data);
+        dumpProcess.on('close', () => resolve(text));
+        dumpProcess.on('error', reject);
+        dumpProcess.stderr.on('data', err => reject(err.toString()));
+    });
+});
+const parsePdf = (fileName) => __awaiter(void 0, void 0, void 0, function* () {
+    let pages = 0;
+    const meta = yield getPdfInfo(fileName);
+    if (meta['Pages']) {
+        pages = Number.parseInt(meta['Pages']);
+    }
+    const bookIndex = yield getPdfText(fileName, 1, scanConfig_1.default.TAKE_START_PAGES);
+    const bookAppendix = yield getPdfText(fileName, pages - scanConfig_1.default.TAKE_END_PAGES, pages);
+    return { rawText: bookIndex + bookAppendix, meta, pages };
 });
 const processPDF = (fileName) => __awaiter(void 0, void 0, void 0, function* () {
     logger_1.default.debug(`Parsing pdf ${fileName}`);

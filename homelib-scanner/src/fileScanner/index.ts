@@ -45,6 +45,7 @@ const scan = async (file: FileEntry): Promise<FileData> => {
         fileData.pages = processResult.pages;
         
     } catch (e) {
+        logger.error('Scanner error');
         logger.error(e);
     }
 

@@ -72,5 +72,6 @@ try {
     start();
 }
 catch (e) {
+    logger_1.default.error('Unhandled error');
     logger_1.default.error(e);
 }

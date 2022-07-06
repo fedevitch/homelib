@@ -13,6 +13,7 @@ const djvuDump = async(fileName: string): Promise<string> => {
         let dump = "";
         dumpProcess.stdout.on('data', data => dump += data);
         dumpProcess.on('close', () => resolve(dump));
+        dumpProcess.on('error', reject);
         dumpProcess.stderr.on('data', reject);
     })
 }
@@ -20,9 +21,10 @@ const djvuDump = async(fileName: string): Promise<string> => {
 const djvuTxt = async(fileName: string, pages: number): Promise<string> => {
     return new Promise((resolve, reject) => {
         const dumpProcess = spawn('djvutxt', [`-page=1-${config.TAKE_START_PAGES},${pages - config.TAKE_END_PAGES}-${pages}`, fileName])
-        let dump = "";
-        dumpProcess.stdout.on('data', data => dump += data);
-        dumpProcess.on('close', () => resolve(dump));
+        let text = "";
+        dumpProcess.stdout.on('data', data => text += data);
+        dumpProcess.on('close', () => resolve(text));
+        dumpProcess.on('error', reject);
         dumpProcess.stderr.on('data', reject);
     })
 }

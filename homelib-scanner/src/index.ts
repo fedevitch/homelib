@@ -18,8 +18,8 @@ const start = async () => {
             counter++;
             continue;
         }
+                
         const fileData = await scanFile(file);
-
         try {
             await db.book.create({
                 data: {
@@ -35,7 +35,7 @@ const start = async () => {
             });
         } catch (e) {
             logger.error('Database error', e);
-        }
+        }        
         counter++;
     }
 
@@ -44,5 +44,6 @@ const start = async () => {
 try {
     start();
 } catch(e) {
+    logger.error('Unhandled error');
     logger.error(e);
 }

@@ -1,33 +1,52 @@
 import _ from 'lodash';
-const PDFparser = require("../pdf2json");
+import { spawn } from "child_process";
 import logger from "../logger";
 import { ProcessResult } from './processor';
 import config from '../scanConfig';
 
-const parsePdf = async (fileName: string): Promise<ProcessResult> => {
+const getPdfInfo = async(fileName: string): Promise<object> => {
     return new Promise((resolve, reject) => {
-        let rawText = "", meta = {}, pages = 0;
-        const pdfParserStream = new PDFparser();
-        pdfParserStream.on("error", reject);
-        pdfParserStream.on("pdfParser_dataError", reject);
-        pdfParserStream.on("pdfParser_dataReady", (rawData: object) => {
-            logger.info(`Done parsing data from ${fileName}`);            
-            meta = _.get(rawData, "Meta");
-            const pagesArray = _.get(rawData, "Pages", []);
-            pages = pagesArray.length;
-            const selectedPages = [ ..._.take(pagesArray, config.TAKE_START_PAGES), ..._.takeRight(pagesArray, config.TAKE_END_PAGES) ];            
-            _.forEach(selectedPages, page => {                
-                _.forEach(_.get(page, "Texts"), textItem => {                    
-                    _.forEach(_.get(textItem, "R"), fragment => {                        
-                        rawText += _.get(fragment, "T");
+        const dumpProcess = spawn('pdfinfo', [fileName])
+        let infoDump = "";
+        dumpProcess.stdout.on('data', data => infoDump += data);
+        dumpProcess.on('close', () => {
+            const info = { infoDump };
+            infoDump.split('\n')
+                    .forEach(v => { 
+                        const name = v.split(':')[0]; 
+                        const value = v.substring(v.indexOf(':') + 1).trim(); 
+                        info[name] = value; 
                     });
-                });
-            });
-            resolve({ rawText: decodeURIComponent(rawText), meta, pages});
-        });       
 
-        pdfParserStream.loadPDF(fileName);
-    });
+            resolve(info);
+        });
+        dumpProcess.on('error', reject);
+        dumpProcess.stderr.on('data', err => reject(err.toString()));
+    })
+}
+
+const getPdfText = async(fileName: string, startPage: number, endPage: number): Promise<string> => {
+    return new Promise((resolve, reject) => {
+        const dumpProcess = spawn('pdftotext', ['-f', startPage.toString(), '-l', endPage.toString(), fileName, '-'])
+        let text = "";
+        dumpProcess.stdout.on('data', data => text += data);
+        dumpProcess.on('close', () => resolve(text));
+        dumpProcess.on('error', reject);
+        dumpProcess.stderr.on('data', err => reject(err.toString()));
+    })
+}
+
+const parsePdf = async (fileName: string): Promise<ProcessResult> => {    
+    let pages = 0;
+    const meta = await getPdfInfo(fileName);
+    if(meta['Pages']) {
+        pages = Number.parseInt(meta['Pages']);
+    }
+    const bookIndex = await getPdfText(fileName, 1, config.TAKE_START_PAGES);
+    const bookAppendix = await getPdfText(fileName, pages - config.TAKE_END_PAGES, pages);
+    
+    return { rawText: bookIndex + bookAppendix, meta, pages};
+        
 }
 
 const processPDF = async (fileName: string): Promise<ProcessResult> => {

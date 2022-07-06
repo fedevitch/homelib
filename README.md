@@ -4,3 +4,4 @@ This README would normally document whatever steps are necessary to get your app
 
 ### How do I get set up? ###
 sudo apt install djvulibre-bin
+sudo apt install pdftk OR sudo apt install xpdf

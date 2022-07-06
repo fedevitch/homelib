@@ -47,6 +47,7 @@ const scan = (file) => __awaiter(void 0, void 0, void 0, function* () {
         fileData.pages = processResult.pages;
     }
     catch (e) {
+        logger_1.default.error('Scanner error');
         logger_1.default.error(e);
     }
     return fileData;

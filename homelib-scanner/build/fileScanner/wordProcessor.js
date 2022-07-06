@@ -21,7 +21,7 @@ const parseWord = async (fileName) => {
     const wordExtractor = new word_extractor_1.default();
     const extracted = await wordExtractor.extract(file);
     const text = extracted.getBody();
-    return { rawText: lodash_1.default.take(text, 3000).join(''), meta, pages: 0 };
+    return { rawText: lodash_1.default.take(text, 3000).join(''), meta, pages: Number.parseInt(lodash_1.default.get(meta, 'pages', '0')) };
 };
 const processWord = async (fileName) => {
     logger_1.default.debug(`Parsing Word ${fileName}`);

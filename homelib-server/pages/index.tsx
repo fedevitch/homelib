@@ -18,46 +18,71 @@ const Home: NextPage = () => {
   useEffect(() => {
     fetchMain().then(setStats)
   }, [])
-
   
+  const formatChartOpts = {
+    plugins: {
+      title: {
+        display: true,
+        text: t('Books count by format')
+      }
+    }
+  };
   const formatChart = {
-    labels: ['PDF', 'Djvu', 'Fb2'],
-    datasets: [{
-      label: 'Books count by format',
-      data: [stats.pdfCount, stats.djvuCount, stats.fb2Count]
+    labels: ['PDF', 'Djvu', 'Fb2', 'Word', 'Epub', 'ComicBook', 'CHM'],
+    datasets: [{      
+      data: [stats.pdf, stats.djvu, stats.fb2, stats.doc, stats.epub, stats.comicBook, stats.chm],
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+      ],
+      borderColor: [
+        'rgba(255, 99, 132, 1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)',
+      ],
+      borderWidth: 1,
     }],
-    backgroundColor: [
-      'rgba(255, 99, 132, 0.2)',
-      'rgba(54, 162, 235, 0.2)',
-      'rgba(58, 169, 239, 0.2)'
-    ],
-    borderColor: [
-      'rgba(255, 99, 132, 1)',
-      'rgba(54, 162, 235, 1)',
-      'rgba(59, 169, 239, 1)'
-    ],
-    borderWidth: 1,
+    
   }
 
-  const sizeChart = {
-    labels: ['Small', 'Medium', 'Normal', 'Large'],
-    datasets: [{
-      label: 'Books size',
-      data: [stats.less1Mb, stats.mediumSize, stats.normalSize, stats.extraLargeSize]
+  const sizeChartOpts = {
+    responsive: true,
+    plugins: {
+      title: {
+        display: true,
+        text: t('Books size')
+      }
+    }
+  };
+  const sizeChart = {    
+    labels: [t('Small'), t('Medium'), t('Normal'), t('Large')],
+    datasets: [{      
+      data: [stats.less1Mb, stats.mediumSize, stats.normalSize, stats.extraLargeSize],
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+      ],
+      borderColor: [
+        'rgba(255, 99, 132, 1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)',
+      ],
+      borderWidth: 1,
     }],
-    backgroundColor: [
-      'rgba(255, 99, 132, 0.2)',
-      'rgba(54, 162, 235, 0.2)',
-      'rgba(57, 167, 237, 0.2)',
-      'rgba(68, 178, 248, 0.2)'
-    ],
-    borderColor: [
-      'rgba(255, 99, 132, 1)',
-      'rgba(54, 162, 235, 1)',
-      'rgba(57, 167, 237, 0.2)',
-      'rgba(68, 178, 248, 0.2)'
-    ],
-    borderWidth: 1,
   }
 
   return (
@@ -66,10 +91,10 @@ const Home: NextPage = () => {
       <div className={styles.title}><h2>{t('Welcome To homelib')}</h2></div>
       <div className={styles.chartContainer}>
         <div className={styles.chart}>
-          <Pie data={formatChart} width={300} height={300} />
+          <Pie data={formatChart} options={formatChartOpts} width={300} height={300} />
         </div>
         <div className={styles.chart}>
-          <Pie data={sizeChart} width={300} height={300} />
+          <Pie data={sizeChart} options={sizeChartOpts} width={300} height={300} />
         </div>
       </div>
     </AppLayout>    

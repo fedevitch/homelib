@@ -10,7 +10,13 @@
         "Books": "Books"
     },
     "Home": {
-        "Welcome To homelib": "Welcome To homelib"
+        "Welcome To homelib": "Welcome To homelib",
+        "Books count by format": "Books count by format",
+        "Books size": "Books size",
+        "Small": "Small",
+        "Medium": "Medium",
+        "Normal": "Normal", 
+        "Large": "Large"
     },
     "Login": {
         "Login on homelib": "Login on homelib",

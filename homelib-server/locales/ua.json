@@ -10,7 +10,13 @@
         "Books": "Книги"
     },
     "Home": {
-        "Welcome To homelib": "Вітаємо у homelib"
+        "Welcome To homelib": "Вітаємо у homelib",
+        "Books count by format": "Розподіл за форматом",
+        "Books size": "Розподіл за розмірами",
+        "Small": "Мала",
+        "Medium": "Середня",
+        "Normal": "Типова", 
+        "Large": "Велика"
     },
     "Login": {
         "Login on homelib": "Увійти в homelib",

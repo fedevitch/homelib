@@ -18,7 +18,7 @@ const parseWord = async (fileName: string): Promise<ProcessResult> => {
     const wordExtractor = new WordExtractor();
     const extracted = await wordExtractor.extract(file);
     const text = extracted.getBody();
-    return { rawText: _.take(text, 3000).join(''), meta, pages: 0 }
+    return { rawText: _.take(text, 3000).join(''), meta, pages: Number.parseInt(_.get(meta, 'pages', '0')) }
 }
 
 const processWord = async (fileName: string): Promise<ProcessResult> => {

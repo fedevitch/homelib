@@ -1,13 +1,17 @@
 import _ from 'lodash';
 import { ProcessResult } from './processor';
 import logger from "../logger";
+import { createReadStream } from 'fs';
+const parseRTF = require('@iarna/rtf-parser');
 
 const parseRtf = async (fileName: string): Promise<ProcessResult> => {
     return new Promise((resolve, reject) => {
-        
-               // if(err) reject(err);
-                resolve({ rawText: ''.replaceAll(/(<([^>]+)>)/ig, ''), meta: {}, pages: 0 });
-                   
+        parseRTF.stream(createReadStream(fileName), (err, doc) => {
+            if(err) reject(err);
+            // @ts-ignore
+            const rawText = _.take(doc.content, 100).map((c) => c.value).join('');
+            resolve({ rawText, meta: {}, pages: 0 });
+        })
     });    
 }
 

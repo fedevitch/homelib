@@ -14,8 +14,8 @@ const parseFb2 = async (fileName: string): Promise<ProcessResult> => {
     const meta = _.omit(parser.book, 'text', 'link', 'binary', 'annotation');
     meta['annotation'] = parser.get_formatted_annotation({format: 'plain'});
     const text = parser.get_formatted_text({format: 'plain'});
-    const pages = parser.book.text.length;
-    return { rawText: _.take(text, 500).join(), meta, pages};
+    const pages = 0;
+    return { rawText: _.take(text, 3000).join(''), meta, pages};
 }
 
 const processFb2 = async (fileName: string): Promise<ProcessResult> => {

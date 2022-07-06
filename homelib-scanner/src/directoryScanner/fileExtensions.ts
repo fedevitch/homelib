@@ -2,7 +2,9 @@ export class FileExtensions {
     public static Formats = {
         pdf: "pdf",
         djvu: "djvu",
-        fb2: "fb2"
+        djv: "djv",
+        fb2: "fb2",
+        epub: "epub"
     }
 
     public static getFormat = (fileName: string): string|null => {

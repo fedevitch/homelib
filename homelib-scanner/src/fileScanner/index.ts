@@ -30,7 +30,7 @@ export class FileData {
 
 const scan = async (file: FileEntry): Promise<FileData> => {
 
-    logger.info(`scanning file: ${file.getFullName()}`);
+    logger.debug(`scanning file: ${file.getFullName()}`);
 
     const fileData = new FileData(file);
 

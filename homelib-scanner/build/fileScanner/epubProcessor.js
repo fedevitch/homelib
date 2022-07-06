@@ -1,23 +1,27 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const lodash_1 = __importDefault(require("lodash"));
+const epub_1 = __importDefault(require("epub"));
 const logger_1 = __importDefault(require("../logger"));
-const parseEpub = (fileName) => __awaiter(void 0, void 0, void 0, function* () {
-    return { rawText: '', meta: {}, pages: 0 };
-});
-const processEpub = (fileName) => __awaiter(void 0, void 0, void 0, function* () {
+const parseEpub = async (fileName) => {
+    return new Promise((resolve, reject) => {
+        const epub = new epub_1.default(fileName);
+        epub.on('end', () => {
+            const meta = lodash_1.default.pick(epub, 'metadata', 'manifest', 'flow', 'toc');
+            epub.getChapter(lodash_1.default.get(epub, 'flow[0].id'), (err, chapterText) => {
+                if (err)
+                    reject(err);
+                resolve({ rawText: chapterText.replaceAll(/(<([^>]+)>)/ig, ''), meta, pages: 0 });
+            });
+        });
+        epub.parse();
+    });
+};
+const processEpub = async (fileName) => {
     logger_1.default.debug(`Parsing epub ${fileName}`);
     return parseEpub(fileName);
-});
+};
 exports.default = processEpub;

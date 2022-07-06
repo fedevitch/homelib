@@ -1,13 +1,4 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -35,13 +26,13 @@ class FileData {
     }
 }
 exports.FileData = FileData;
-const scan = (file) => __awaiter(void 0, void 0, void 0, function* () {
-    logger_1.default.info(`scanning file: ${file.getFullName()}`);
+const scan = async (file) => {
+    logger_1.default.debug(`scanning file: ${file.getFullName()}`);
     const fileData = new FileData(file);
     try {
-        const stats = yield (0, promises_1.stat)(file.getFullName());
+        const stats = await (0, promises_1.stat)(file.getFullName());
         fileData.setStats(stats);
-        const processResult = yield (0, processor_1.default)(fileData);
+        const processResult = await (0, processor_1.default)(fileData);
         fileData.setSummary(processResult.rawText);
         fileData.setMeta(processResult.meta);
         fileData.pages = processResult.pages;
@@ -51,5 +42,5 @@ const scan = (file) => __awaiter(void 0, void 0, void 0, function* () {
         logger_1.default.error(e);
     }
     return fileData;
-});
+};
 exports.default = scan;

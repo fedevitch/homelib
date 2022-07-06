@@ -9,7 +9,9 @@ _a = FileExtensions;
 FileExtensions.Formats = {
     pdf: "pdf",
     djvu: "djvu",
-    fb2: "fb2"
+    djv: "djv",
+    fb2: "fb2",
+    epub: "epub"
 };
 FileExtensions.getFormat = (fileName) => {
     for (const format in _a.Formats) {

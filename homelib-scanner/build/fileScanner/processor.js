@@ -9,6 +9,8 @@ const pdfProcessor_1 = __importDefault(require("./pdfProcessor"));
 const djvuProcessor_1 = __importDefault(require("./djvuProcessor"));
 const fb2Processor_1 = __importDefault(require("./fb2Processor"));
 const epubProcessor_1 = __importDefault(require("./epubProcessor"));
+const wordProcessor_1 = __importDefault(require("./wordProcessor"));
+const cbProcessor_1 = __importDefault(require("./cbProcessor"));
 const fileProcessor = async (fileData) => {
     const format = fileExtensions_1.FileExtensions.getFormat(fileData.entry.name);
     const fullName = fileData.entry.getFullName();
@@ -26,6 +28,21 @@ const fileProcessor = async (fileData) => {
         case fileExtensions_1.FileExtensions.Formats.epub:
             logger_1.default.debug("epub");
             return (0, epubProcessor_1.default)(fullName);
+        case fileExtensions_1.FileExtensions.Formats.chm:
+            logger_1.default.debug("chm");
+            return { pages: 0 }; // chm is proprietary
+        case fileExtensions_1.FileExtensions.Formats.docx:
+        case fileExtensions_1.FileExtensions.Formats.doc:
+            logger_1.default.debug("Word");
+            return (0, wordProcessor_1.default)(fullName);
+        case fileExtensions_1.FileExtensions.Formats.rtf:
+            //logger.debug("RTF");
+            //return processRtf(fullName);
+            return { pages: 0 };
+        case fileExtensions_1.FileExtensions.Formats.cbr:
+        case fileExtensions_1.FileExtensions.Formats.cbz:
+            logger_1.default.debug("ComicBook");
+            return (0, cbProcessor_1.default)(fullName);
         default:
             logger_1.default.error("Unknown format");
             return {};

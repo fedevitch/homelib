@@ -1,14 +1,15 @@
 import _ from 'lodash';
 import { ProcessResult } from './processor';
 import logger from "../logger";
-import { createReadStream } from 'fs';
-const parseRTF = require('@iarna/rtf-parser');
+import { readFile } from 'fs/promises';
+const parseRTF = require('rtf-parser');
 
-const parseRtf = async (fileName: string): Promise<ProcessResult> => {
+const parseRtf = async (file: string): Promise<ProcessResult> => {
     return new Promise((resolve, reject) => {
-        parseRTF.stream(createReadStream(fileName), (err, doc) => {
+        parseRTF.string(file, (err, doc) => {
             if(err) reject(err);
-            // @ts-ignore
+            console.log(doc)
+            // @ts-ignore           
             const rawText = _.take(doc.content, 100).map((c) => c.value).join('');
             resolve({ rawText, meta: {}, pages: 0 });
         })
@@ -17,7 +18,8 @@ const parseRtf = async (fileName: string): Promise<ProcessResult> => {
 
 const processRtf = async (fileName: string): Promise<ProcessResult> => {
     logger.debug(`Parsing RTF ${fileName}`);
-    return parseRtf(fileName);
+    const file = await readFile(fileName);
+    return parseRtf(file.toString());
 }
 
 export default processRtf;

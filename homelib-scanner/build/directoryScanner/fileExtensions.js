@@ -11,7 +11,13 @@ FileExtensions.Formats = {
     djvu: "djvu",
     djv: "djv",
     fb2: "fb2",
-    epub: "epub"
+    epub: "epub",
+    doc: "doc",
+    docx: "docx",
+    rtf: "rtf",
+    chm: "chm",
+    cbr: "cbr",
+    cbz: "cbz"
 };
 FileExtensions.getFormat = (fileName) => {
     for (const format in _a.Formats) {

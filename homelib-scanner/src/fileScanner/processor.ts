@@ -35,14 +35,15 @@ const fileProcessor = async (fileData: FileData): Promise<ProcessResult> => {
             return processEpub(fullName);
         case FileExtensions.Formats.chm:
             logger.debug("chm");
-            return {} as ProcessResult; // chm is proprietary
+            return { pages: 0 } as ProcessResult; // chm is proprietary
         case FileExtensions.Formats.docx:
         case FileExtensions.Formats.doc:
             logger.debug("Word");
             return processWord(fullName);
         case FileExtensions.Formats.rtf:
-            logger.debug("RTF");
-            return processRtf(fullName);
+            //logger.debug("RTF");
+            //return processRtf(fullName);
+            return { pages: 0 } as ProcessResult;
         case FileExtensions.Formats.cbr:
         case FileExtensions.Formats.cbz:
             logger.debug("ComicBook");

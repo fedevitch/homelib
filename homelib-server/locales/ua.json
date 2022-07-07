@@ -12,11 +12,15 @@
     "Home": {
         "Welcome To homelib": "Вітаємо у homelib",
         "Books count by format": "Розподіл за форматом",
-        "Books size": "Розподіл за розмірами",
-        "Small": "Мала",
-        "Medium": "Середня",
-        "Normal": "Типова", 
-        "Large": "Велика"
+        "Books by size": "Розподіл за об'ємом",
+        "Books by pages": "Розподіл за кількістю сторінок",
+        "Small": "Малі (1-20 Мб)",
+        "Medium": "Середні (20-50 Мб)",
+        "Normal": "Великі (50-100 Мб)", 
+        "Large": "Дуже великі (понад 100 Мб)",
+        "Few pages": "Мало сторінок (1-100)",
+        "Typical pages count": "Типова книжка (100-500)",
+        "Big size": "Велика книжка (Понад 500)"
     },
     "Login": {
         "Login on homelib": "Увійти в homelib",

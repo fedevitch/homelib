@@ -1,10 +1,17 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+Home library aggregator and server
 
 ### How do I get set up? ###
+Install PosrgreSQL
+Ubuntu:
 sudo apt install djvulibre-bin
-sudo apt install pdftk OR sudo apt install xpdf
+sudo apt install xpdf
 
-for comic books 
-sudo apt-get install poppler-utils && sudo apt-get install p7zip-full
+(for comic books)  
+sudo apt-get install p7zip-full 
+
+Windows:
+djvulibre
+xpdf
+7-zip

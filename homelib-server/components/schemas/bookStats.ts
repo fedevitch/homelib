@@ -18,9 +18,16 @@ export type BookStats = {
         extraLargeSize: number
     }
 
-    byPages:{
+    byPages: {
         small: number,
         medium: number,
         large: number
+    },
+
+    byData: {
+        allGood: number,
+        withoutMeta: number,
+        withoutSummary: number,
+        withoutAnything: number
     }
 }

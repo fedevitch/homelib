@@ -15,7 +15,9 @@ const _chartSize = 300;
 const Home: NextPage = () => {
   const t = useTranslations('Home')
 
-  const [stats, setStats] = useState({ byFormat: {}, byPages: {}, bySize: {}} as BookStats);
+  const [stats, setStats] = useState({ 
+    byFormat: {}, byPages: {}, bySize: {}, byData: {}
+  } as BookStats);
   useEffect(() => {
     fetchMain().then(setStats)
   }, [])
@@ -125,6 +127,40 @@ const Home: NextPage = () => {
     }],
   }
 
+  const booksByDataChartOpts = {
+    responsive: true,
+    plugins: {
+      title: {
+        display: true,
+        text: t('Books by data')
+      }
+    }
+  };
+  const booksByDataChart = {    
+    labels: [t('All good'), t('Without summary'), t('Without meta'), t('Without anything')],
+    datasets: [{      
+      data: [
+        stats.byData.allGood, 
+        stats.byData.withoutSummary, 
+        stats.byData.withoutMeta, 
+        stats.byData.withoutAnything
+      ],
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+      ],
+      borderColor: [
+        'rgba(255, 99, 132, 1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+      ],
+      borderWidth: 1,
+    }],
+  }
+
   return (
     <AppLayout>
       <title>{t('Welcome To homelib')}</title>
@@ -138,6 +174,9 @@ const Home: NextPage = () => {
         </div>
         <div className={styles.chart}>
           <Pie data={booksByPagesChart} options={booksByPagesChartOpts} width={_chartSize} height={_chartSize} />
+        </div>
+        <div className={styles.chart}>
+          <Pie data={booksByDataChart} options={booksByDataChartOpts} width={_chartSize} height={_chartSize} />
         </div>
       </div>
     </AppLayout>    

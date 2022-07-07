@@ -36,6 +36,12 @@ export const getStats = async() : Promise<BookStats> => {
     const medium = await db.book.count({ where: { AND: [ { pages: {gt: _small} }, { pages: {lte: _medium} } ] } });
     const large = await db.book.count({ where: { pages: {gt: _medium} } });
 
+    // count by available data
+    const allGood = await db.book.count({ where:{ AND: [{ summary: { not: '' }}, { meta: { not: {} } }] } });
+    const withoutMeta = await db.book.count({ where: { meta: { equals: {} } } });
+    const withoutSummary = await db.book.count({ where:{ summary: '' } });
+    const withoutAnything = await db.book.count({ where:{ AND: [{ summary: '' }, { meta: { equals: {} } }] } });
+
     return { 
         all, 
         byFormat:{ 
@@ -46,7 +52,11 @@ export const getStats = async() : Promise<BookStats> => {
         },
         byPages: {
             small, medium, large
+        },
+        byData: {
+            allGood, withoutMeta, withoutSummary, withoutAnything
         }
+
     };
 
 }

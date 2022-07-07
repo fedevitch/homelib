@@ -12,15 +12,20 @@
     "Home": {
         "Welcome To homelib": "Welcome To homelib",
         "Books count by format": "Books count by format",
-        "Books by size": "Books by size",
-        "Books by pages": "Books by pages",
+        "Books by size": "Books by size",        
         "Small": "Small (1-20 Mb)",
         "Medium": "Medium (20-50 Mb)",
         "Normal": "Normal (50-100 Mb)", 
         "Large": "Large (More than 100 Mb)",
+        "Books by pages": "Books by pages",
         "Few pages": "Few pages (1-100)",
         "Typical pages count": "Typical pages count (100-500)",
-        "Big size":"Big size (More than 500)"
+        "Big size":"Big size (More than 500)",
+        "Books by data": "Books by data",
+        "All good": "All good", 
+        "Without summary": "Without summary", 
+        "Without meta": "Without meta", 
+        "Without anything": "Without anything"
     },
     "Login": {
         "Login on homelib": "Login on homelib",

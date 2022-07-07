@@ -11,6 +11,7 @@
     },
     "Home": {
         "Welcome To homelib": "Вітаємо у homelib",
+        "Books in library": "Книг у бібліотеці",
         "Books count by format": "Розподіл за форматом",
         "Books by size": "Розподіл за об'ємом",        
         "Small": "Малі (1-20 Мб)",

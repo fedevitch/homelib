@@ -1,14 +1,14 @@
 import type { GetStaticPropsContext, NextPage } from 'next'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import AppLayout from '../components/layout/appLayout'
 import styles from '../styles/Home.module.css'
 import { fetchMain } from '../components/services/api'
 import { useTranslations } from 'next-intl'
 import { BookStats } from '../components/schemas/bookStats'
 
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
 const _chartSize = 300;
 
@@ -23,11 +23,12 @@ const Home: NextPage = () => {
   }, [])
   
   const booksByFormatChartOpts = {
+    responsive: true,    
     plugins: {
       title: {
         display: true,
         text: t('Books count by format')
-      }
+      }    
     }
   };
   const booksByFormatChart = {
@@ -106,7 +107,7 @@ const Home: NextPage = () => {
       title: {
         display: true,
         text: t('Books by pages')
-      }
+      }    
     }
   };
   const booksByPagesChart = {    
@@ -178,6 +179,9 @@ const Home: NextPage = () => {
         <div className={styles.chart}>
           <Pie data={booksByDataChart} options={booksByDataChartOpts} width={_chartSize} height={_chartSize} />
         </div>
+      </div>
+      <div className={styles.textContainer}>
+        <h3>{`${t('Books in library')}: ${stats.all}`}</h3>
       </div>
     </AppLayout>    
   )

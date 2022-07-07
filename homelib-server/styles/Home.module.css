@@ -1,16 +1,24 @@
 .chartContainer {
   display: flex;
   flex-direction: row;
-  align-items: stretch;
+  align-items: center;
+  align-content: center;
+  flex-wrap: wrap;
 }
 
 .chart {
   width: 20rem;
   height: 20rem;
+  margin: 1rem;
 }
 
 .title {
   text-align: center;
   padding: 1rem;
   margin: 1rem;
+}
+
+.textContainer {
+  padding: 3rem;
+  text-align: center;
 }

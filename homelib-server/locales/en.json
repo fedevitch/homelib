@@ -11,6 +11,7 @@
     },
     "Home": {
         "Welcome To homelib": "Welcome To homelib",
+        "Books in library": "Books in library",
         "Books count by format": "Books count by format",
         "Books by size": "Books by size",        
         "Small": "Small (1-20 Mb)",

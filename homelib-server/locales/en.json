@@ -11,6 +11,7 @@
     },
     "Home": {
         "Welcome To homelib": "Welcome To homelib",
+        "Statistics": "Statistics",
         "Books in library": "Books in library",
         "Books count by format": "Books count by format",
         "Books by size": "Books by size",        
@@ -25,7 +26,8 @@
         "Books by data": "Books by data",
         "All good": "All good", 
         "Without summary": "Without summary", 
-        "Without meta": "Without meta", 
+        "Without meta": "Without meta",
+        "WithoutISBN": "Without ISBN", 
         "Without anything": "Without anything"
     },
     "Login": {

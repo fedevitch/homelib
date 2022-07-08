@@ -28,6 +28,7 @@ export type BookStats = {
         allGood: number,
         withoutMeta: number,
         withoutSummary: number,
+        withoutISBN: number,
         withoutAnything: number
     }
 }

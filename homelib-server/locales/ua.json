@@ -11,6 +11,7 @@
     },
     "Home": {
         "Welcome To homelib": "Вітаємо у homelib",
+        "Statistics": "Статистика",
         "Books in library": "Книг у бібліотеці",
         "Books count by format": "Розподіл за форматом",
         "Books by size": "Розподіл за об'ємом",        
@@ -26,6 +27,7 @@
         "All good": "Всі дані є", 
         "Without summary": "Без опису", 
         "Without meta": "Без метаданих", 
+        "WithoutISBN": "Без ISBN",
         "Without anything": "Дані відсутні"
     },
     "Login": {

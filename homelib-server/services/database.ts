@@ -19,3 +19,5 @@ if (process.env.NODE_ENV === 'production') {
 export default prisma
 
 // npx prisma migrate dev --name Added_pages_count
+// if schema updates not showing
+// npx prisma generate

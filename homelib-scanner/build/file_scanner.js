@@ -5,12 +5,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.start = void 0;
 const logger_1 = __importDefault(require("./logger"));
+const scanConfig_1 = __importDefault(require("./scanConfig"));
 const directoryScanner_1 = __importDefault(require("./directoryScanner"));
 const fileScanner_1 = __importDefault(require("./fileScanner"));
 const database_1 = __importDefault(require("./database"));
 logger_1.default.info('starting scanner...');
 const start = async () => {
-    const fileList = await (0, directoryScanner_1.default)('/home/lyubomyr/Документи/Книги');
+    const fileList = await (0, directoryScanner_1.default)(scanConfig_1.default.SCAN_PATH);
     let counter = 1, size = fileList.length;
     for await (const file of fileList) {
         logger_1.default.info(`Processing ${counter} of ${size} (${(counter / (size / 100)).toFixed(0)}%)`);

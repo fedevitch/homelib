@@ -6,9 +6,13 @@ import { fetchMain } from '../components/services/api'
 import { useTranslations } from 'next-intl'
 import { BookStats } from '../components/schemas/bookStats'
 
-import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title } from 'chart.js';
-import { Pie } from 'react-chartjs-2';
-ChartJS.register(ArcElement, Tooltip, Legend, Title);
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title,
+         CategoryScale, LinearScale, BarElement  } from 'chart.js';
+import { Bar, Pie } from 'react-chartjs-2';
+import { stat } from 'fs'
+ChartJS.register(CategoryScale,
+  LinearScale,
+  BarElement, ArcElement, Tooltip, Legend, Title);
 
 const _chartSize = 300;
 
@@ -131,6 +135,9 @@ const Home: NextPage = () => {
   const booksByDataChartOpts = {
     responsive: true,
     plugins: {
+      legend: {
+        display: false
+      },
       title: {
         display: true,
         text: t('Books by data')
@@ -138,12 +145,13 @@ const Home: NextPage = () => {
     }
   };
   const booksByDataChart = {    
-    labels: [t('All good'), t('Without summary'), t('Without meta'), t('Without anything')],
+    labels: [t('All good'), t('Without summary'), t('Without meta'), t('WithoutISBN'), t('Without anything')],
     datasets: [{      
       data: [
         stats.byData.allGood, 
         stats.byData.withoutSummary, 
         stats.byData.withoutMeta, 
+        stats.byData.withoutISBN,
         stats.byData.withoutAnything
       ],
       backgroundColor: [
@@ -165,8 +173,9 @@ const Home: NextPage = () => {
   return (
     <AppLayout>
       <title>{t('Welcome To homelib')}</title>
-      <div className={styles.title}><h2>{t('Welcome To homelib')}</h2></div>
-      <div className={styles.chartContainer}>
+      <h2 className={styles.title}>{t('Welcome To homelib')}</h2>
+      <h3 className={styles.title}>{t('Statistics')}</h3>
+      <div className={styles.chartContainer}>        
         <div className={styles.chart}>
           <Pie data={booksByFormatChart} options={booksByFormatChartOpts} width={_chartSize} height={_chartSize} />
         </div>
@@ -177,7 +186,7 @@ const Home: NextPage = () => {
           <Pie data={booksByPagesChart} options={booksByPagesChartOpts} width={_chartSize} height={_chartSize} />
         </div>
         <div className={styles.chart}>
-          <Pie data={booksByDataChart} options={booksByDataChartOpts} width={_chartSize} height={_chartSize} />
+          <Bar data={booksByDataChart} options={booksByDataChartOpts} width={_chartSize} height={_chartSize} />
         </div>
       </div>
       <div className={styles.textContainer}>

@@ -7,6 +7,7 @@ Install PosrgreSQL
 Ubuntu:
 sudo apt install djvulibre-bin
 sudo apt install xpdf
+https://www.xpdfreader.com/download.html
 
 (for comic books)  
 sudo apt-get install p7zip-full 

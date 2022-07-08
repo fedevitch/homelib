@@ -1,4 +1,5 @@
 import logger from './logger';
+import scanConfig from './scanConfig';
 import scanDirectories from './directoryScanner';
 import scanFile from './fileScanner';
 import db from './database';
@@ -6,7 +7,7 @@ import db from './database';
 logger.info('starting scanner...');
 export const start = async () => {
 
-    const fileList = await scanDirectories('/home/lyubomyr/Документи/Книги');
+    const fileList = await scanDirectories(scanConfig.SCAN_PATH);
 
     let counter = 1, size = fileList.length;
     for await (const file of fileList) {
@@ -20,19 +21,24 @@ export const start = async () => {
         }
 
         const fileData = await scanFile(file);
-        try {
-            await db.book.create({
-                data: {
-                    name: fileData.entry.name,
-                    fullName: fileData.entry.getFullName(),
-                    format: fileData.entry.format || "",
-                    meta: fileData.meta || {},
-                    summary: fileData.summary || "",
-                    createdOnDisk: fileData.createdOnDisk,
-                    size: fileData.size,
-                    pages: fileData.pages               
-                }
-            });
+        try {            
+            const data: any = {
+                name: fileData.entry.name,
+                fullName: fileData.entry.getFullName(),
+                format: fileData.entry.format || "",
+                meta: fileData.meta || {},
+                summary: fileData.summary || "",
+                createdOnDisk: fileData.createdOnDisk,
+                size: fileData.size,
+                pages: fileData.pages               
+            };
+            const isbnData = fileData.getIsbn();
+            if(isbnData) {
+                data.isbn = isbnData.isbn;
+                data.isbn10 = isbnData.isbn10;
+                data.isbn13 = isbnData.isbn13;
+            }
+            await db.book.create({ data });
         } catch (e) {
             logger.error('Database error', e);
         }        

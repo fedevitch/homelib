@@ -1,8 +1,16 @@
 import { Stats } from 'fs';
 import { stat } from 'fs/promises';
+import _ from 'lodash';
 import logger from '../logger';
 import { FileEntry } from '../directoryScanner/fileEntry';
 import fileProcessor from './processor';
+import { FileExtensions } from '../directoryScanner/fileExtensions';
+
+type IsbnValues = {
+    isbn: string;
+    isbn10: string;
+    isbn13: string;
+}
 
 export class FileData {
     constructor(fileEntry: FileEntry) {
@@ -26,6 +34,23 @@ export class FileData {
     public createdOnDisk: Date = new Date();
     public meta = {};
     public summary = "";
+
+    public getIsbn = (): IsbnValues | null => {
+        if(this.entry.format === FileExtensions.Formats.fb2){
+            return _.get(this.meta, 'isbn', null);
+        }
+        if(this.summary !== ""){
+            const idx = this.summary.indexOf('ISBN');
+            if(idx === -1) return null;
+            const isbn13 = this.summary.substring(idx, idx + 23);
+            return {
+                isbn: isbn13.replaceAll(/\D/gim,''),
+                isbn10: isbn13.substring(0, 18),
+                isbn13
+            }
+        }
+        return null;
+    }
 }
 
 const scan = async (file: FileEntry): Promise<FileData> => {

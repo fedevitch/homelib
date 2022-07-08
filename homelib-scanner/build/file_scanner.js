@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.start = void 0;
 const logger_1 = __importDefault(require("./logger"));
 const directoryScanner_1 = __importDefault(require("./directoryScanner"));
 const fileScanner_1 = __importDefault(require("./fileScanner"));
@@ -22,18 +23,23 @@ const start = async () => {
         }
         const fileData = await (0, fileScanner_1.default)(file);
         try {
-            await database_1.default.book.create({
-                data: {
-                    name: fileData.entry.name,
-                    fullName: fileData.entry.getFullName(),
-                    format: fileData.entry.format || "",
-                    meta: fileData.meta || {},
-                    summary: fileData.summary || "",
-                    createdOnDisk: fileData.createdOnDisk,
-                    size: fileData.size,
-                    pages: fileData.pages
-                }
-            });
+            const data = {
+                name: fileData.entry.name,
+                fullName: fileData.entry.getFullName(),
+                format: fileData.entry.format || "",
+                meta: fileData.meta || {},
+                summary: fileData.summary || "",
+                createdOnDisk: fileData.createdOnDisk,
+                size: fileData.size,
+                pages: fileData.pages
+            };
+            const isbnData = fileData.getIsbn();
+            if (isbnData) {
+                data.isbn = isbnData.isbn;
+                data.isbn10 = isbnData.isbn10;
+                data.isbn13 = isbnData.isbn13;
+            }
+            await database_1.default.book.create({ data });
         }
         catch (e) {
             logger_1.default.error('Database error', e);
@@ -41,8 +47,9 @@ const start = async () => {
         counter++;
     }
 };
+exports.start = start;
 try {
-    start();
+    (0, exports.start)();
 }
 catch (e) {
     logger_1.default.error('Unhandled error');

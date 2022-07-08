@@ -5,8 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FileData = void 0;
 const promises_1 = require("fs/promises");
+const lodash_1 = __importDefault(require("lodash"));
 const logger_1 = __importDefault(require("../logger"));
 const processor_1 = __importDefault(require("./processor"));
+const fileExtensions_1 = require("../directoryScanner/fileExtensions");
 class FileData {
     constructor(fileEntry) {
         this.setStats = (stats) => {
@@ -22,6 +24,23 @@ class FileData {
         this.createdOnDisk = new Date();
         this.meta = {};
         this.summary = "";
+        this.getIsbn = () => {
+            if (this.entry.format === fileExtensions_1.FileExtensions.Formats.fb2) {
+                return lodash_1.default.get(this.meta, 'isbn', null);
+            }
+            if (this.summary !== "") {
+                const idx = this.summary.indexOf('ISBN');
+                if (idx === -1)
+                    return null;
+                const isbn13 = this.summary.substring(idx, idx + 23);
+                return {
+                    isbn: isbn13.replaceAll(/\D/gim, ''),
+                    isbn10: isbn13.substring(0, 18),
+                    isbn13
+                };
+            }
+            return null;
+        };
         this.entry = fileEntry;
     }
 }

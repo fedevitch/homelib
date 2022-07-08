@@ -30,4 +30,32 @@ model Book {
   createdOnDisk DateTime
   summary String
   meta Json
+  isbn String?
+  isbn10 String?
+  isbn13 String?
+  previewImage PreviewImage?
+  volumeInfo VolumeInfo?
+}
+
+model PreviewImage {
+  id Int @id @default(autoincrement())
+  bookId Int @unique
+  book Book @relation(fields: [bookId], references: [id]) 
+  data Bytes
+}
+
+model VolumeInfo {
+  id Int @id @default(autoincrement())
+  bookId Int @unique
+  book Book @relation(fields: [bookId], references: [id]) 
+  title String
+  authors String[]
+  publisher String
+  publishedDate String
+  description String
+  industryIdentifiers Json[]
+  pageCount String
+  categories String[]
+  maturityRating String
+  language String
 }

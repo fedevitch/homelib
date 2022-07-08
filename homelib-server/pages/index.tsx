@@ -14,7 +14,7 @@ ChartJS.register(CategoryScale,
   LinearScale,
   BarElement, ArcElement, Tooltip, Legend, Title);
 
-const _chartSize = 300;
+const _chartSize = 500;
 
 const Home: NextPage = () => {
   const t = useTranslations('Home')

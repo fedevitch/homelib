@@ -20,15 +20,15 @@
         "Normal": "Великі (50-100 Мб)", 
         "Large": "Дуже великі (понад 100 Мб)",
         "Books by pages": "Розподіл за кількістю сторінок",
-        "Few pages": "Мало сторінок (1-100)",
-        "Typical pages count": "Типова книжка (100-500)",
-        "Big size": "Велика книжка (Понад 500)",
+        "Few pages": "Мало сторінок (1-100 сторінок)",
+        "Typical pages count": "Типова книжка (100-500 сторінок)",
+        "Big size": "Велика книжка (Понад 500 сторінок)",
         "Books by data": "По зібраних даних",
         "All good": "Всі дані є", 
         "Without summary": "Без опису", 
         "Without meta": "Без метаданих", 
         "WithoutISBN": "Без ISBN",
-        "Without anything": "Дані відсутні"
+        "Without anything": "Будь-які дані відсутні"
     },
     "Login": {
         "Login on homelib": "Увійти в homelib",

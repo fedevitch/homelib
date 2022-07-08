@@ -4,7 +4,7 @@ import scanFile from './fileScanner';
 import db from './database';
 
 logger.info('starting scanner...');
-const start = async () => {
+export const start = async () => {
 
     const fileList = await scanDirectories('/home/lyubomyr/Документи/Книги');
 

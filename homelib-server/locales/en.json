@@ -56,6 +56,10 @@
         "Signup": "Signup"
     },
     "Books": {
-        "Books": "Books"
+        "Books": "Books",
+        "Next": "Next",
+        "Previous": "Previous",
+        "Title": "Title",
+        "Description": "Description"
     }
 }

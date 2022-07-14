@@ -5,6 +5,6 @@ import { start } from "./file_scanner";
 try {
     start();
 } catch(e) {
-    logger.error('Unhandled error');
+    logger.error('Scanner critical error');
     logger.error(e);
 }

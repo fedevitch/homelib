@@ -20,36 +20,39 @@ export const start = async () => {
             continue;
         }
 
+        // 1 - scan file
         const fileData = await scanFile(file);
+        const data: any = {
+            name: fileData.entry.name,
+            fullName: fileData.entry.getFullName(),
+            format: fileData.entry.format || "",
+            meta: fileData.meta || {},
+            summary: fileData.summary || "",
+            createdOnDisk: fileData.createdOnDisk,
+            size: fileData.size,
+            pages: fileData.pages               
+        };
+        const isbnData = fileData.getIsbn();
+        if(isbnData) {
+            data.isbn = isbnData.isbn;
+            data.isbn10 = isbnData.isbn10;
+            data.isbn13 = isbnData.isbn13;
+        }
         try {            
-            const data: any = {
-                name: fileData.entry.name,
-                fullName: fileData.entry.getFullName(),
-                format: fileData.entry.format || "",
-                meta: fileData.meta || {},
-                summary: fileData.summary || "",
-                createdOnDisk: fileData.createdOnDisk,
-                size: fileData.size,
-                pages: fileData.pages               
-            };
-            const isbnData = fileData.getIsbn();
-            if(isbnData) {
-                data.isbn = isbnData.isbn;
-                data.isbn10 = isbnData.isbn10;
-                data.isbn13 = isbnData.isbn13;
-            }
             await db.book.create({ data });
         } catch (e) {
             logger.error('Database error', e);
         }        
+
+        // IMAGE EXTRACTOR
+        // 2 - extract preview (if possible) and write it to db
+        // 3 - extract pages for OCR (if needed)
+        // ---
+
+        // 4 - OCR summary (if needed) and parse ISBN if possible
+        // 5 - delete images on disk from steps 2-4
+
         counter++;
     }
 
-}
-
-try {
-    start();
-} catch(e) {
-    logger.error('Unhandled error');
-    logger.error(e);
 }

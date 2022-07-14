@@ -1,5 +1,5 @@
 import logger from "../logger";
-import { FileData } from "."
+import { FileData } from "../models/fileData"
 import { FileExtensions } from "../directoryScanner/fileExtensions";
 import processPDF from "./pdfProcessor";
 import processDjvu from "./djvuProcessor";
@@ -7,7 +7,7 @@ import processFb2 from "./fb2Processor";
 import processEpub from "./epubProcessor";
 import processWord from "./wordProcessor";
 import processRtf from "./rtfProcessor";
-import processComicBook from "./cbProcessor";
+import processComicBook from "./comicbookProcessor";
 
 export type ProcessResult = {
     rawText: string,

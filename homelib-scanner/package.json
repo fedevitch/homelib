@@ -6,10 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npx tsc",
-    "start": "node build/file_scanner.js",
-    "dev": "npx tsc && node build/file_scanner.js",
-    "file_scanner": "npx tsc && node build/file_scanner.js",
-    "startExtended": "node -max-old-space-size=8192 build/file_scanner.js"
+    "start": "node build/index.js",
+    "dev": "npx tsc && node build/index.js",
+    "file_scanner": "npx tsc && node build/index.js",
+    "startExtended": "node -max-old-space-size=8192 build/index.js"
   },
   "author": "lyubomyr",
   "license": "ISC",

@@ -56,6 +56,10 @@
         "Signup": "Зареєструватись"
     },
     "Books": {
-        "Books": "Книги"
+        "Books": "Книги",
+        "Next": "Вперед",
+        "Previous": "Назад",
+        "Title": "Назва",
+        "Description": "Опис"
     }
 }

@@ -15,7 +15,7 @@ export default async function handler(
       }
       try {
         const page = parseInt(req.query.page.toString());
-        const perPage = parseInt(req.query.perPage.toString());
+        const perPage = parseInt(req.query.perPage.toString()) - 1;
         const books = await getBooks(page, perPage);
         res.status(httpStatus.OK).json(books);
       } catch(e) {

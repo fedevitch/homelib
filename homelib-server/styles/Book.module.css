@@ -170,7 +170,8 @@
 }
 
 .booksListPagination > button,
-.booksListSearch > button {
+.booksListSearch > button, 
+.booksListFormatFilter {
   background-color: beige !important;
 }
 

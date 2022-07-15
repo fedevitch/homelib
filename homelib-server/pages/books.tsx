@@ -1,12 +1,13 @@
 import type { GetStaticPropsContext, NextPage } from 'next'
-import { ChangeEvent, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import AppLayout from '../components/layout/appLayout'
 import styles from '../styles/Book.module.css'
 import { fetchBooks } from '../components/services/api'
 import { useTranslations } from 'next-intl'
-import { Button, InputGroup } from '@blueprintjs/core'
+import { Button, InputGroup, Menu, MenuItem } from '@blueprintjs/core'
+import { Popover2 } from '@blueprintjs/popover2'
 import PaginatedList from '../components/layout/paginatedBooksList'
-import { BooksFilter } from '../components/schemas/apiRequests'
+import { Formats } from '../components/schemas/formats'
 
 const Home: NextPage = () => {
   const t = useTranslations('Books')
@@ -16,12 +17,19 @@ const Home: NextPage = () => {
   const [count, setCount] = useState(0);
   const [page, setPage] = useState(1);
   const [searchString, setSearchString] = useState("");
-  const [format, setFormat] = useState("");
+  const [formats, setFormatFilter] = useState(Array<string>);
   const [ISBN, setISBN] = useState("");
 
+  const formatMenuItems = Object.keys(Formats)
+                        .map(formatKey => (<MenuItem icon={formats.indexOf(formatKey) !== -1 ? "tick" : "small-minus"}
+                                                     disabled={formats.indexOf(formatKey) !== -1}  
+                                                     text={formatKey} onClick={() => setFormatFilter([...formats, formatKey])} />));
+  formatMenuItems.push(<MenuItem text={t("Clear all")} disabled={formats.length === 0} icon="cross" onClick={() => setFormatFilter([])} />);
+
   const getBooks = (page?: number, perPage?: number) => {
-    const filter = { searchString, format, ISBN };
+    const filter = { searchString, format: formats, ISBN };
     setLoading(true);
+    if(!page) setPage(1);
     fetchBooks(filter, page, perPage).then(response => {
       setBooks(response.data)
       setCount(response.count)
@@ -51,7 +59,10 @@ const Home: NextPage = () => {
                     disabled={loading}
                     value={ISBN}
                     onKeyDown={e => e.key === 'Enter' && getBooks()}
-                    onChange={(event) => setISBN(event.target.value)} />            
+                    onChange={(event) => setISBN(event.target.value)} />
+        <Popover2 content={<Menu>{formatMenuItems}</Menu>}>
+          <Button className={styles.booksListFormatFilter} disabled={loading} icon="filter" text={t("Filter by format")} />
+        </Popover2>            
         <Button icon="search" loading={loading} text={t("Find")} disabled={loading} onClick={() => getBooks()} />     
 
       </div>

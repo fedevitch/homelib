@@ -2,6 +2,7 @@ import db from './database';
 import { PaginatedApiResponse } from '../components/schemas/apiResponses'
 import { BookStats } from '../components/schemas/bookStats';
 import { BooksFilter } from '../components/schemas/apiRequests';
+import { format } from 'path';
 
 const _1Mb = 1e6;
 const _20Mb = 20 * _1Mb;
@@ -74,14 +75,19 @@ export const getStats = async() : Promise<BookStats> => {
 export const getBooks = async(page = 1, perPage = 20, filter?: BooksFilter): Promise<PaginatedApiResponse> => {
     const selectOptions: any = { select: { id: true, name: true, format: true, summary: true }, skip: page * perPage, take: perPage };
     let where = {};
-    if(filter?.searchString || filter?.format || filter?.ISBN){
+    if(filter?.searchString || filter?.ISBN){
         where = { 
             OR: [
                 {name: {search: filter.searchString.toString().toLowerCase()}}, 
                 {summary: {search: filter.searchString.toString().toLowerCase()}}, 
-                {isbn: { equals: filter.ISBN } }] };
-        selectOptions.where = where;
+                {isbn: { equals: filter.ISBN } }
+            ] };
     }
+    if(typeof filter?.format === "string" && filter.format !== ""){
+        const formatFilter = { in: filter?.format.split(",") } ;
+        where['format'] = formatFilter;
+    }
+    selectOptions.where = where;
     const data = await db.book.findMany(selectOptions);
     const count = await db.book.count({where});
 

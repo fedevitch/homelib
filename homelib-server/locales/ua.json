@@ -64,6 +64,7 @@
         "Search by Name or Description": "Пошук по назві або опису",
         "Search by ISBN": "Пошук по ISBN",
         "Filter by format": "Формат",
+        "Clear all": "Очистити все",
         "Find": "Знайти"
     }
 }

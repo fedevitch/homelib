@@ -14,9 +14,11 @@ export default async function handler(
         res.status(httpStatus.UNAUTHORIZED).json({ message: 'Unauthorized' })
       }
       try {
-        const page = parseInt(req.query.page.toString());
-        const perPage = parseInt(req.query.perPage.toString()) - 1;
-        const books = await getBooks(page, perPage);
+        const page = parseInt(req.query.page.toString()) - 1;
+        const perPage = parseInt(req.query.perPage.toString());
+        const {searchString, format, ISBN} = req.query;
+
+        const books = await getBooks(page, perPage, { searchString, format, ISBN });
         res.status(httpStatus.OK).json(books);
       } catch(e) {
         console.error(e);

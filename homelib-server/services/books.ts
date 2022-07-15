@@ -1,6 +1,7 @@
 import db from './database';
 import { PaginatedApiResponse } from '../components/schemas/apiResponses'
 import { BookStats } from '../components/schemas/bookStats';
+import { BooksFilter } from '../components/schemas/apiRequests';
 
 const _1Mb = 1e6;
 const _20Mb = 20 * _1Mb;
@@ -70,11 +71,15 @@ export const getStats = async() : Promise<BookStats> => {
 
 }
 
-export const getBooks = async(page = 1, perPage = 20, search?: string): Promise<PaginatedApiResponse> => {
+export const getBooks = async(page = 1, perPage = 20, filter?: BooksFilter): Promise<PaginatedApiResponse> => {
     const selectOptions: any = { select: { id: true, name: true, format: true, summary: true }, skip: page * perPage, take: perPage };
     let where = {};
-    if(search){
-        where = { OR: [{name: {contains: search}}, {summary: {contains: search}}] };
+    if(filter?.searchString || filter?.format || filter?.ISBN){
+        where = { 
+            OR: [
+                {name: {search: filter.searchString.toString().toLowerCase()}}, 
+                {summary: {search: filter.searchString.toString().toLowerCase()}}, 
+                {isbn: { equals: filter.ISBN } }] };
         selectOptions.where = where;
     }
     const data = await db.book.findMany(selectOptions);

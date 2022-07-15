@@ -60,6 +60,10 @@
         "Next": "Next",
         "Previous": "Previous",
         "Title": "Title",
-        "Description": "Description"
+        "Description": "Description",
+        "Search by Name or Description": "Search by Name or Description",
+        "Search by ISBN": "Search by ISBN",
+        "Filter by format": "Filter by format",
+        "Find": "Find"
     }
 }

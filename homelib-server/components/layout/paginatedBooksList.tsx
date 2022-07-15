@@ -35,7 +35,7 @@ const PaginatedList = (props: PaginatedBooksListProps) => {
     }
 
     const Pagination = (props: PaginatedBooksListProps) => {
-        const maxPage = parseInt((props.count / props.perPage).toFixed(0));
+        const maxPage = parseInt((props.count / props.perPage).toFixed(0)) || 1;
         const prevDisabled = currentPage <= 1;
         const nextDisabled = (props.perPage > props.data.length) || (currentPage >= maxPage);    
     
@@ -44,20 +44,24 @@ const PaginatedList = (props: PaginatedBooksListProps) => {
             props.getData(page)
         }
     
-        const Pages = () => {
-            
-            const firstRange = _.range(currentPage - 3, currentPage).filter(p => (p > 0) && p !== currentPage);
-            const endRange = _.range(currentPage, currentPage + 3).filter(p => (p < maxPage) && p !== currentPage);
+        const Pages = () => {            
+            const firstRange = _.range(currentPage - 3, currentPage).filter(p => (p > 1) && (p < maxPage) && p !== currentPage);
+            const endRange = _.range(currentPage, currentPage + 3).filter(p => (p > 1) && (p < maxPage) && p !== currentPage);
             const pagesLeft = firstRange.map(page => <Button key={page} text={page} disabled={currentPage === page} onClick={() => onChangePage(page)} />)
             const pagesRight = endRange.map(page => <Button key={page} text={page} disabled={currentPage === page} onClick={() => onChangePage(page)} />)
+            const firstPageButton = <Button key={1} text={1} disabled={currentPage === 1} onClick={() => onChangePage(1)} />
+            const lastPageButton = <Button key={maxPage} text={maxPage} disabled={currentPage === maxPage} onClick={() => onChangePage(maxPage)} />
+            if(maxPage === 1){
+                return firstPageButton
+            }
             return <Fragment>
-                {firstRange.indexOf(1) === -1 && <Button key={1} text={1} disabled={currentPage === 1} onClick={() => onChangePage(1)} />}
-                {currentPage > 3 && <Button icon="more" disabled />}
+                {firstRange.indexOf(1) === -1 && firstPageButton}
+                {currentPage > 5 && <Button icon="more" disabled />}
                 {pagesLeft}
                 {currentPage !== 1 && currentPage !== maxPage && <Button key={currentPage} text={currentPage} disabled />}            
                 {pagesRight}
-                {(currentPage + 3) <= maxPage && <Button icon="more" disabled />}
-                {endRange.indexOf(maxPage) === -1 && <Button key={maxPage} text={maxPage} disabled={currentPage === maxPage} onClick={() => onChangePage(maxPage)} />}
+                {(currentPage + 5) <= maxPage && <Button icon="more" disabled />}
+                {endRange.indexOf(maxPage) === -1 && lastPageButton}
             </Fragment>
         }
     

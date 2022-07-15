@@ -1,7 +1,8 @@
 import { Request } from "./request"
 import { ApiResponse, PaginatedApiResponse } from "../schemas/apiResponses"
 import { removeCookies } from "cookies-next"
-import { BookStats } from "../../services/books"
+import { BookStats } from "../../components/schemas/bookStats"
+import { BooksFilter } from "../schemas/apiRequests"
 
 export const signUp = async(data: any = {}): Promise<ApiResponse> => {
     return Request.post('/api/signup', data, { skipCredentials: true })
@@ -20,6 +21,6 @@ export const fetchMain = async (): Promise<BookStats> => {
     return Request.get('/api')
 }
 
-export const fetchBooks = async (page = 1, perPage = 20): Promise<PaginatedApiResponse> => {
-    return Request.get(`/api/books?page=${page}&perPage=${perPage}`)
+export const fetchBooks = async (filter: BooksFilter, page = 1, perPage = 20): Promise<PaginatedApiResponse> => {
+    return Request.get(`/api/books?page=${page}&perPage=${perPage}&searchString=${filter.searchString}&format=${filter.format}&ISBN=${filter.ISBN}`)
 }

@@ -60,6 +60,10 @@
         "Next": "Вперед",
         "Previous": "Назад",
         "Title": "Назва",
-        "Description": "Опис"
+        "Description": "Опис",
+        "Search by Name or Description": "Пошук по назві або опису",
+        "Search by ISBN": "Пошук по ISBN",
+        "Filter by format": "Формат",
+        "Find": "Знайти"
     }
 }

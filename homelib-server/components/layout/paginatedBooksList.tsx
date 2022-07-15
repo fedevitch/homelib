@@ -22,7 +22,7 @@ const ListItem = (itemData: BookListItem, t: any) => {
     return (
         <div key={itemData.id} className={styles.booksListItem}>
             <Image src={getFormatIcon(itemData.format)} 
-                   width={100} height={100} alt={itemData.format}
+                   width={70} height={80} alt={itemData.format}
                    className={styles.booksListItemImage} />
             <div className={styles.booksListItemText}>
                 <h3 className={styles.booksListItemTitle}>{title}</h3>

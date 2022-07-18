@@ -15,7 +15,6 @@ const scan = async (file: FileEntry): Promise<FileData> => {
     const fileData = new FileData(file);
 
     try {
-
         const stats = await stat(file.getFullName());
         fileData.setStats(stats);
 
@@ -23,6 +22,12 @@ const scan = async (file: FileEntry): Promise<FileData> => {
         fileData.setSummary(processResult.rawText);
         fileData.setMeta(processResult.meta);
         fileData.pages = processResult.pages;
+        if(processResult.preview) {
+            fileData.preview = processResult.preview;
+        }
+        if(processResult.pagesToOCR) {
+            fileData.pagesListToOCR = processResult.pagesToOCR;
+        }
         
     } catch (e) {
         logger.error('Scanner error');

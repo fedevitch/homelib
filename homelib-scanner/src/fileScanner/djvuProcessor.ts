@@ -6,6 +6,38 @@ import { ProcessResult } from './processor';
 import config from '../scanConfig';
 import { spawn } from "child_process";
 import _ from 'lodash';
+import { randomUUID } from 'crypto';
+import { rm } from 'fs/promises';
+import { extractPreview, getPagesOCR } from './pdfProcessor';
+
+const djvuExtractPreview = async(fileName: string): Promise<Buffer> => {
+    return new Promise((resolve, reject) => {
+        const previewPdfImageFileName = `/tmp/${randomUUID().replaceAll('-', '')}.pdf`;
+        const dumpProcess = spawn('ddjvu', ['-format', 'pdf', '-page', '1', fileName, previewPdfImageFileName]);
+        dumpProcess.on('error', reject);
+        dumpProcess.stderr.on('data', reject);
+        dumpProcess.on('close', async () => {
+            const buffer = await extractPreview(previewPdfImageFileName);
+            await rm(previewPdfImageFileName);
+            resolve(buffer)
+        });
+    })
+}
+
+const djvuGetPagesOCR = async(fileName: string, pages: number): Promise<Array<String>> => {
+    return new Promise((resolve, reject) => {
+        const previewPdfImageFileName = `/tmp/${randomUUID().replaceAll('-', '')}.pdf`;
+        const dumpProcess = spawn('ddjvu', ['-format=pdf', 
+            `-page=1-${config.TAKE_START_PAGES},${pages - config.TAKE_END_PAGES}-${pages}`,
+            fileName, previewPdfImageFileName]);
+        dumpProcess.on('error', reject);
+        dumpProcess.stderr.on('data', reject);
+        dumpProcess.on('close', async () => {
+            const fileNames = await getPagesOCR(previewPdfImageFileName, 1, config.TAKE_END_PAGES + config.TAKE_END_PAGES);            
+            resolve(fileNames)
+        });    
+    });
+}
 
 const djvuDump = async(fileName: string): Promise<string> => {
     return new Promise((resolve, reject) => {
@@ -36,7 +68,13 @@ const parseDjvu = async (fileName: string): Promise<ProcessResult> => {
     const meta = { pages, files: Number.parseInt(_.get(numbers, '2', 0)), dump: dump.substring(0, 300) };
     const rawText = await djvuTxt(fileName, pages);    
 
-    return { rawText, meta, pages};
+    const preview = await djvuExtractPreview(fileName);
+    let pagesToOCR = Array<String>();
+    if(!rawText){
+        pagesToOCR = await djvuGetPagesOCR(fileName, pages);
+    }
+
+    return { rawText, meta, pages, preview, pagesToOCR };
 }
 
 const processDjvu = async (fileName: string): Promise<ProcessResult> => {

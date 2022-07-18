@@ -1,9 +1,6 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+  previewFeatures = ["fullTextSearch", "extendedIndexes"]
 }
 
 datasource db {
@@ -12,51 +9,54 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id        Int     @id @default(autoincrement()) @unique
+  email     String  @unique
+  name      String?
   firstName String?
-  lastName String?
-  password String
-  salt String
+  lastName  String?
+  password  String
+  salt      String
 }
 
 model Book {
-  id Int @id @default(autoincrement())
-  name String
-  fullName String @unique
-  format String
-  size Int
-  pages Int
+  id            Int           @id @default(autoincrement()) @unique
+  name          String
+  fullName      String        @unique
+  format        String
+  size          Int
   createdOnDisk DateTime
-  summary String
-  meta Json
-  isbn String?
-  isbn10 String?
-  isbn13 String?
-  previewImage PreviewImage?
-  volumeInfo VolumeInfo?
+  summary       String
+  meta          Json
+  pages         Int
+  isbn          String?
+  isbn10        String?
+  isbn13        String?
+  previewImage  PreviewImage?
+  volumeInfo    VolumeInfo?
+  @@index([name(ops: TextOps)], type: SpGist)
+  @@index([summary(ops: TextOps)], type: SpGist)
+  @@index([isbn(ops: TextOps)], type: SpGist)
 }
 
 model PreviewImage {
-  id Int @id @default(autoincrement())
-  bookId Int @unique
-  book Book @relation(fields: [bookId], references: [id]) 
-  data Bytes
+  id     Int   @id @default(autoincrement())
+  bookId Int   @unique
+  data   Bytes
+  book   Book  @relation(fields: [bookId], references: [id])
 }
 
 model VolumeInfo {
-  id Int @id @default(autoincrement())
-  bookId Int @unique
-  book Book @relation(fields: [bookId], references: [id]) 
-  title String
-  authors String[]
-  publisher String
-  publishedDate String
-  description String
+  id                  Int      @id @default(autoincrement())
+  bookId              Int      @unique
+  title               String
+  authors             String[]
+  publisher           String
+  publishedDate       String
+  description         String
   industryIdentifiers Json[]
-  pageCount String
-  categories String[]
-  maturityRating String
-  language String
+  pageCount           String
+  categories          String[]
+  maturityRating      String
+  language            String
+  book                Book     @relation(fields: [bookId], references: [id])
 }

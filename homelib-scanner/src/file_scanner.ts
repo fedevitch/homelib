@@ -21,22 +21,29 @@ export const start = async () => {
         }
 
         // 1 - scan file
-        const fileData = await scanFile(file);
+        const scannedObject = await scanFile(file);
         const data: any = {
-            name: fileData.entry.name,
-            fullName: fileData.entry.getFullName(),
-            format: fileData.entry.format || "",
-            meta: fileData.meta || {},
-            summary: fileData.summary || "",
-            createdOnDisk: fileData.createdOnDisk,
-            size: fileData.size,
-            pages: fileData.pages               
+            name: scannedObject.entry.name,
+            fullName: scannedObject.entry.getFullName(),
+            format: scannedObject.entry.format || "",
+            meta: scannedObject.meta || {},
+            summary: scannedObject.summary || "",
+            createdOnDisk: scannedObject.createdOnDisk,
+            size: scannedObject.size,
+            pages: scannedObject.pages               
         };
-        const isbnData = fileData.getIsbn();
+        const isbnData = scannedObject.getIsbn();
         if(isbnData) {
             data.isbn = isbnData.isbn;
             data.isbn10 = isbnData.isbn10;
             data.isbn13 = isbnData.isbn13;
+        }
+        if(scannedObject.preview){
+            data.previewImage = {
+                create: {
+                    data: scannedObject.preview
+                }
+            }
         }
         try {            
             await db.book.create({ data });
@@ -51,6 +58,8 @@ export const start = async () => {
 
         // 4 - OCR summary (if needed) and parse ISBN if possible
         // 5 - delete images on disk from steps 2-4
+
+        await scannedObject.deleteTempFiles();
 
         counter++;
     }

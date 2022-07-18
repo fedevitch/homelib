@@ -1,8 +1,43 @@
 import _ from 'lodash';
 import { spawn } from "child_process";
+import { randomUUID } from 'crypto';
+import { readFile, rm } from 'fs/promises';
 import logger from "../logger";
 import { ProcessResult } from './processor';
 import config from '../scanConfig';
+
+export const extractPreview = async(fileName: string): Promise<Buffer> => {
+    return new Promise((resolve, reject) => {
+        let previewFileName = `/tmp/${randomUUID().replaceAll('-', '')}`;
+        const convertProcess = spawn('pdftopng', ['-f', '1', '-l', '1', '-r', '5', fileName, previewFileName]);
+        convertProcess.on('error', reject);
+        convertProcess.stderr.on('data', reject);
+        convertProcess.on('close', async () => {
+            previewFileName += '-000001.png';
+            const blob = await readFile(previewFileName);
+            await rm(previewFileName);
+            resolve(blob);
+        });
+    });
+}
+
+export const getPagesOCR = async(fileName: string, firstPage: number, lastPage: number): Promise<Array<String>> => {
+    return new Promise((resolve, reject) => {
+        const fileNames = Array<String>();
+        const prefix = `/tmp/${randomUUID().replaceAll('-', '')}`;
+        for(let i = firstPage; i <= lastPage; i++){
+            const fileName = `${prefix}-${_.padStart(i.toString(), 6, '0')}.png`;
+            fileNames.push(fileName);
+        }
+        const convertProcess = spawn('pdftopng', ['-f', firstPage.toString(), '-l', lastPage.toString(), '-r', '5', fileName, prefix]);
+        convertProcess.on('error', reject);
+        convertProcess.stderr.on('data', reject);
+        convertProcess.on('close', async () => {
+            resolve(fileNames);
+        });
+
+    });
+}
 
 const getPdfInfo = async(fileName: string): Promise<object> => {
     return new Promise((resolve, reject) => {
@@ -41,8 +76,16 @@ const parsePdf = async (fileName: string): Promise<ProcessResult> => {
     const pages = Number.parseInt(_.get(meta, 'Pages', '0'));
     const bookIndex = await getPdfText(fileName, 1, config.TAKE_START_PAGES);
     const bookAppendix = await getPdfText(fileName, pages - config.TAKE_END_PAGES, pages);
+
+    const preview = await extractPreview(fileName);
+    let pagesToOCR = Array<String>();
+    if(!bookIndex && !bookAppendix) {
+        const firstPages = await getPagesOCR(fileName, 1, config.TAKE_START_PAGES);
+        const lastPages = await getPagesOCR(fileName, pages - config.TAKE_END_PAGES, pages);
+        pagesToOCR = [...firstPages, ...lastPages];
+    }
     
-    return { rawText: bookIndex + bookAppendix, meta, pages};        
+    return { rawText: bookIndex + bookAppendix, meta, pages, preview, pagesToOCR };        
 }
 
 const processPDF = async (fileName: string): Promise<ProcessResult> => {

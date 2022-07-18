@@ -12,7 +12,9 @@ import processComicBook from "./comicbookProcessor";
 export type ProcessResult = {
     rawText: string,
     meta: object,
-    pages: number
+    pages: number,
+    preview?: Buffer,
+    pagesToOCR?: String[]
 }
 
 const fileProcessor = async (fileData: FileData): Promise<ProcessResult> => {

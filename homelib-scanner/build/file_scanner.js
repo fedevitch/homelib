@@ -22,37 +22,51 @@ const start = async () => {
             counter++;
             continue;
         }
-        const fileData = await (0, fileScanner_1.default)(file);
         try {
+            // 1 - scan file
+            const scannedObject = await (0, fileScanner_1.default)(file);
             const data = {
-                name: fileData.entry.name,
-                fullName: fileData.entry.getFullName(),
-                format: fileData.entry.format || "",
-                meta: fileData.meta || {},
-                summary: fileData.summary || "",
-                createdOnDisk: fileData.createdOnDisk,
-                size: fileData.size,
-                pages: fileData.pages
+                name: scannedObject.entry.name,
+                fullName: scannedObject.entry.getFullName(),
+                format: scannedObject.entry.format || "",
+                meta: scannedObject.meta || {},
+                summary: scannedObject.summary || "",
+                createdOnDisk: scannedObject.createdOnDisk,
+                size: scannedObject.size,
+                pages: scannedObject.pages
             };
-            const isbnData = fileData.getIsbn();
+            const isbnData = scannedObject.getIsbn();
             if (isbnData) {
                 data.isbn = isbnData.isbn;
                 data.isbn10 = isbnData.isbn10;
                 data.isbn13 = isbnData.isbn13;
             }
-            await database_1.default.book.create({ data });
+            if (scannedObject.preview) {
+                data.previewImage = {
+                    create: {
+                        data: scannedObject.preview
+                    }
+                };
+            }
+            try {
+                await database_1.default.book.create({ data });
+            }
+            catch (e) {
+                logger_1.default.error('Database error', e);
+            }
+            // IMAGE EXTRACTOR
+            // 2 - extract preview (if possible) and write it to db
+            // 3 - extract pages for OCR (if needed)
+            // ---
+            // 4 - OCR summary (if needed) and parse ISBN if possible
+            // 5 - delete images on disk from steps 2-4
+            await scannedObject.deleteTempFiles();
         }
         catch (e) {
-            logger_1.default.error('Database error', e);
+            logger_1.default.error("Scan File error");
+            logger_1.default.error(e);
         }
         counter++;
     }
 };
 exports.start = start;
-try {
-    (0, exports.start)();
-}
-catch (e) {
-    logger_1.default.error('Unhandled error');
-    logger_1.default.error(e);
-}

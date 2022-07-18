@@ -32,6 +32,9 @@ const scan = async (file: FileEntry): Promise<FileData> => {
     } catch (e) {
         logger.error('Scanner error');
         logger.error(e);
+        if(Buffer.isBuffer(e)){
+            logger.error(e.toString());
+        }
     }
 
     return fileData;

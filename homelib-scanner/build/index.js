@@ -10,6 +10,6 @@ try {
     (0, file_scanner_1.start)();
 }
 catch (e) {
-    logger_1.default.error('Unhandled error');
+    logger_1.default.error('Scanner critical error');
     logger_1.default.error(e);
 }

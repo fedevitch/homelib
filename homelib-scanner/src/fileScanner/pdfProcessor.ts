@@ -12,6 +12,7 @@ export const extractPreview = async(fileName: string): Promise<Buffer> => {
         const convertProcess = spawn('pdftopng', ['-f', '1', '-l', '1', '-r', '5', fileName, previewFileName]);
         convertProcess.on('error', reject);
         convertProcess.stderr.on('data', reject);
+        convertProcess.stderr.on('error', reject);
         convertProcess.on('close', async () => {
             previewFileName += '-000001.png';
             const blob = await readFile(previewFileName);
@@ -32,6 +33,7 @@ export const getPagesOCR = async(fileName: string, firstPage: number, lastPage: 
         const convertProcess = spawn('pdftopng', ['-f', firstPage.toString(), '-l', lastPage.toString(), '-r', '5', fileName, prefix]);
         convertProcess.on('error', reject);
         convertProcess.stderr.on('data', reject);
+        convertProcess.stderr.on('error', reject);
         convertProcess.on('close', async () => {
             resolve(fileNames);
         });
@@ -79,7 +81,7 @@ const parsePdf = async (fileName: string): Promise<ProcessResult> => {
 
     const preview = await extractPreview(fileName);
     let pagesToOCR = Array<String>();
-    if(!bookIndex && !bookAppendix) {
+    if(!bookIndex && !bookAppendix && config.OCR) {
         const firstPages = await getPagesOCR(fileName, 1, config.TAKE_START_PAGES);
         const lastPages = await getPagesOCR(fileName, pages - config.TAKE_END_PAGES, pages);
         pagesToOCR = [...firstPages, ...lastPages];

@@ -40,7 +40,7 @@ export class FileData {
         if(this.entry.format === FileExtensions.Formats.fb2){
             return _.get(this.meta, 'isbn', null);
         }
-        if(this.summary !== ""){
+        if(this.summary && this.summary !== ""){          
             const idx = this.summary.indexOf('ISBN');
             if(idx === -1) return null;
             const isbn13 = this.summary.substring(idx, idx + 23);
@@ -59,6 +59,7 @@ export class FileData {
                 try {
                     await rm(file.toString());
                 } catch(e) {
+                    logger.error("delete temp files error");
                     logger.error(e);
                 }
             }

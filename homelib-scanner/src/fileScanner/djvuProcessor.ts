@@ -13,9 +13,11 @@ import { extractPreview, getPagesOCR } from './pdfProcessor';
 const djvuExtractPreview = async(fileName: string): Promise<Buffer> => {
     return new Promise((resolve, reject) => {
         const previewPdfImageFileName = `/tmp/${randomUUID().replaceAll('-', '')}.pdf`;
-        const dumpProcess = spawn('ddjvu', ['-format', 'pdf', '-page', '1', fileName, previewPdfImageFileName]);
+        const dumpProcess = spawn('ddjvu', ['-format=pdf', '-page=1', fileName, previewPdfImageFileName]);
         dumpProcess.on('error', reject);
         dumpProcess.stderr.on('data', reject);
+        dumpProcess.stderr.on('error', reject);
+        dumpProcess.stdout.on('error', reject);
         dumpProcess.on('close', async () => {
             const buffer = await extractPreview(previewPdfImageFileName);
             await rm(previewPdfImageFileName);
@@ -32,6 +34,7 @@ const djvuGetPagesOCR = async(fileName: string, pages: number): Promise<Array<St
             fileName, previewPdfImageFileName]);
         dumpProcess.on('error', reject);
         dumpProcess.stderr.on('data', reject);
+        dumpProcess.stderr.on('error', reject);
         dumpProcess.on('close', async () => {
             const fileNames = await getPagesOCR(previewPdfImageFileName, 1, config.TAKE_END_PAGES + config.TAKE_END_PAGES);            
             resolve(fileNames)
@@ -61,7 +64,7 @@ const djvuTxt = async(fileName: string, pages: number): Promise<string> => {
     })
 }
 
-const parseDjvu = async (fileName: string): Promise<ProcessResult> => {  
+const parseDjvu = async (fileName: string): Promise<ProcessResult> => {
     const dump = await djvuDump(fileName);     
     const numbers = dump.match(/([0-9])\w+/g);
     const pages = Number.parseInt(_.get(numbers, '3', 0));
@@ -70,7 +73,7 @@ const parseDjvu = async (fileName: string): Promise<ProcessResult> => {
 
     const preview = await djvuExtractPreview(fileName);
     let pagesToOCR = Array<String>();
-    if(!rawText){
+    if(!rawText && config.OCR){
         pagesToOCR = await djvuGetPagesOCR(fileName, pages);
     }
 

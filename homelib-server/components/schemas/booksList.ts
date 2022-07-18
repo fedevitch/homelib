@@ -10,6 +10,7 @@ import doc from '../../public/doc.png';
 import docx from '../../public/docx.png';
 import cbr from '../../public/cbr.png';
 import rtf from '../../public/rtf.png';
+import chm from '../../public/chm.png';
 export default interface BookListItem {
     id: number;
     name: string;
@@ -17,7 +18,7 @@ export default interface BookListItem {
     summary: string;
 }
 
-const icons = { fb2, djv, djvu, doc, docx, pdf, rtf, cbr, epub };
+const icons = { fb2, djv, djvu, doc, docx, pdf, rtf, cbr, epub, chm };
 
 export const getFormatIcon = (format: string): StaticImageData => {
     const validFormat = Formats[format] !== undefined;

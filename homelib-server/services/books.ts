@@ -76,7 +76,7 @@ export const getBooks = async(page = 1, perPage = 20, filter?: BooksFilter): Pro
     const selectOptions: any = { select: { id: true, name: true, format: true, summary: true }, skip: page * perPage, take: perPage };
     let where = {};
     if(filter?.searchString || filter?.ISBN){
-        const searchString = filter.searchString.toString().toLowerCase().split(" ").join(" | ");
+        const searchString = filter.searchString.toString().toLowerCase().split(" ").join(" & ");
         where = { 
             OR: [
                 {name: {search: searchString}}, 

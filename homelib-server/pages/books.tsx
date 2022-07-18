@@ -22,9 +22,9 @@ const Home: NextPage = () => {
 
   const formatMenuItems = Object.keys(Formats)
                         .map(formatKey => (<MenuItem icon={formats.indexOf(formatKey) !== -1 ? "tick" : "small-minus"}
-                                                     disabled={formats.indexOf(formatKey) !== -1}  
+                                                     disabled={formats.indexOf(formatKey) !== -1} key={formatKey} 
                                                      text={formatKey} onClick={() => setFormatFilter([...formats, formatKey])} />));
-  formatMenuItems.push(<MenuItem text={t("Clear all")} disabled={formats.length === 0} icon="cross" onClick={() => setFormatFilter([])} />);
+  formatMenuItems.push(<MenuItem text={t("Clear all")} disabled={formats.length === 0} key={0} icon="cross" onClick={() => setFormatFilter([])} />);
 
   const getBooks = (page?: number, perPage?: number) => {
     const filter = { searchString, format: formats, ISBN };

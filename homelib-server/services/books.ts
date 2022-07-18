@@ -76,11 +76,12 @@ export const getBooks = async(page = 1, perPage = 20, filter?: BooksFilter): Pro
     const selectOptions: any = { select: { id: true, name: true, format: true, summary: true }, skip: page * perPage, take: perPage };
     let where = {};
     if(filter?.searchString || filter?.ISBN){
+        const searchString = filter.searchString.toString().toLowerCase().split(" ").join(" | ");
         where = { 
             OR: [
-                {name: {search: filter.searchString.toString().toLowerCase()}}, 
-                {summary: {search: filter.searchString.toString().toLowerCase()}}, 
-                {isbn: { equals: filter.ISBN } }
+                {name: {search: searchString}}, 
+                {summary: {search: searchString}}, 
+                {isbn: { equals: filter.ISBN.toString().trim() } }
             ] };
     }
     if(typeof filter?.format === "string" && filter.format !== ""){

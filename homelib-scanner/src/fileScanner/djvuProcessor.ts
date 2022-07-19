@@ -19,7 +19,7 @@ const djvuExtractPreview = async(fileName: string): Promise<Buffer> => {
         dumpProcess.stderr.on('error', reject);
         dumpProcess.stdout.on('error', reject);
         dumpProcess.on('close', async () => {
-            const buffer = await extractPreview(previewPdfImageFileName);
+            const buffer = await extractPreview(previewPdfImageFileName, 25);
             await rm(previewPdfImageFileName);
             resolve(buffer)
         });

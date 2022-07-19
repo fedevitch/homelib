@@ -40,7 +40,7 @@ export const start = async () => {
                 data.isbn13 = isbnData.isbn13;
             }
             if(scannedObject.preview){
-                data.previewImage = {
+                data.coverImage = {
                     create: {
                         data: scannedObject.preview
                     }

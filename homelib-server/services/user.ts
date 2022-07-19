@@ -2,6 +2,8 @@ import db from './database';
 import crypto from 'crypto';
 import { User } from '@prisma/client';
 import jwt from 'jsonwebtoken';
+import httpStatus from 'http-status-codes';
+import { NextApiRequest, NextApiResponse } from 'next';
 const jwtSecret = process.env.JWT_SECRET || 'chairs55';
 
 type SignupData = {
@@ -54,7 +56,7 @@ export type AuthData = {
     Token: string
 }
 
-export const checkAuth = async (authData: AuthData) => {
+export const checkUser = async (authData: AuthData) => {
     if(!authData.Token){
         throw 'Unauthorized'
     } else {
@@ -70,4 +72,13 @@ export const checkAuth = async (authData: AuthData) => {
 
     }
 
+}
+
+export const checkAuth = async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+        await checkUser(req.cookies as AuthData);        
+    } catch(e) {
+        console.log(e);
+        res.status(httpStatus.UNAUTHORIZED).json({ message: 'Unauthorized' })
+    }
 }

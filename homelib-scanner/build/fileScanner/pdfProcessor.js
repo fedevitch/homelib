@@ -10,10 +10,10 @@ const crypto_1 = require("crypto");
 const promises_1 = require("fs/promises");
 const logger_1 = __importDefault(require("../logger"));
 const scanConfig_1 = __importDefault(require("../scanConfig"));
-const extractPreview = async (fileName) => {
+const extractPreview = async (fileName, ratio = 50) => {
     return new Promise((resolve, reject) => {
         let previewFileName = `/tmp/${(0, crypto_1.randomUUID)().replaceAll('-', '')}`;
-        const convertProcess = (0, child_process_1.spawn)('pdftopng', ['-f', '1', '-l', '1', '-r', '5', fileName, previewFileName]);
+        const convertProcess = (0, child_process_1.spawn)('pdftopng', ['-f', '1', '-l', '1', '-r', ratio.toString(), fileName, previewFileName]);
         convertProcess.on('error', reject);
         convertProcess.stderr.on('data', reject);
         convertProcess.stderr.on('error', reject);

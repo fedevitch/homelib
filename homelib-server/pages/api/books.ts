@@ -1,18 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import httpStatus from 'http-status-codes'
-import { checkAuth, AuthData } from '../../services/user';
+import { checkAuth } from '../../services/user';
 import { getBooks } from '../../services/books';
 
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
   ) {
-      try {
-        await checkAuth(req.cookies as AuthData);        
-      } catch(e) {
-        console.log(e);
-        res.status(httpStatus.UNAUTHORIZED).json({ message: 'Unauthorized' })
-      }
+      await checkAuth(req, res); 
       try {
         const page = parseInt(req.query.page.toString()) - 1;
         const perPage = parseInt(req.query.perPage.toString());

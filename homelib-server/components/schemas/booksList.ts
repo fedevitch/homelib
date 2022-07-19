@@ -21,7 +21,7 @@ export default interface BookListItem {
 const icons = { fb2, djv, djvu, doc, docx, pdf, rtf, cbr, epub, chm };
 
 export const getFormatIcon = (format: string): StaticImageData => {
-    const validFormat = Formats[format] !== undefined;
+    const validFormat = icons[format] !== undefined;
     if(!validFormat) {
         return homelib;
     }

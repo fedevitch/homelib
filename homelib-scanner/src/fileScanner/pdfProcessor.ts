@@ -6,10 +6,10 @@ import logger from "../logger";
 import { ProcessResult } from './processor';
 import config from '../scanConfig';
 
-export const extractPreview = async(fileName: string): Promise<Buffer> => {
+export const extractPreview = async(fileName: string, ratio = 50): Promise<Buffer> => {
     return new Promise((resolve, reject) => {
         let previewFileName = `/tmp/${randomUUID().replaceAll('-', '')}`;
-        const convertProcess = spawn('pdftopng', ['-f', '1', '-l', '1', '-r', '5', fileName, previewFileName]);
+        const convertProcess = spawn('pdftopng', ['-f', '1', '-l', '1', '-r', ratio.toString(), fileName, previewFileName]);
         convertProcess.on('error', reject);
         convertProcess.stderr.on('data', reject);
         convertProcess.stderr.on('error', reject);

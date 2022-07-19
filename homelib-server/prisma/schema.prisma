@@ -31,14 +31,14 @@ model Book {
   isbn          String?
   isbn10        String?
   isbn13        String?
-  previewImage  PreviewImage?
+  coverImage    CoverImage?
   volumeInfo    VolumeInfo?
   @@index([name(ops: TextOps)], type: SpGist)
   @@index([summary(ops: TextOps)], type: SpGist)
   @@index([isbn(ops: TextOps)], type: SpGist)
 }
 
-model PreviewImage {
+model CoverImage {
   id     Int   @id @default(autoincrement())
   bookId Int   @unique
   data   Bytes

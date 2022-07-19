@@ -2,7 +2,6 @@ import db from './database';
 import { PaginatedApiResponse } from '../components/schemas/apiResponses'
 import { BookStats } from '../components/schemas/bookStats';
 import { BooksFilter } from '../components/schemas/apiRequests';
-import { format } from 'path';
 
 const _1Mb = 1e6;
 const _20Mb = 20 * _1Mb;
@@ -93,5 +92,12 @@ export const getBooks = async(page = 1, perPage = 20, filter?: BooksFilter): Pro
     const count = await db.book.count({where});
 
     return { data, count, page };
+}
 
+export const getBook = async(id) => {
+    return await db.book.findFirst({ where: {id}, include: { volumeInfo: true } });
+}
+
+export const getBookCover = async(bookId: number) => {
+    return await db.coverImage.findFirst({ where: { bookId }, select: { data: true } });
 }

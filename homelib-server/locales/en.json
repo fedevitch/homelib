@@ -73,6 +73,12 @@
         "bytes": "bytes",
         "Kb": "Kb",
         "Mb": "Mb",
-        "Gb": "Gb"
+        "Gb": "Gb",
+        "Summary": "Summary",
+        "Metadata": "Metadata",
+        "VolumeInfo": "Volume Info by Google",
+        "Created": "Creation date in library",
+        "Key": "Key",
+        "Value": "Value"
     }
 }

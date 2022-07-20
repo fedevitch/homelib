@@ -2,7 +2,7 @@
     padding: 2rem;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: flex-start;
     flex-wrap: wrap;
     align-items: flex-start;
 }
@@ -20,16 +20,15 @@
 
 .details {
     min-width: 400px;
+    margin-left: 1rem;
 }
 
 .name {
-    padding: .5rem;
-    margin: .5rem;
-    max-width: 35rem;
+    padding: .1rem;
+    margin: .1rem;
 }
 
 .summary {
-    padding: .4rem;
     max-width: 50rem;
     text-align: left;
     overflow-wrap: break-word;    

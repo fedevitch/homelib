@@ -16,6 +16,20 @@ a {
   text-decoration: none;
 }
 
+table {
+  border: .1rem solid black;
+  background-color: lightgray;
+}
+
+td {
+  min-height: 1rem;
+  overflow-wrap: break-word;
+  text-overflow: ellipsis;
+  max-width: 30rem;
+  border: .1rem solid black;
+  background-color: beige;
+}
+
 * {
   box-sizing: border-box;
 }

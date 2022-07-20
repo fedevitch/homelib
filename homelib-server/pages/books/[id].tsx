@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Fragment, useEffect, useState } from 'react'
+import _ from "lodash"
 import AppLayout from '../../components/layout/appLayout'
 import { useTranslations } from 'next-intl'
 import { fetchBook } from '../../components/services/api'
@@ -10,7 +11,7 @@ import { BookData } from '../../components/schemas/booksList'
 import styles from '../../styles/Book.module.css'
 import { sanitize, fileSize } from '../../components/services/text'
 import { getFormatIcon } from '../../components/services/format'
-import { Button, ButtonGroup, Card, Divider, Elevation, Spinner, SpinnerSize, Tag } from '@blueprintjs/core'
+import { Button, ButtonGroup, Card, Divider, Elevation, Spinner, SpinnerSize, Tab, Tabs, Tag } from '@blueprintjs/core'
 
 const Book: NextPage = () => {
     const t = useTranslations('Books')
@@ -34,6 +35,7 @@ const Book: NextPage = () => {
     const IsbnBlock = () => <Fragment>
         <Card elevation={Elevation.TWO}>
             <p>{`${t("Pages")}: ${book.pages}`}</p>
+            <p>{`${t("Created")}: ${new Date(book.createdOnDisk).toLocaleString()}`}</p>
             <p>{`${t("ISBN")}: ${book.isbn ? book.isbn : t("Unknown")}`}</p>
             <p>{`${t("ISBN")}-10: ${book.isbn10 ? book.isbn10 : t("Unknown")}`}</p>
             <p>{`${t("ISBN")}-13: ${book.isbn13 ? book.isbn13 : t("Unknown")}`}</p>
@@ -44,7 +46,7 @@ const Book: NextPage = () => {
     const FileBlock = () => <Fragment>
         <Card elevation={Elevation.TWO}>
             <ButtonGroup vertical={false}>
-                <Link href={`/api/books/${book.id}/file`} target="_blank">
+                <Link href={`/api/books/${book.id}/file`} target="_blank" prefetch={false}>
                     <Button text={t("Download")} icon="download" />
                 </Link>
                 <Divider />
@@ -54,6 +56,16 @@ const Book: NextPage = () => {
             </ButtonGroup>
         </Card>
     </Fragment>
+
+    const renderMeta = () => {
+        const header = <thead><tr><td><b>{t("Key")}</b></td><td><b>{t("Value")}</b></td></tr></thead>
+        const body = _.map(book.meta, (value, key) => <tr key={key}><td>{key}</td><td>{value}</td></tr>)
+        return <table>{header}<tbody>{body}</tbody></table>
+    }
+
+    const Summary = () => <div className={styles.summary}>{sanitize(book.summary)}</div>
+    const MetaData = () => <div>{renderMeta()}</div>
+    const VolumeInfo = () => <div>&right volumeinfo</div>
 
     return(
         <AppLayout>
@@ -70,7 +82,11 @@ const Book: NextPage = () => {
                 </div>
                 <div className={styles.details}>
                     <h2 className={styles.name}>{book.name}</h2>
-                    <div className={styles.summary}>{sanitize(book.summary)}</div>
+                    <Tabs animate renderActiveTabPanelOnly>
+                        <Tab id="summary" title={t("Summary")} panel={<Summary />} />
+                        <Tab id="meta" title={t("Metadata")} panel={<MetaData />} />
+                        <Tab id="volumeinfo" title={t("VolumeInfo")} panel={<VolumeInfo />} />
+                    </Tabs>
                 </div>
             </div>
         </AppLayout>

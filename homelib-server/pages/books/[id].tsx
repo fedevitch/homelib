@@ -33,6 +33,7 @@ const Book: NextPage = () => {
 
     const IsbnBlock = () => <Fragment>
         <Card elevation={Elevation.TWO}>
+            <p>{`${t("Pages")}: ${book.pages}`}</p>
             <p>{`${t("ISBN")}: ${book.isbn ? book.isbn : t("Unknown")}`}</p>
             <p>{`${t("ISBN")}-10: ${book.isbn10 ? book.isbn10 : t("Unknown")}`}</p>
             <p>{`${t("ISBN")}-13: ${book.isbn13 ? book.isbn13 : t("Unknown")}`}</p>

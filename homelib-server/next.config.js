@@ -8,7 +8,10 @@ const nextConfig = {
     locales: ['ua', 'en'],
     defaultLocale: 'ua',
     localeDetection: false
-  }
+  },
+  api: {
+    responseLimit: false,
+  },
 }
 
 module.exports = nextConfig

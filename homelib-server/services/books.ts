@@ -1,7 +1,9 @@
+import { createReadStream, ReadStream } from 'fs';
 import db from './database';
 import { PaginatedApiResponse } from '../components/schemas/apiResponses'
 import { BookStats } from '../components/schemas/bookStats';
 import { BooksFilter } from '../components/schemas/apiRequests';
+import BookListItem from '../components/schemas/booksList';
 
 const _1Mb = 1e6;
 const _20Mb = 20 * _1Mb;
@@ -71,8 +73,11 @@ export const getStats = async() : Promise<BookStats> => {
 
 }
 
-export const getBooks = async(page = 1, perPage = 20, filter?: BooksFilter): Promise<PaginatedApiResponse> => {
-    const selectOptions: any = { select: { id: true, name: true, format: true, summary: true }, skip: page * perPage, take: perPage };
+export const getBooks = async(page = 1, perPage = 20, filter?: BooksFilter): Promise<PaginatedApiResponse<BookListItem>> => {
+    const selectOptions: any = { select: { id: true, name: true, format: true, 
+        /*summary: true*/ 
+        pages: true, isbn: true }, 
+        skip: page * perPage, take: perPage };
     let where = {};
     if(filter?.searchString || filter?.ISBN){
         const searchString = filter.searchString.toString().toLowerCase().split(" ").join(" & ");
@@ -88,7 +93,7 @@ export const getBooks = async(page = 1, perPage = 20, filter?: BooksFilter): Pro
         where['format'] = formatFilter;
     }
     selectOptions.where = where;
-    const data = await db.book.findMany(selectOptions);
+    const data = (await db.book.findMany(selectOptions)) as BookListItem[];
     const count = await db.book.count({where});
 
     return { data, count, page };
@@ -100,4 +105,21 @@ export const getBook = async(id) => {
 
 export const getBookCover = async(bookId: number) => {
     return await db.coverImage.findFirst({ where: { bookId }, select: { data: true } });
+}
+
+interface BookFile {
+    stream: ReadStream;
+    name: string;
+    format: string;
+    size: number;
+}
+
+export const getFileData = async (id: number): Promise<BookFile | null> => {
+    const book = await db.book.findFirst({ where: {id}, 
+        select: { fullName: true, format: true, name: true, size: true } });
+    if(!book) return null;
+
+    const { name, format, size, fullName } = book;
+    const stream = createReadStream(fullName);
+    return { stream, name, format, size };
 }

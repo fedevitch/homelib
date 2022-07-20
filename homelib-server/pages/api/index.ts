@@ -8,7 +8,7 @@ export default async function handler(
     res: NextApiResponse
   ) {
       try {
-        await checkAuth(req.cookies as AuthData);
+        await checkAuth(req, res);
         const stats = await getStats();
         res.status(httpStatus.OK).json(stats);
       } catch(e) {

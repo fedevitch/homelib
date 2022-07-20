@@ -61,10 +61,18 @@
         "Previous": "Назад",
         "Title": "Назва",
         "Description": "Опис",
+        "ISBN": "ISBN",
+        "Pages": "Сторінок",
+        "Unknown": "Невідомо",
         "Search by Name or Description": "Пошук по назві або опису",
         "Search by ISBN": "Пошук по ISBN",
         "Filter by format": "Формат",
         "Clear all": "Очистити все",
-        "Find": "Знайти"
+        "Find": "Знайти",
+        "Download": "Завантажити",
+        "bytes": "байтів",
+        "Kb": "Кілобайт",
+        "Mb": "Мб",
+        "Gb": "Гб"
     }
 }

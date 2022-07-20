@@ -1,7 +1,7 @@
 import type { GetStaticPropsContext, NextPage } from 'next'
 import { useEffect, useState } from 'react'
 import AppLayout from '../components/layout/appLayout'
-import styles from '../styles/Book.module.css'
+import styles from '../styles/Books.module.css'
 import { fetchBooks } from '../components/services/api'
 import { useTranslations } from 'next-intl'
 import { Button, InputGroup, Menu, MenuItem } from '@blueprintjs/core'

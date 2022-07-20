@@ -61,10 +61,18 @@
         "Previous": "Previous",
         "Title": "Title",
         "Description": "Description",
+        "ISBN": "ISBN",
+        "Pages": "Pages",
+        "Unknown": "Unknown",
         "Search by Name or Description": "Search by Name or Description",
         "Search by ISBN": "Search by ISBN",
         "Filter by format": "Filter by format",
         "Clear all": "Clear all",
-        "Find": "Find"
+        "Find": "Find",
+        "Download": "Download",
+        "bytes": "bytes",
+        "Kb": "Kb",
+        "Mb": "Mb",
+        "Gb": "Gb"
     }
 }

@@ -1,10 +1,13 @@
-import styles from '../../styles/Book.module.css' 
-import BookListItem, { getFormatIcon } from "../schemas/booksList";
+import styles from '../../styles/Books.module.css' 
+import BookListItem from "../schemas/booksList";
 import _ from "lodash";
 import { Button } from "@blueprintjs/core";
 import { Fragment, useState } from 'react';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl'
+// import { sanitize } from '../services/text';
+import { getFormatIcon } from '../services/format'
 
 interface PaginatedBooksListProps {
     data: Array<BookListItem>;
@@ -15,20 +18,27 @@ interface PaginatedBooksListProps {
 }
 
 const PaginatedList = (props: PaginatedBooksListProps) => {
-    const t = useTranslations('Books') ;
+    const t = useTranslations('Books');
+    const router = useRouter();
     const [currentPage, setCurrentPage] = useState(1);
 
     const ListItem = (itemData: BookListItem) => {
-        const title = `${t("Title")}: ${itemData.name}`;
-        const description = `${t("Description")}: ${itemData.summary}`;
+        const { id, name, isbn, pages } = itemData;
+        const title = `${t("Title")}: ${name}`;
+        // const description = `${t("Description")}: ${sanitize(itemData.summary)}`;
+        const details1 = `${t("Pages")}: ${pages !== 0 ? pages : t("Unknown")}`;
+        const details2 = `${t("ISBN")}: ${isbn ? isbn : t("Unknown")}`;
+        const onClick = () => router.push(`/books/${id.toString()}`);
         return (
-            <div key={itemData.id} className={styles.booksListItem}>
+            <div key={itemData.id} className={styles.booksListItem} onClick={onClick}>
                 <Image src={getFormatIcon(itemData.format)} 
                        width={70} height={80} alt={itemData.format}
                        className={styles.booksListItemImage} />
                 <div className={styles.booksListItemText}>
                     <h3 className={styles.booksListItemTitle}>{title}</h3>
-                    <p className={styles.booksListItemSubtitle}>{description}</p>
+                    {/* <p className={styles.booksListItemSubtitle}>{description}</p> */}
+                    <p>{details1}</p>
+                    <p>{details2}</p>
                 </div>
             </div>
         )

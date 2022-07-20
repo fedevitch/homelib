@@ -30,7 +30,7 @@ export const getPagesOCR = async(fileName: string, firstPage: number, lastPage: 
             const fileName = `${prefix}-${_.padStart(i.toString(), 6, '0')}.png`;
             fileNames.push(fileName);
         }
-        const convertProcess = spawn('pdftopng', ['-f', firstPage.toString(), '-l', lastPage.toString(), '-r', '5', fileName, prefix]);
+        const convertProcess = spawn('pdftopng', ['-f', firstPage.toString(), '-l', lastPage.toString(), fileName, prefix]);
         convertProcess.on('error', reject);
         convertProcess.stderr.on('data', reject);
         convertProcess.stderr.on('error', reject);

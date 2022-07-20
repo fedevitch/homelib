@@ -9,7 +9,7 @@ import { BookStats } from '../components/schemas/bookStats'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, Title,
          CategoryScale, LinearScale, BarElement  } from 'chart.js';
 import { Bar, Pie } from 'react-chartjs-2';
-import { stat } from 'fs'
+
 ChartJS.register(CategoryScale,
   LinearScale,
   BarElement, ArcElement, Tooltip, Legend, Title);

@@ -171,8 +171,12 @@
 
 .booksListPagination > button,
 .booksListSearch > button, 
-.booksListFormatFilter {
+.booksListFormatFilter > div {
   background-color: beige !important;
+}
+
+.booksListFormatFilter {
+  min-width: 10rem;
 }
 
 .booksListSearch {

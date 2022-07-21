@@ -4,8 +4,8 @@ import AppLayout from '../components/layout/appLayout'
 import styles from '../styles/Books.module.css'
 import { fetchBooks } from '../components/services/api'
 import { useTranslations } from 'next-intl'
-import { Button, InputGroup, Menu, MenuItem } from '@blueprintjs/core'
-import { Popover2 } from '@blueprintjs/popover2'
+import { Button, InputGroup, MenuItem } from '@blueprintjs/core'
+import { MultiSelect2 } from "@blueprintjs/select";
 import PaginatedList from '../components/layout/paginatedBooksList'
 import { Formats } from '../components/schemas/formats'
 
@@ -20,11 +20,22 @@ const Home: NextPage = () => {
   const [formats, setFormatFilter] = useState(Array<string>);
   const [ISBN, setISBN] = useState("");
 
-  const formatMenuItems = Object.keys(Formats)
-                        .map(formatKey => (<MenuItem icon={formats.indexOf(formatKey) !== -1 ? "tick" : "small-minus"}
-                                                     disabled={formats.indexOf(formatKey) !== -1} key={formatKey} 
-                                                     text={formatKey} onClick={() => setFormatFilter([...formats, formatKey])} />));
-  formatMenuItems.push(<MenuItem text={t("Clear all")} disabled={formats.length === 0} key={0} icon="cross" onClick={() => setFormatFilter([])} />);
+  const FormatFilterMultiSelect = MultiSelect2.ofType<string>();
+  const renderFormatItem = (format, { modifiers, handleClick }) => {
+    return <MenuItem icon={isFormatSelected(format) ? "tick" : "blank"} 
+                     selected={isFormatSelected(format)} key={format} text={format} 
+                     onClick={handleClick} />
+  }
+  const renderTag = (format) => format;
+  const isFormatSelected = (format): boolean => formats.indexOf(format) !== -1;
+  const onFormatSelect = (format) => {    
+    if(isFormatSelected(format)){
+      setFormatFilter(formats.filter(f => f !== format));
+    }
+    setFormatFilter([...formats, format]);
+  }
+  const onFormatDeselect = (_tag: React.ReactNode, index: number) => setFormatFilter(formats.splice(index, 1));
+  const clearFormatFilter = () => setFormatFilter([]);
 
   const getBooks = (page?: number, perPage?: number) => {
     const filter = { searchString, format: formats, ISBN };
@@ -59,10 +70,11 @@ const Home: NextPage = () => {
                     disabled={loading}
                     value={ISBN}
                     onKeyDown={e => e.key === 'Enter' && getBooks()}
-                    onChange={(event) => setISBN(event.target.value)} />
-        <Popover2 content={<Menu>{formatMenuItems}</Menu>}>
-          <Button className={styles.booksListFormatFilter} disabled={loading} icon="filter" text={t("Filter by format")} />
-        </Popover2>            
+                    onChange={(event) => setISBN(event.target.value)} />        
+        <FormatFilterMultiSelect items={Object.keys(Formats)} itemRenderer={renderFormatItem} onClear={clearFormatFilter}
+                                 onItemSelect={onFormatSelect} selectedItems={formats} placeholder={t("Filter by format")}
+                                 tagRenderer={renderTag} tagInputProps={{ onRemove: onFormatDeselect }}
+                                 className={styles.booksListFormatFilter} />
         <Button icon="search" loading={loading} text={t("Find")} disabled={loading} onClick={() => getBooks()} />     
 
       </div>

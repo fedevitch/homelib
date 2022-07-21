@@ -69,5 +69,6 @@ footer {
 }
 
 .bp4-menu {
-  background-color: rgb(253, 235, 213);
+  /* background-color: rgb(253, 235, 213); */
+  opacity: .8;
 }

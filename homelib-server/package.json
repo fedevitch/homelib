@@ -11,6 +11,7 @@
   "dependencies": {
     "@blueprintjs/core": "^4.5.0",
     "@blueprintjs/popover2": "^1.4.0",
+    "@blueprintjs/select": "^4.5.0",
     "@prisma/client": "^4.0.0",
     "@types/jsonwebtoken": "^8.5.8",
     "chart.js": "^3.8.0",

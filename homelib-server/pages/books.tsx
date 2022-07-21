@@ -54,8 +54,7 @@ const Home: NextPage = () => {
   }, [])
 
   return (
-    <AppLayout>
-      <title>{t('Books')}</title>
+    <AppLayout title={t('Books')}>
       <div className={styles.booksListSearch}>
         <InputGroup leftIcon="search-text" className={styles.booksListSearchInput}
                     placeholder={t("Search by Name or Description")}                  
@@ -72,9 +71,9 @@ const Home: NextPage = () => {
                     onKeyDown={e => e.key === 'Enter' && getBooks()}
                     onChange={(event) => setISBN(event.target.value)} />        
         <FormatFilterMultiSelect items={Object.keys(Formats)} itemRenderer={renderFormatItem} onClear={clearFormatFilter}
-                                 onItemSelect={onFormatSelect} selectedItems={formats} placeholder={t("Filter by format")}
-                                 tagRenderer={renderTag} tagInputProps={{ onRemove: onFormatDeselect }}
-                                 className={styles.booksListFormatFilter} />
+                                onItemSelect={onFormatSelect} selectedItems={formats} placeholder={t("Filter by format")}
+                                tagRenderer={renderTag} tagInputProps={{ onRemove: onFormatDeselect }}
+                                className={styles.booksListFormatFilter} />
         <Button icon="search" loading={loading} text={t("Find")} disabled={loading} onClick={() => getBooks()} />     
 
       </div>

@@ -7,7 +7,8 @@
         "English": "English",
         "Ukrainian": "Ukrainian",
         "Home": "Home",
-        "Books": "Books"
+        "Books": "Books",
+        "Scanner": "Scanner"
     },
     "Home": {
         "Welcome To homelib": "Welcome To homelib",

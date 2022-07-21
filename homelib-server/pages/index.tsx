@@ -171,8 +171,7 @@ const Home: NextPage = () => {
   }
 
   return (
-    <AppLayout>
-      <title>{t('Welcome To homelib')}</title>
+    <AppLayout title={t('Welcome To homelib')}>
       <h2 className={styles.title}>{t('Welcome To homelib')}</h2>
       <h3 className={styles.title}>{t('Statistics')}</h3>
       <div className={styles.chartContainer}>        

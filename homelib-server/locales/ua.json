@@ -7,7 +7,8 @@
         "English": "Англійська",
         "Ukrainian": "Українська",
         "Home": "Головна",
-        "Books": "Книги"
+        "Books": "Книги",
+        "Scanner": "Сканувати диск"
     },
     "Home": {
         "Welcome To homelib": "Вітаємо у homelib",

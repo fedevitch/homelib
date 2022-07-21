@@ -40,8 +40,7 @@ const Signup: NextPage = () => {
     }
 
     return (
-        <AppLayout>
-            <title>{t('Signup on homelib')}</title>
+        <AppLayout title={t('Signup on homelib')}>            
             <Card className={styles.modal} interactive={true} elevation={Elevation.THREE}>
                 <h3>{t('Signup on homelib')}</h3>
                 <form onSubmit={onSubmit}>

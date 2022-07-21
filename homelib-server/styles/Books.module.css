@@ -115,18 +115,18 @@
   }
 }
 
+.booksList {
+  margin-top: 130px;
+}
+
 .booksListItem {
   border: 1px solid #eaeaea;
   padding: 1rem;
-  margin: 1rem;
-  
+  margin: 1rem;  
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
   display: flex;
   align-items: center;
-
   cursor: pointer;
-
 }
 
 .booksListItemImage {
@@ -155,24 +155,28 @@
   -webkit-line-clamp: 3; /* number of lines to show */
           line-clamp: 3; 
   -webkit-box-orient: vertical;
-
   max-height: 3.6em;
   line-height: 1.8em;
   word-wrap: break-word;
 }
 
 .booksListPagination {
+  position: fixed;
+  width: 100%;
+  margin-top: 60px;
+  z-index: 100;
+  backdrop-filter: blur(5px);
   display: flex;
   justify-content: center;
-  border: 1px solid #eaeaea;
-  padding: 1rem;  
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 1rem;    
 }
 
 .booksListPagination > button,
 .booksListSearch > button, 
 .booksListFormatFilter > div {
-  background-color: beige !important;
+  /* background-color: beige !important; */
+  background: none !important;
+  backdrop-filter: blur(15px);
 }
 
 .booksListFormatFilter {
@@ -180,11 +184,13 @@
 }
 
 .booksListSearch {
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  backdrop-filter: blur(5px);  
   display: flex;
   justify-content: space-between;
-  border: 1px solid #eaeaea;
-  padding: 1rem;  
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 1rem;
 }
 
 .booksListSearch > div > input {

@@ -36,8 +36,7 @@ const Login: NextPage = () => {
     }
 
     return (
-        <AppLayout>
-            <title>{t('Login on homelib')}</title>
+        <AppLayout title={t('Login on homelib')}>            
             <Card className={styles.modal} interactive={true} elevation={Elevation.THREE}>
                 <h3>{t('Login on homelib')}</h3>
                 <form onSubmit={onSubmit}>

@@ -26,6 +26,7 @@ export default function Header() {
 
     const homeClick = () => router.push('/')
     const booksClick = () => router.push('/books')
+    const scannerClick = () => router.push('/scanner')
 
     const logoutClick = () => logout()
     const loginClick = () => router.push('/login')
@@ -53,7 +54,7 @@ export default function Header() {
                 <MenuItem icon="flag" text={t('English')} onClick={switchLocale('en')} />
                 <MenuItem icon="flag" text={t('Ukrainian')} onClick={switchLocale('ua')} />
             </MenuItem>
-            <MenuItem icon="map" text={'Change Something'} />                
+            <MenuItem icon="inbox-search" text={t('Scanner')} onClick={scannerClick} />                
         </Menu>
     )
 

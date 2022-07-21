@@ -84,11 +84,11 @@ const PaginatedList = (props: PaginatedBooksListProps) => {
         );
     }
 
-    return <div>
+    return <Fragment>
             <Pagination {...props} />
-            {props.data.map(item => ListItem(item))}
-            <Pagination {...props} />
-        </div>
+            <div className={styles.booksList}>{props.data.map(item => ListItem(item))}</div>
+            {/* <Pagination {...props} /> */}
+           </Fragment>
 }
 
 export default PaginatedList

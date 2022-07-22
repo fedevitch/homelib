@@ -5,7 +5,7 @@ export const AppToaster = (): IToaster => {
     if(typeof document !== undefined) {
         return Toaster.create({
             className: "toaster",
-            position: Position.TOP,
+            position: Position.BOTTOM_RIGHT,
         });
     } else return {} as IToaster
 }

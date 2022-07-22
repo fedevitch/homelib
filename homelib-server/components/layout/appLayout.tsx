@@ -14,7 +14,7 @@ export default function AppLayout(props: AppLayoutProps) {
             <Header />
             {title && <title>{title}</title>}
             <main>{children}</main>
-            <Footer />
+            {/* <Footer /> */}
         </React.Fragment>
     )
 }

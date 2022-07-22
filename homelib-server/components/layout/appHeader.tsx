@@ -68,12 +68,12 @@ export default function Header() {
                     <Button className={Classes.MINIMAL} icon="book" text={t('Books')} onClick={booksClick} />                        
                     <NavbarDivider />
                 </NavbarGroup>
-                <NavbarGroup align={Alignment.RIGHT}>    
-                    <Popover2 content={<ProfileMenu />} position={Position.BOTTOM}>
-                        <Button className={Classes.MINIMAL} icon="user" />
-                    </Popover2>
+                <NavbarGroup align={Alignment.RIGHT}>                    
                     <Popover2 content={<SettingsMenu />} position={Position.BOTTOM}>
                         <Button className={Classes.MINIMAL} icon="cog" />
+                    </Popover2>
+                    <Popover2 content={<ProfileMenu />} position={Position.BOTTOM}>
+                        <Button className={Classes.MINIMAL} icon="user" />
                     </Popover2>
                 </NavbarGroup>                 
                 

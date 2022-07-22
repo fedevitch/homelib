@@ -174,6 +174,9 @@ const Home: NextPage = () => {
     <AppLayout title={t('Welcome To homelib')}>
       <h2 className={styles.title}>{t('Welcome To homelib')}</h2>
       <h3 className={styles.title}>{t('Statistics')}</h3>
+      <div className={styles.textContainer}>
+        <h3>{`${t('Books in library')}: ${stats.all}`}</h3>
+      </div>
       <div className={styles.chartContainer}>        
         <div className={styles.chart}>
           <Pie data={booksByFormatChart} options={booksByFormatChartOpts} width={_chartSize} height={_chartSize} />
@@ -187,10 +190,7 @@ const Home: NextPage = () => {
         <div className={styles.chart}>
           <Bar data={booksByDataChart} options={booksByDataChartOpts} width={_chartSize} height={_chartSize} />
         </div>
-      </div>
-      <div className={styles.textContainer}>
-        <h3>{`${t('Books in library')}: ${stats.all}`}</h3>
-      </div>
+      </div>      
     </AppLayout>    
   )
 }

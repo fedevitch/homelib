@@ -8,7 +8,7 @@ export default async function handler(
     res: NextApiResponse
   ) {
     if(req.method === 'GET'){
-      checkAuth(req, res);
+      await checkAuth(req, res);
 
       const {id} = req.query;
       if(!id) return res.status(httpStatus.BAD_REQUEST).send(null);

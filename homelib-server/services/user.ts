@@ -76,7 +76,7 @@ export const checkUser = async (authData: AuthData) => {
 
 export const checkAuth = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-        await checkUser(req.cookies as AuthData);        
+        return await checkUser(req.cookies as AuthData);        
     } catch(e) {
         console.log(e);
         res.status(httpStatus.UNAUTHORIZED).json({ message: 'Unauthorized' })

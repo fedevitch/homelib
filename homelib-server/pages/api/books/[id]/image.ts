@@ -8,25 +8,31 @@ export default async function handler(
     res: NextApiResponse
   ) {
     if(req.method === 'GET'){
-      checkAuth(req, res);
+      await checkAuth(req, res);
 
       try {
         const {id} = req.query;
-        if(!id) return res.status(httpStatus.BAD_REQUEST).end();
+        if(!id) {
+          res.status(httpStatus.BAD_REQUEST).end();
+          return;
+        }
 
         const image = await getBookCover(Number.parseInt(id.toString())); 
-        if(!image) return res.status(httpStatus.NOT_FOUND).end();      
+        if(!image) {
+          res.status(httpStatus.NOT_FOUND).end();      
+          return;
+        }
       
         const imageFile = Buffer.from(image.data);
         res.status(httpStatus.OK);
         res.setHeader('Content-Type', 'image/png');
         res.setHeader('Content-Length', imageFile.length);    
-        return res.end(imageFile);
+        res.end(imageFile);
       } catch (e) {
         console.error(e);
-        return res.status(httpStatus.INTERNAL_SERVER_ERROR).end();
+        res.status(httpStatus.INTERNAL_SERVER_ERROR).end();
       }
     } else {
-      return res.status(httpStatus.METHOD_NOT_ALLOWED).end();
+      res.status(httpStatus.METHOD_NOT_ALLOWED).end();
     }
   }

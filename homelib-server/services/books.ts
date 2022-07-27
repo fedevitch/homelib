@@ -73,10 +73,31 @@ export const getStats = async() : Promise<BookStats> => {
 
 }
 
+type Path = {
+    fullName: string
+}
+
+type WithCatalogs<T> = T & {
+    catalogs: Array<String>
+}
+
+function includeCatalogs<Book extends Path>(
+    book: Book
+): WithCatalogs<Book> {
+    const allCatalogs = book.fullName.split('/');
+    allCatalogs.pop(); // skipping file name here
+    const catalogs = [allCatalogs.pop() || '', allCatalogs.pop() || ''].reverse();
+    book.fullName = '';
+    return {
+        ...book,
+        catalogs
+    }
+}
+
 export const getBooks = async(page = 1, perPage = 20, filter?: BooksFilter): Promise<PaginatedApiResponse<BookListItem>> => {
     const selectOptions: any = { select: { id: true, name: true, format: true, 
         /*summary: true*/ 
-        pages: true, isbn: true }, 
+        pages: true, isbn: true, fullName: true }, 
         skip: page * perPage, take: perPage };
     let where = {};
     if(filter?.searchString || filter?.ISBN){
@@ -93,14 +114,17 @@ export const getBooks = async(page = 1, perPage = 20, filter?: BooksFilter): Pro
         where['format'] = formatFilter;
     }
     selectOptions.where = where;
-    const data = (await db.book.findMany(selectOptions)) as BookListItem[];
+    const books = await db.book.findMany(selectOptions);
+    const data = books.map(includeCatalogs) as Array<BookListItem>;
     const count = await db.book.count({where});
 
     return { data, count, page };
 }
 
 export const getBook = async(id) => {
-    return await db.book.findFirst({ where: {id}, include: { volumeInfo: true } });
+    const book = await db.book.findFirst({ where: {id}, include: { volumeInfo: true } });
+    if(book)
+        return includeCatalogs(book);
 }
 
 export const getBookCover = async(bookId: number) => {

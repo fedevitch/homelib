@@ -11,13 +11,18 @@ import { BookData } from '../../components/schemas/booksList'
 import styles from '../../styles/Book.module.css'
 import { sanitize, fileSize } from '../../components/services/text'
 import { getFormatIcon } from '../../components/services/format'
-import { Button, ButtonGroup, Card, Divider, Elevation, Spinner, SpinnerSize, Tab, Tabs, Tag } from '@blueprintjs/core'
+import { 
+    Breadcrumbs, IBreadcrumbProps, Button, ButtonGroup, 
+    Card, Divider, Elevation, 
+    Spinner, SpinnerSize, 
+    Tab, Tabs, Tag 
+} from '@blueprintjs/core'
 
 const Book: NextPage = () => {
     const t = useTranslations('Books')
     const router = useRouter()
     const [loading, setLoading] = useState(false)
-    const [book, setBook] = useState({} as BookData)
+    const [book, setBook] = useState({ catalogs: Array<String>() } as BookData)
     const [cover, setCover] = useState(`/api/books/${router.query.id}/image`)
     const onCoverError = () => setCover(getFormatIcon(book.format?.toString()).src)
 
@@ -32,7 +37,7 @@ const Book: NextPage = () => {
         return <AppLayout><Spinner size={SpinnerSize.STANDARD}/></AppLayout>
     }
 
-    const IsbnBlock = () => <Fragment>
+    const InfoBlock = () => 
         <Card elevation={Elevation.TWO}>
             <p>{`${t("Pages")}: ${book.pages}`}</p>
             <p>{`${t("Created")}: ${new Date(book.createdOnDisk).toLocaleString()}`}</p>
@@ -40,10 +45,9 @@ const Book: NextPage = () => {
             <p>{`${t("ISBN")}-10: ${book.isbn10 ? book.isbn10 : t("Unknown")}`}</p>
             <p>{`${t("ISBN")}-13: ${book.isbn13 ? book.isbn13 : t("Unknown")}`}</p>
         </Card>
-    </Fragment>
 
     const size = fileSize(book.size);
-    const FileBlock = () => <Fragment>
+    const FileBlock = () => 
         <Card elevation={Elevation.TWO}>
             <ButtonGroup vertical={false}>
                 <Link href={`/api/books/${book.id}/file`} target="_blank" prefetch={false}>
@@ -55,7 +59,11 @@ const Book: NextPage = () => {
                 <Tag large>{`${size.value} ${t(size.measure)}`}</Tag>
             </ButtonGroup>
         </Card>
-    </Fragment>
+
+    const CatalogTagsBlock = () => {
+        const catalogTags: IBreadcrumbProps[] = book.catalogs.map(c =>  ({icon: "folder-close", text: c}) );
+        return <Breadcrumbs items={catalogTags} />            
+    }
 
     const renderMeta = () => {
         const header = <thead><tr><td><b>{t("Key")}</b></td><td><b>{t("Value")}</b></td></tr></thead>
@@ -77,11 +85,12 @@ const Book: NextPage = () => {
                            placeholder="blur" blurDataURL={cover} 
                            width={300} height={400} layout="fixed" />
                     </Card>
-                    <IsbnBlock />
+                    <InfoBlock />
                     <FileBlock />
                 </div>
                 <div className={styles.details}>
                     <h2 className={styles.name}>{book.name}</h2>
+                    <CatalogTagsBlock />
                     <Tabs animate renderActiveTabPanelOnly>
                         <Tab id="summary" title={t("Summary")} panel={<Summary />} />
                         <Tab id="meta" title={t("Metadata")} panel={<MetaData />} />

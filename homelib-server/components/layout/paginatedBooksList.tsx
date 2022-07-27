@@ -1,7 +1,7 @@
 import styles from '../../styles/Books.module.css' 
 import BookListItem from "../schemas/booksList";
 import _ from "lodash";
-import { Button } from "@blueprintjs/core";
+import { Button, Breadcrumbs, IBreadcrumbProps } from "@blueprintjs/core";
 import { Fragment, useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
@@ -11,7 +11,7 @@ import { getFormatIcon } from '../services/format'
 
 interface PaginatedBooksListProps {
     data: Array<BookListItem>;
-    getData: (page?: number, perPage?: number) => void;
+    getData: (page?: number, perPage?: number) => Promise<void>;
     count: number;
     page: number;
     perPage: number;
@@ -23,9 +23,10 @@ const PaginatedList = (props: PaginatedBooksListProps) => {
     const [currentPage, setCurrentPage] = useState(1);
 
     const ListItem = (itemData: BookListItem) => {
-        const { id, name, isbn, pages } = itemData;
+        const { id, name, isbn, pages, catalogs } = itemData;
         const title = `${t("Title")}: ${name}`;
         // const description = `${t("Description")}: ${sanitize(itemData.summary)}`;
+        const catalogTags: IBreadcrumbProps[] = catalogs.map(c =>  ({icon: "folder-close", text: c}) );
         const details1 = `${t("Pages")}: ${pages !== 0 ? pages : t("Unknown")}`;
         const details2 = `${t("ISBN")}: ${isbn ? isbn : t("Unknown")}`;
         const onClick = () => router.push(`/books/${id.toString()}`);
@@ -37,6 +38,7 @@ const PaginatedList = (props: PaginatedBooksListProps) => {
                 <div className={styles.booksListItemText}>
                     <h3 className={styles.booksListItemTitle}>{title}</h3>
                     {/* <p className={styles.booksListItemSubtitle}>{description}</p> */}
+                    <Breadcrumbs items={catalogTags} />
                     <p>{details1}</p>
                     <p>{details2}</p>
                 </div>
@@ -50,8 +52,7 @@ const PaginatedList = (props: PaginatedBooksListProps) => {
         const nextDisabled = (props.perPage > props.data.length) || (currentPage >= maxPage);    
     
         const onChangePage = (page: number) => {
-            setCurrentPage(page)
-            props.getData(page)
+            props.getData(page).then(() => setCurrentPage(page))
         }
     
         const Pages = () => {            

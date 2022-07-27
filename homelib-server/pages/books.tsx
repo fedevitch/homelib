@@ -41,7 +41,7 @@ const Home: NextPage = () => {
     const filter = { searchString, format: formats, ISBN };
     setLoading(true);
     if(!page) setPage(1);
-    fetchBooks(filter, page, perPage).then(response => {
+    return fetchBooks(filter, page, perPage).then(response => {
       setBooks(response.data)
       setCount(response.count)
       setPage(response.page)

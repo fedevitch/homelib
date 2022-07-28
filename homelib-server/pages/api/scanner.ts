@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { Server as ServerIO } from "socket.io";
 import { Server as NetServer } from "http";
 import { NextApiResponseServerIO } from "../../components/schemas/apiResponseIO";
-import { scannerLaunch } from "../../services/scanner";
+import { socketInit } from "../../services/scanner";
 import { env } from 'process';
 
 export default async function handler(
@@ -19,17 +19,7 @@ export default async function handler(
         });
         res.socket.server.io = io;
 
-        io.on('connection', socket => {
-            socket.on('scanner-launch', () => {
-                env.scannerLaunched = '1';
-                console.log(env.scannerLaunched)
-                scannerLaunch(io);
-            })
-            socket.on('scanner-stop', () => {
-                env.scannerLaunched = '0';
-            })
-        })
+        io.on('connection', socket => socketInit(socket, io))
     }
-    console.log(env.scannerLaunched)
     res.json({ scannerLaunched: env.scannerLaunched === '1' })    
 }

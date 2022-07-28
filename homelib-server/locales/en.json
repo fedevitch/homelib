@@ -81,5 +81,12 @@
         "Created": "Creation date in library",
         "Key": "Key",
         "Value": "Value"
+    },
+    "Scanner": {
+        "Scanner": "Scanner",
+        "Launch Scan": "Launch Scan",
+        "Stop Scanning": "Stop Scanning",
+        "Progress": "Progress",
+        "Status": "Status"
     }
 }

@@ -85,8 +85,9 @@
     "Scanner": {
         "Scanner": "Scanner",
         "Launch Scan": "Launch Scan",
-        "Stop Scanning": "Stop Scanning",
+        "Stop Scan": "Stop Scan",
         "Progress": "Progress",
-        "Status": "Status"
+        "Status": "Status",
+        "Processing": "Processing"
     }
 }

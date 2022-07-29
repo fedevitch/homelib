@@ -1,6 +1,6 @@
 import { GetStaticPropsContext, NextPage } from "next";
 import { useEffect, useState } from "react";
-import { Button, Callout, Card, Elevation, Intent, ProgressBar } from "@blueprintjs/core";
+import { Button, Callout, Card, Elevation, FormGroup, Intent, ProgressBar } from "@blueprintjs/core";
 import SocketIOClient from "socket.io-client";
 import AppLayout from '../components/layout/appLayout'
 import { useTranslations } from 'next-intl' 
@@ -12,13 +12,16 @@ const Scanner: NextPage = () => {
   const t = useTranslations("Scanner")
   const [isRunning, setIsRunning] = useState(false)
   const [progress, setProgress] = useState(0)
-  const [status, setStatus] = useState("")
+  const [processingFile, setProcessingFile] = useState("")
+  const [errors, setErrors] = useState(Array<string>)
 
   const socketInit = () => {
     socket = SocketIOClient({ path: '/api/scanner' });
-    socket.on('connect', () => console.log('connected'))
+    //socket.on('connect', () => console.log('connected'))
     socket.on('progress-update', setProgress)
-    socket.on('status-update', setStatus)
+    socket.on('processing-file', setProcessingFile)
+    socket.on('scanning-error', error  => errors.push(error))
+    socket.on('scanner-stop', () => setIsRunning(false))
   }
 
   const checkLaunch = () => {
@@ -27,6 +30,8 @@ const Scanner: NextPage = () => {
       setIsRunning(status.scannerLaunched)
     })
   }
+
+  useEffect(() => setErrors([]), [processingFile])
 
   useEffect(() => {
     socketInit()
@@ -40,16 +45,26 @@ const Scanner: NextPage = () => {
     }
   }
 
+  const onStopClick = () => {
+    if(socket){
+      socket.emit('scanner-stop')
+      setIsRunning(false)
+    }
+  }
+
   const progressBar = <div>
-    <p>{t("Progress")}</p>
-    <ProgressBar value={progress} intent={Intent.SUCCESS} stripes={false} />
-    <Callout intent={Intent.PRIMARY}>{status}</Callout>
+    <FormGroup label={t("Progress")}>
+      <ProgressBar className={styles.progressBar} value={progress} intent={Intent.SUCCESS} stripes={false} />
+    </FormGroup>
+    <Callout className={styles.status} intent={Intent.PRIMARY}>{t("Processing")}: {processingFile}</Callout>
+    { errors.length > 0 && <Callout className={styles.error} intent={Intent.DANGER}>{errors.map(e => (<span>{e}</span>) )}</Callout>}
   </div>
 
   return <AppLayout title={t("Scanner")}>
     <Card elevation={Elevation.THREE} className={styles.scanner}>
-      {isRunning && progressBar}      
-      <Button disabled={isRunning} text={t("Launch Scan")} onClick={onLaunchClick} />
+      <Button className={styles.controls} disabled={isRunning} text={t("Launch Scan")} onClick={onLaunchClick} />
+      <Button className={styles.controls} disabled={!isRunning} text={t("Stop Scan")} onClick={onStopClick} />
+      {isRunning && progressBar}     
     </Card>
   </AppLayout>
 

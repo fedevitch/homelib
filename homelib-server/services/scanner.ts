@@ -1,13 +1,14 @@
 import { env } from 'process';
 import { ChildProcessWithoutNullStreams, spawn } from 'child_process';
 
+const scannerExecutablePath = `${__dirname.split('/homelib')[0]}/homelib/homelib-scanner/build/index.js`;
+
 const socketInit = (socket, io) => {
   socket.on('scanner-launch', () => {
     env.scannerLaunched = '1';
     scannerLaunch(io);
   })
   socket.on('scanner-stop', () => {
-      env.scannerLaunched = '0';
       if(scannerProcess){
         scannerProcess.kill();
       }
@@ -19,7 +20,7 @@ const socketInit = (socket, io) => {
   const scannerLaunch = io => {
     io.emit('status-update', 'Launching scanner');
     
-    scannerProcess = spawn('node', ['/home/lyubomyr/projects/homelib/homelib-scanner/build/index.js'])
+    scannerProcess = spawn('node', [scannerExecutablePath])
     scannerProcess.on('error', err => {
       console.log('error')
       console.error(err)
@@ -33,19 +34,27 @@ const socketInit = (socket, io) => {
       console.log('sderr error')
       console.error(err)
     })
+    scannerProcess.on('data', console.log);
     scannerProcess.stdout.on('data', out => {
       const data = out.toString()
-      io.emit('status-update', data);
+      //io.emit('status-update', data);      
+      const processingFile = data.split('scanning file: ')
+      if(processingFile[1]){
+        io.emit('processing-file', processingFile[1])
+      }
       const parsedProgress = /...%/.exec(data)
       if(parsedProgress){
         const progress = parsedProgress[0].replaceAll(/\(| |%|\)/g, '');
-        console.log(progress)
         io.emit('progress-update', Number.parseInt(progress) / 100);
+      }
+      const error = data.split('[ERROR] Library Scanner -')
+      if(error[1]){
+        io.emit('scanning-error', error[1])
       }
     })
     scannerProcess.stdout.on('close', () => {
       console.log('Scanning complete');
-      scannerStop(io);
+      io.emit('scanner-stop')
     })
   }
 

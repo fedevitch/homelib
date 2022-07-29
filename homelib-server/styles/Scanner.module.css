@@ -1,3 +1,21 @@
 .scanner {
     margin: 5rem;
 }
+
+.progressBar {
+    margin: .3rem;
+}
+
+.status {
+    margin: .2rem;
+    min-height: 1rem;
+}
+
+.error {
+    margin: .2rem;
+    min-width: 1rem;
+}
+
+.controls {
+    margin: .2rem;
+}

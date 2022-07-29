@@ -74,6 +74,11 @@
   display: flex;
   justify-content: space-between;
   padding: 1rem;
+  flex-wrap: wrap;
+}
+
+.booksListSearch > * {
+  margin-top: .3rem;
 }
 
 .booksListSearch > div > input {

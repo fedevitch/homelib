@@ -32,7 +32,7 @@ const getPagesOCR = async (fileName, firstPage, lastPage) => {
     return new Promise((resolve, reject) => {
         const fileNames = Array();
         const prefix = `/tmp/${(0, crypto_1.randomUUID)().replaceAll('-', '')}`;
-        for (let i = firstPage; i <= lastPage; i++) {
+        for (let i = firstPage; i < lastPage; i++) {
             const fileName = `${prefix}-${lodash_1.default.padStart(i.toString(), 6, '0')}.png`;
             fileNames.push(fileName);
         }

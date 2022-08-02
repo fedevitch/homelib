@@ -31,12 +31,14 @@ const djvuGetPagesOCR = async(fileName: string, pages: number): Promise<Array<St
         const previewPdfImageFileName = `/tmp/${randomUUID().replaceAll('-', '')}.pdf`;
         const dumpProcess = spawn('ddjvu', ['-format=pdf', 
             `-page=1-${config.TAKE_START_PAGES},${pages - config.TAKE_END_PAGES}-${pages}`,
+            '-mode=black',
             fileName, previewPdfImageFileName]);
         dumpProcess.on('error', reject);
         dumpProcess.stderr.on('data', reject);
         dumpProcess.stderr.on('error', reject);
         dumpProcess.on('close', async () => {
-            const fileNames = await getPagesOCR(previewPdfImageFileName, 1, config.TAKE_END_PAGES + config.TAKE_END_PAGES);            
+            const fileNames = await getPagesOCR(previewPdfImageFileName, 1, config.TAKE_START_PAGES + config.TAKE_END_PAGES);
+            await rm(previewPdfImageFileName);            
             resolve(fileNames)
         });    
     });

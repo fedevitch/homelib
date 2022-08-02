@@ -32,12 +32,14 @@ const djvuGetPagesOCR = async (fileName, pages) => {
         const previewPdfImageFileName = `/tmp/${(0, crypto_1.randomUUID)().replaceAll('-', '')}.pdf`;
         const dumpProcess = (0, child_process_1.spawn)('ddjvu', ['-format=pdf',
             `-page=1-${scanConfig_1.default.TAKE_START_PAGES},${pages - scanConfig_1.default.TAKE_END_PAGES}-${pages}`,
+            '-mode=black',
             fileName, previewPdfImageFileName]);
         dumpProcess.on('error', reject);
         dumpProcess.stderr.on('data', reject);
         dumpProcess.stderr.on('error', reject);
         dumpProcess.on('close', async () => {
-            const fileNames = await (0, pdfProcessor_1.getPagesOCR)(previewPdfImageFileName, 1, scanConfig_1.default.TAKE_END_PAGES + scanConfig_1.default.TAKE_END_PAGES);
+            const fileNames = await (0, pdfProcessor_1.getPagesOCR)(previewPdfImageFileName, 1, scanConfig_1.default.TAKE_START_PAGES + scanConfig_1.default.TAKE_END_PAGES);
+            await (0, promises_1.rm)(previewPdfImageFileName);
             resolve(fileNames);
         });
     });

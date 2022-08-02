@@ -37,6 +37,7 @@ const socketInit = (socket, io) => {
     scannerProcess.on('data', console.log);
     scannerProcess.stdout.on('data', out => {
       const data = out.toString()
+      console.log(data)
       //io.emit('status-update', data);      
       const processingFile = data.split('scanning file: ')
       if(processingFile[1]){

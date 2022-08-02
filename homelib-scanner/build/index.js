@@ -13,3 +13,11 @@ catch (e) {
     logger_1.default.error('Scanner critical error');
     logger_1.default.error(e);
 }
+const handleError = (err) => {
+    // handle the error safely
+    logger_1.default.error('UNCAUGHT');
+    logger_1.default.error(err);
+};
+process.on('uncaughtException', handleError);
+process.on('unhandledRejection', handleError);
+process.on('uncaughtExceptionMonitor', handleError);

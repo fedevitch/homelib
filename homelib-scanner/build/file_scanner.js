@@ -9,9 +9,11 @@ const scanConfig_1 = __importDefault(require("./scanConfig"));
 const directoryScanner_1 = __importDefault(require("./directoryScanner"));
 const fileScanner_1 = __importDefault(require("./fileScanner"));
 const database_1 = __importDefault(require("./database"));
+const ocr_1 = require("./ocr");
 logger_1.default.info('starting scanner...');
 const start = async () => {
     const fileList = await (0, directoryScanner_1.default)(scanConfig_1.default.SCAN_PATH);
+    await (0, ocr_1.initOCR)();
     let counter = 1, size = fileList.length;
     for await (const file of fileList) {
         logger_1.default.info(`Processing ${counter} of ${size} (${(counter / (size / 100)).toFixed(0)}%)`);
@@ -30,17 +32,12 @@ const start = async () => {
                 fullName: scannedObject.entry.getFullName(),
                 format: scannedObject.entry.format || "",
                 meta: scannedObject.meta || {},
-                summary: scannedObject.summary || "",
                 createdOnDisk: scannedObject.createdOnDisk,
                 size: scannedObject.size,
                 pages: scannedObject.pages
             };
-            const isbnData = scannedObject.getIsbn();
-            if (isbnData) {
-                data.isbn = isbnData.isbn;
-                data.isbn10 = isbnData.isbn10;
-                data.isbn13 = isbnData.isbn13;
-            }
+            // IMAGE EXTRACTOR
+            // 2 - extract preview (if possible) and write it to db
             if (scannedObject.preview) {
                 data.coverImage = {
                     create: {
@@ -48,17 +45,25 @@ const start = async () => {
                     }
                 };
             }
+            // 3 - extract pages for OCR (if needed)
+            // 4 - OCR summary (if needed) and parse ISBN if possible
+            if (scannedObject.pagesListToOCR) {
+                const ocrText = await (0, ocr_1.recognizePages)(scannedObject);
+                scannedObject.setSummary(ocrText);
+            }
+            data.summary = scannedObject.summary || "";
+            const isbnData = scannedObject.getIsbn();
+            if (isbnData) {
+                data.isbn = isbnData.isbn;
+                data.isbn10 = isbnData.isbn10;
+                data.isbn13 = isbnData.isbn13;
+            }
             try {
                 await database_1.default.book.create({ data });
             }
             catch (e) {
                 logger_1.default.error('Database error', e);
             }
-            // IMAGE EXTRACTOR
-            // 2 - extract preview (if possible) and write it to db
-            // 3 - extract pages for OCR (if needed)
-            // ---
-            // 4 - OCR summary (if needed) and parse ISBN if possible
             // 5 - delete images on disk from steps 2-4
             await scannedObject.deleteTempFiles();
         }
@@ -68,5 +73,6 @@ const start = async () => {
         }
         counter++;
     }
+    await (0, ocr_1.endWorkOCR)();
 };
 exports.start = start;

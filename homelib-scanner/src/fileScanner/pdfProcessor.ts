@@ -28,7 +28,7 @@ export const getPagesOCR = async(fileName: string, firstPage: number, lastPage: 
     return new Promise((resolve, reject) => {
         const fileNames = Array<String>();
         const prefix = `/tmp/${randomUUID().replaceAll('-', '')}`;
-        for(let i = firstPage; i <= lastPage; i++){
+        for(let i = firstPage; i < lastPage; i++){
             const fileName = `${prefix}-${_.padStart(i.toString(), 6, '0')}.png`;
             fileNames.push(fileName);
         }

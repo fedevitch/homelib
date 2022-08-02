@@ -10,6 +10,7 @@ const crypto_1 = require("crypto");
 const promises_1 = require("fs/promises");
 const logger_1 = __importDefault(require("../logger"));
 const scanConfig_1 = __importDefault(require("../scanConfig"));
+const pngToJpeg = require('png-to-jpeg');
 const extractPreview = async (fileName, ratio = 50) => {
     return new Promise((resolve, reject) => {
         let previewFileName = `/tmp/${(0, crypto_1.randomUUID)().replaceAll('-', '')}`;
@@ -21,7 +22,8 @@ const extractPreview = async (fileName, ratio = 50) => {
             previewFileName += '-000001.png';
             const blob = await (0, promises_1.readFile)(previewFileName);
             await (0, promises_1.rm)(previewFileName);
-            resolve(blob);
+            const preview = await pngToJpeg({ quality: 90 })(blob);
+            resolve(preview);
         });
     });
 };
@@ -34,13 +36,11 @@ const getPagesOCR = async (fileName, firstPage, lastPage) => {
             const fileName = `${prefix}-${lodash_1.default.padStart(i.toString(), 6, '0')}.png`;
             fileNames.push(fileName);
         }
-        const convertProcess = (0, child_process_1.spawn)('pdftopng', ['-f', firstPage.toString(), '-l', lastPage.toString(), '-r', '5', fileName, prefix]);
+        const convertProcess = (0, child_process_1.spawn)('pdftopng', ['-f', firstPage.toString(), '-l', lastPage.toString(), fileName, prefix]);
         convertProcess.on('error', reject);
         convertProcess.stderr.on('data', reject);
         convertProcess.stderr.on('error', reject);
-        convertProcess.on('close', async () => {
-            resolve(fileNames);
-        });
+        convertProcess.on('close', () => resolve(fileNames));
     });
 };
 exports.getPagesOCR = getPagesOCR;

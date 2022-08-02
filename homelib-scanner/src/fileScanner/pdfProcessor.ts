@@ -5,6 +5,7 @@ import { readFile, rm } from 'fs/promises';
 import logger from "../logger";
 import { ProcessResult } from './processor';
 import config from '../scanConfig';
+const pngToJpeg = require('png-to-jpeg');
 
 export const extractPreview = async(fileName: string, ratio = 50): Promise<Buffer> => {
     return new Promise((resolve, reject) => {
@@ -17,7 +18,8 @@ export const extractPreview = async(fileName: string, ratio = 50): Promise<Buffe
             previewFileName += '-000001.png';
             const blob = await readFile(previewFileName);
             await rm(previewFileName);
-            resolve(blob);
+            const preview = await pngToJpeg({quality: 90})(blob);
+            resolve(preview);
         });
     });
 }
@@ -34,10 +36,7 @@ export const getPagesOCR = async(fileName: string, firstPage: number, lastPage: 
         convertProcess.on('error', reject);
         convertProcess.stderr.on('data', reject);
         convertProcess.stderr.on('error', reject);
-        convertProcess.on('close', async () => {
-            resolve(fileNames);
-        });
-
+        convertProcess.on('close', () => resolve(fileNames));
     });
 }
 

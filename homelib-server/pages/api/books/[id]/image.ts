@@ -25,7 +25,7 @@ export default async function handler(
       
         const imageFile = Buffer.from(image.data);
         res.status(httpStatus.OK);
-        res.setHeader('Content-Type', 'image/png');
+        res.setHeader('Content-Type', 'image/jpg');
         res.setHeader('Content-Length', imageFile.length);    
         res.end(imageFile);
       } catch (e) {

@@ -13,11 +13,18 @@ catch (e) {
     logger_1.default.error('Scanner critical error');
     logger_1.default.error(e);
 }
-const handleError = (err) => {
+process.on('uncaughtException', function handleError(err) {
     // handle the error safely
-    logger_1.default.error('UNCAUGHT');
+    logger_1.default.error('UNCAUGHT exception');
     logger_1.default.error(err);
-};
-process.on('uncaughtException', handleError);
-process.on('unhandledRejection', handleError);
-process.on('uncaughtExceptionMonitor', handleError);
+});
+process.on('unhandledRejection', function handleError(err) {
+    // handle the error safely
+    logger_1.default.error('UNCAUGHT rejection');
+    logger_1.default.error(err);
+});
+process.on('uncaughtExceptionMonitor', function handleError(err) {
+    // handle the error safely
+    logger_1.default.error('UNCAUGHT exception monitor');
+    logger_1.default.error(err);
+});

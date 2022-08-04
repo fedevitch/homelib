@@ -1,10 +1,9 @@
 import { createWorker } from 'tesseract.js';
 import logger from './logger';
 import { FileData } from './models/fileData';
-import { stat } from 'fs/promises';
-import scanConfig from './scanConfig';
 
-const worker = createWorker({
+const timeout = 3 * 60 * 1000;
+const workerOptions = {
     logger: m => {
         if(m.status === 'recognizing text'){
             logger.debug(`Recognizing: ${m.progress}`);
@@ -12,9 +11,10 @@ const worker = createWorker({
         // logger.debug(m)
     },
     //langPath: './ocr', gzip: false
-});
+};
 
-export const initOCR = async() => {
+
+const initOCR = async(worker) => {
     try {
         await worker.load();
         await worker.loadLanguage('eng+ukr');
@@ -25,7 +25,7 @@ export const initOCR = async() => {
     }
 }
 
-export const endWorkOCR = async() => {
+const endWorkOCR = async(worker) => {
     try {
         await worker.terminate();
     } catch(e) {
@@ -40,11 +40,15 @@ export const recognizePages = async(fileData: FileData): Promise<string> => {
     for(const page of fileData.pagesListToOCR){
         logger.debug(`OCR for page ${page} started`);
         try {
-            //const { size } = await stat(page.toString());
-            //if(size > scanConfig.OCR_MAX_FILE_SIZE) continue;
-            const { data: { text } } = await worker.recognize(page);
+            const worker = createWorker(workerOptions);
+            await initOCR(worker);
+            const recognize = worker.recognize(page);
+            const timer = new Promise(resolve => setTimeout(resolve, timeout, { data: { text: "" } }));
+            // @ts-ignore
+            const { data: { text } } = await Promise.race([recognize, timer]);
             result += text;
             logger.debug(`OCR for page ${page} complete`);
+            await endWorkOCR(worker);
         } catch(e) {
             logger.error(`OCR failed for page ${page}`);
             logger.error(e);

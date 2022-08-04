@@ -3,10 +3,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.recognizePages = exports.endWorkOCR = exports.initOCR = void 0;
+exports.recognizePages = void 0;
 const tesseract_js_1 = require("tesseract.js");
 const logger_1 = __importDefault(require("./logger"));
-const worker = (0, tesseract_js_1.createWorker)({
+const timeout = 3 * 60 * 1000;
+const workerOptions = {
     logger: m => {
         if (m.status === 'recognizing text') {
             logger_1.default.debug(`Recognizing: ${m.progress}`);
@@ -14,8 +15,8 @@ const worker = (0, tesseract_js_1.createWorker)({
         // logger.debug(m)
     },
     //langPath: './ocr', gzip: false
-});
-const initOCR = async () => {
+};
+const initOCR = async (worker) => {
     try {
         await worker.load();
         await worker.loadLanguage('eng+ukr');
@@ -26,8 +27,7 @@ const initOCR = async () => {
         logger_1.default.error(e);
     }
 };
-exports.initOCR = initOCR;
-const endWorkOCR = async () => {
+const endWorkOCR = async (worker) => {
     try {
         await worker.terminate();
     }
@@ -36,7 +36,6 @@ const endWorkOCR = async () => {
         logger_1.default.error(e);
     }
 };
-exports.endWorkOCR = endWorkOCR;
 const recognizePages = async (fileData) => {
     let result = "";
     if (!fileData.pagesListToOCR)
@@ -44,11 +43,15 @@ const recognizePages = async (fileData) => {
     for (const page of fileData.pagesListToOCR) {
         logger_1.default.debug(`OCR for page ${page} started`);
         try {
-            //const { size } = await stat(page.toString());
-            //if(size > scanConfig.OCR_MAX_FILE_SIZE) continue;
-            const { data: { text } } = await worker.recognize(page);
+            const worker = (0, tesseract_js_1.createWorker)(workerOptions);
+            await initOCR(worker);
+            const recognize = worker.recognize(page);
+            const timer = new Promise(resolve => setTimeout(resolve, timeout, { data: { text: "" } }));
+            // @ts-ignore
+            const { data: { text } } = await Promise.race([recognize, timer]);
             result += text;
             logger_1.default.debug(`OCR for page ${page} complete`);
+            await endWorkOCR(worker);
         }
         catch (e) {
             logger_1.default.error(`OCR failed for page ${page}`);

@@ -3,13 +3,12 @@ import scanConfig from './scanConfig';
 import scanDirectories from './directoryScanner';
 import scanFile from './fileScanner';
 import db from './database';
-import { recognizePages, initOCR, endWorkOCR } from './ocr';
+import { recognizePages } from './ocr';
 
 logger.info('starting scanner...');
 export const start = async () => {
 
     const fileList = await scanDirectories(scanConfig.SCAN_PATH);
-    await initOCR();
 
     let counter = 1, size = fileList.length;
     for await (const file of fileList) {
@@ -70,6 +69,4 @@ export const start = async () => {
 
         counter++;
     }
-    await endWorkOCR();
-
 }

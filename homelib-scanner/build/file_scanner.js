@@ -13,7 +13,6 @@ const ocr_1 = require("./ocr");
 logger_1.default.info('starting scanner...');
 const start = async () => {
     const fileList = await (0, directoryScanner_1.default)(scanConfig_1.default.SCAN_PATH);
-    await (0, ocr_1.initOCR)();
     let counter = 1, size = fileList.length;
     for await (const file of fileList) {
         logger_1.default.info(`Processing ${counter} of ${size} (${(counter / (size / 100)).toFixed(0)}%)`);
@@ -73,6 +72,5 @@ const start = async () => {
         }
         counter++;
     }
-    await (0, ocr_1.endWorkOCR)();
 };
 exports.start = start;

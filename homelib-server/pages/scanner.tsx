@@ -2,6 +2,7 @@ import { GetStaticPropsContext, NextPage } from "next";
 import { useEffect, useState } from "react";
 import { Button, Callout, Card, Elevation, FormGroup, Intent, ProgressBar } from "@blueprintjs/core";
 import SocketIOClient from "socket.io-client";
+import ScannerEvents from "../components/schemas/scannerEvents";
 import AppLayout from '../components/layout/appLayout'
 import { useTranslations } from 'next-intl' 
 import styles from '../styles/Scanner.module.css'
@@ -12,16 +13,18 @@ const Scanner: NextPage = () => {
   const t = useTranslations("Scanner")
   const [isRunning, setIsRunning] = useState(false)
   const [progress, setProgress] = useState(0)
+  const [ocrProgress, setOcrProgress] = useState(0)
   const [processingFile, setProcessingFile] = useState("")
   const [errors, setErrors] = useState(Array<string>)
 
   const socketInit = () => {
     socket = SocketIOClient({ path: '/api/scanner' });
     //socket.on('connect', () => console.log('connected'))
-    socket.on('progress-update', setProgress)
-    socket.on('processing-file', setProcessingFile)
-    socket.on('scanning-error', error  => errors.push(error))
-    socket.on('scanner-stop', () => setIsRunning(false))
+    socket.on(ScannerEvents.Progress, setProgress)
+    socket.on(ScannerEvents.OcrProgress, setOcrProgress)
+    socket.on(ScannerEvents.File, setProcessingFile)
+    socket.on(ScannerEvents.Error, error  => errors.push(error))
+    socket.on(ScannerEvents.Stop, () => setIsRunning(false))
   }
 
   const checkLaunch = () => {
@@ -40,14 +43,14 @@ const Scanner: NextPage = () => {
 
   const onLaunchClick = () => {
     if(socket){
-      socket.emit('scanner-launch')
+      socket.emit(ScannerEvents.Launch)
       setIsRunning(true)
     }
   }
 
   const onStopClick = () => {
     if(socket){
-      socket.emit('scanner-stop')
+      socket.emit(ScannerEvents.Stop)
       setIsRunning(false)
     }
   }
@@ -57,6 +60,9 @@ const Scanner: NextPage = () => {
       <ProgressBar className={styles.progressBar} value={progress} intent={Intent.SUCCESS} stripes={false} />
     </FormGroup>
     <Callout className={styles.status} intent={Intent.PRIMARY}>{t("Processing")}: {processingFile}</Callout>
+    { ocrProgress > 0 && <FormGroup label={t("OCR progress")}>
+      <ProgressBar className={styles.progressBar} value={ocrProgress} intent={Intent.SUCCESS} stripes={false} />
+    </FormGroup> }
     { errors.length > 0 && <Callout className={styles.error} intent={Intent.DANGER}>{errors.map(e => (<span>{e}</span>) )}</Callout>}
   </div>
 

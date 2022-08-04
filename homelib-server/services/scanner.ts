@@ -1,5 +1,6 @@
 import { env } from 'process';
 import { ChildProcessWithoutNullStreams, spawn } from 'child_process';
+import ScannerEvents from '../components/schemas/scannerEvents';
 
 const scannerExecutablePath = `${__dirname.split('/homelib')[0]}/homelib/homelib-scanner/build/index.js`;
 
@@ -41,26 +42,30 @@ const socketInit = (socket, io) => {
       //io.emit('status-update', data);      
       const processingFile = data.split('scanning file: ')
       if(processingFile[1]){
-        io.emit('processing-file', processingFile[1])
+        io.emit(ScannerEvents.File, processingFile[1])
       }
       const parsedProgress = /...%/.exec(data)
       if(parsedProgress){
         const progress = parsedProgress[0].replaceAll(/\(| |%|\)/g, '');
-        io.emit('progress-update', Number.parseInt(progress) / 100);
+        io.emit(ScannerEvents.Progress, Number.parseInt(progress) / 100);
       }
       const error = data.split('[ERROR] Library Scanner -')
       if(error[1]){
-        io.emit('scanning-error', error[1])
+        io.emit(ScannerEvents.Error, error[1])
+      }
+      const ocrProgress = data.split('Recognizing: ')
+      if(ocrProgress[1]){
+        io.emit(ScannerEvents.Status, 'Recognizing page')
+        io.emit(ScannerEvents.OcrProgress, ocrProgress[1])
       }
     })
     scannerProcess.stdout.on('close', () => {
-      console.log('Scanning complete');
-      io.emit('scanner-stop')
+      io.emit(ScannerEvents.Stop)
     })
   }
 
   const scannerStop = io => {
-    io.emit('status-update', 'Stopped')
+    io.emit(ScannerEvents.Status, 'Stopped')
     env.scannerLaunched = '0'
   }
 }

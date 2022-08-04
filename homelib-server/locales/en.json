@@ -87,6 +87,7 @@
         "Launch Scan": "Launch Scan",
         "Stop Scan": "Stop Scan",
         "Progress": "Progress",
+        "OCR progress": "OCR progress",
         "Status": "Status",
         "Processing": "Processing"
     }

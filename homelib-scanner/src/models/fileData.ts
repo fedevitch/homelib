@@ -34,7 +34,7 @@ export class FileData {
     public meta = {};
     public summary = "";
     public preview: Buffer | null = null;
-    public pagesListToOCR: String[] | null = null;
+    public pagesListToOCR: String[] | Buffer[] | null = null;
 
     public getIsbn = (): IsbnValues | null => {
         if(this.entry.format === FileExtensions.Formats.fb2){
@@ -56,14 +56,16 @@ export class FileData {
     public deleteTempFiles = async () => {
         if(this.pagesListToOCR) {
             for(const file of this.pagesListToOCR){
-                try {
-                    await rm(file.toString());
-                } catch(e) {
-                    logger.error("delete temp files error");
-                    logger.error(e);
-                }
+                if(typeof file === 'string'){
+                    try {
+                        await rm(file.toString());
+                    } catch(e) {
+                        logger.error("delete temp files error");
+                        logger.error(e);
+                    }
+                }                          
             }
-            this.pagesListToOCR = null;            
+            this.pagesListToOCR = null;
         }
     }
 }

@@ -45,12 +45,14 @@ class FileData {
         this.deleteTempFiles = async () => {
             if (this.pagesListToOCR) {
                 for (const file of this.pagesListToOCR) {
-                    try {
-                        await (0, promises_1.rm)(file.toString());
-                    }
-                    catch (e) {
-                        logger_1.default.error("delete temp files error");
-                        logger_1.default.error(e);
+                    if (typeof file === 'string') {
+                        try {
+                            await (0, promises_1.rm)(file.toString());
+                        }
+                        catch (e) {
+                            logger_1.default.error("delete temp files error");
+                            logger_1.default.error(e);
+                        }
                     }
                 }
                 this.pagesListToOCR = null;

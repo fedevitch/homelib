@@ -40,7 +40,15 @@ const getPagesOCR = async (fileName, firstPage, lastPage) => {
         convertProcess.on('error', reject);
         convertProcess.stderr.on('data', reject);
         convertProcess.stderr.on('error', reject);
-        convertProcess.on('close', () => resolve(fileNames));
+        convertProcess.on('close', async () => {
+            const data = Array();
+            for (const fileName of fileNames) {
+                const buffer = await (0, promises_1.readFile)(fileName);
+                data.push(buffer);
+                await (0, promises_1.rm)(fileName);
+            }
+            resolve(data);
+        });
     });
 };
 exports.getPagesOCR = getPagesOCR;

@@ -41,21 +41,22 @@ const recognizePages = async (fileData) => {
     if (!fileData.pagesListToOCR)
         return result;
     for (const page of fileData.pagesListToOCR) {
-        logger_1.default.debug(`OCR for page ${page} started`);
+        logger_1.default.debug(`OCR for page in ${fileData.entry.name} started`);
+        const worker = (0, tesseract_js_1.createWorker)(workerOptions);
         try {
-            const worker = (0, tesseract_js_1.createWorker)(workerOptions);
             await initOCR(worker);
             const recognize = worker.recognize(page);
             const timer = new Promise(resolve => setTimeout(resolve, timeout, { data: { text: "" } }));
             // @ts-ignore
             const { data: { text } } = await Promise.race([recognize, timer]);
             result += text;
-            logger_1.default.debug(`OCR for page ${page} complete`);
+            logger_1.default.debug(`OCR for page in ${fileData.entry.name} complete`);
             await endWorkOCR(worker);
         }
         catch (e) {
-            logger_1.default.error(`OCR failed for page ${page}`);
+            logger_1.default.error(`OCR failed for page in ${fileData.entry.name}`);
             logger_1.default.error(e);
+            await endWorkOCR(worker);
             continue;
         }
     }

@@ -38,20 +38,21 @@ export const recognizePages = async(fileData: FileData): Promise<string> => {
     let result = "";
     if(!fileData.pagesListToOCR) return result;
     for(const page of fileData.pagesListToOCR){
-        logger.debug(`OCR for page ${page} started`);
-        try {
-            const worker = createWorker(workerOptions);
+        logger.debug(`OCR for page in ${fileData.entry.name} started`);
+        const worker = createWorker(workerOptions);
+        try {            
             await initOCR(worker);
             const recognize = worker.recognize(page);
             const timer = new Promise(resolve => setTimeout(resolve, timeout, { data: { text: "" } }));
             // @ts-ignore
             const { data: { text } } = await Promise.race([recognize, timer]);
             result += text;
-            logger.debug(`OCR for page ${page} complete`);
+            logger.debug(`OCR for page in ${fileData.entry.name} complete`);
             await endWorkOCR(worker);
         } catch(e) {
-            logger.error(`OCR failed for page ${page}`);
+            logger.error(`OCR failed for page in ${fileData.entry.name}`);
             logger.error(e);
+            await endWorkOCR(worker);
             continue;
         }
     }

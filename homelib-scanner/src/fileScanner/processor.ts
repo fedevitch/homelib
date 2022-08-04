@@ -14,7 +14,7 @@ export type ProcessResult = {
     meta: object,
     pages: number,
     preview?: Buffer,
-    pagesToOCR?: String[]
+    pagesToOCR?: String[] | Buffer[]
 }
 
 const fileProcessor = async (fileData: FileData): Promise<ProcessResult> => {

@@ -24,19 +24,28 @@ export const extractPreview = async(fileName: string, ratio = 50): Promise<Buffe
     });
 }
 
-export const getPagesOCR = async(fileName: string, firstPage: number, lastPage: number): Promise<Array<String>> => {
+export const getPagesOCR = async(fileName: string, firstPage: number, lastPage: number): Promise<Array<Buffer>> => {
     return new Promise((resolve, reject) => {
-        const fileNames = Array<String>();
+        const fileNames = Array<string>();
         const prefix = `/tmp/${randomUUID().replaceAll('-', '')}`;
         for(let i = firstPage; i < lastPage; i++){
-            const fileName = `${prefix}-${_.padStart(i.toString(), 6, '0')}.png`;
+            const fileName = `${prefix}-${_.padStart(i.toString(), 6, '0')}.png`;            
             fileNames.push(fileName);
+            
         }
         const convertProcess = spawn('pdftopng', ['-f', firstPage.toString(), '-l', lastPage.toString(), fileName, prefix]);
         convertProcess.on('error', reject);
         convertProcess.stderr.on('data', reject);
         convertProcess.stderr.on('error', reject);
-        convertProcess.on('close', () => resolve(fileNames));
+        convertProcess.on('close', async () => {
+            const data = Array<Buffer>();
+            for(const fileName of fileNames){
+                const buffer = await readFile(fileName);
+                data.push(buffer);
+                await rm(fileName);
+            }
+            resolve(data);           
+        });
     });
 }
 
@@ -79,7 +88,7 @@ const parsePdf = async (fileName: string): Promise<ProcessResult> => {
     const bookAppendix = await getPdfText(fileName, pages - config.TAKE_END_PAGES, pages);
 
     const preview = await extractPreview(fileName);
-    let pagesToOCR = Array<String>();
+    let pagesToOCR = Array<Buffer>();
     if(!bookIndex && !bookAppendix && config.OCR) {
         const firstPages = await getPagesOCR(fileName, 1, config.TAKE_START_PAGES);
         const lastPages = await getPagesOCR(fileName, pages - config.TAKE_END_PAGES, pages);

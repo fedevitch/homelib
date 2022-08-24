@@ -80,7 +80,15 @@
         "VolumeInfo": "Volume Info від Google",
         "Created": "Додано у бібліотеку",
         "Key": "Ім'я властивості",
-        "Value": "Значення"
+        "Value": "Значення",
+        "Subtitle": "Підзаголовок",
+        "Authors": "Автор(-и)",
+        "Categories": "Категорія(-ї)",
+        "Identifiers": "Ідентифікатори",
+        "Published Date": "Дата публікації",
+        "Publisher": "Видавець",
+        "Maturity Rating": "Віковий рейтинг",
+        "Links": "Посилання"
     },
     "Scanner": {
         "Scanner": "Сканувати диск",

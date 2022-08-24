@@ -49,6 +49,7 @@ model VolumeInfo {
   id                  Int      @id @default(autoincrement())
   bookId              Int      @unique
   title               String?
+  subtitle            String?
   authors             String[]
   publisher           String?
   publishedDate       String?

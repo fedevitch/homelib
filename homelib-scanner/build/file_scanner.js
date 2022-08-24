@@ -63,12 +63,12 @@ const start = async () => {
             if (googleBookApiResponse.items) {
                 const volumeData = googleBookApiResponse.items[0];
                 const jsonDump = { items: googleBookApiResponse.items };
-                const { title, authors, publisher, publishedDate, industryIdentifiers, description, pageCount, categories, maturityRating, language, imageLinks, previewLink, selfLink, canonicalVolumeLink } = volumeData.volumeInfo;
+                const { title, subtitle, authors, publisher, publishedDate, industryIdentifiers, description, pageCount, categories, maturityRating, language, imageLinks, previewLink, selfLink, canonicalVolumeLink } = volumeData.volumeInfo;
                 const previewLinks = [imageLinks.thumbnail, previewLink, selfLink, canonicalVolumeLink].filter(l => !!l);
                 data.volumeInfo = {
                     create: {
                         jsonDump,
-                        title,
+                        title, subtitle,
                         authors, description, pageCount,
                         publisher, publishedDate,
                         categories, maturityRating, language,

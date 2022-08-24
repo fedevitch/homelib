@@ -80,7 +80,15 @@
         "VolumeInfo": "Volume Info by Google",
         "Created": "Creation date in library",
         "Key": "Key",
-        "Value": "Value"
+        "Value": "Value",
+        "Subtitle": "Subtitle",
+        "Authors": "Authors",
+        "Categories": "Categories",
+        "Identifiers": "Identifiers",
+        "Published Date": "Published Date",
+        "Publisher": "Publisher",
+        "Maturity Rating": "Maturity Rating",
+        "Links": "Links"
     },
     "Scanner": {
         "Scanner": "Scanner",

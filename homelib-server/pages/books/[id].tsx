@@ -71,9 +71,26 @@ const Book: NextPage = () => {
         return <table>{header}<tbody>{body}</tbody></table>
     }
 
-    const Summary = () => <div className={styles.summary}>{sanitize(book.summary)}</div>
-    const MetaData = () => <div>{renderMeta()}</div>
-    const VolumeInfo = () => <div>&right volumeinfo</div>
+    const renderVolumeInfo = () => {
+        const { volumeInfo } = book;
+        return <div>
+            <p>{t("Title")}: {volumeInfo.title}</p>
+            <p>{t("Subtitle")}: {volumeInfo.subtitle}</p>
+            <p>{t("Authors")}: {volumeInfo.categories.join(', ')}</p>
+            <p>{t("Categories")}: {volumeInfo.categories.join(', ')}</p>
+            <p>{t("Identifiers")}: {volumeInfo.industryIdentifiers.map(iid => `${iid.type}: ${iid.identifier}`).join(', ')}</p>
+            <p>{t("Pages")}: {volumeInfo.pageCount}</p>
+            <p>{t("Published Date")}: {volumeInfo.publishedDate}</p>
+            <p>{t("Publisher")}: {volumeInfo.publisher}</p>
+            <p>{t("Maturity Rating")}: {volumeInfo.maturityRating}</p>
+            <p>{t("Links")}: {volumeInfo.previewLinks.map(l => <p><Link href={l} >{l}</Link></p>)}</p>
+            <div>{t("Description")}: {volumeInfo.description}</div>
+        </div>
+    }
+
+    const Summary = () => <div className={styles.tab}>{sanitize(book.summary)}</div>
+    const MetaData = () => <div className={styles.tab}>{renderMeta()}</div>
+    const VolumeInfo = () => <div className={styles.tab}>{renderVolumeInfo()}</div>
 
     return(
         <AppLayout>

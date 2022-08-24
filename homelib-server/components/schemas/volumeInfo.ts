@@ -43,7 +43,10 @@ export interface VolumeInfo {
   title:               string;
   subtitle:            string;
   authors:             string[];
+  categories:          string[];
+  description:         string;  
   publishedDate:       string;
+  publisher:           string; 
   industryIdentifiers: IndustryIdentifier[];
   readingModes:        ReadingModes;
   pageCount:           number;
@@ -53,6 +56,7 @@ export interface VolumeInfo {
   contentVersion:      string;
   language:            string;
   previewLink:         string;
+  previewLinks:        string[]; 
   infoLink:            string;
   canonicalVolumeLink: string;
 }

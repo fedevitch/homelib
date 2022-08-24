@@ -62,7 +62,7 @@ export const start = async () => {
                 const volumeData = googleBookApiResponse.items[0];
                 const jsonDump = { items: googleBookApiResponse.items };
                 const { 
-                    title, authors, publisher, publishedDate, industryIdentifiers,
+                    title, subtitle, authors, publisher, publishedDate, industryIdentifiers,
                     description, pageCount, categories, maturityRating, language,
                     imageLinks, previewLink, selfLink, canonicalVolumeLink
                 } = volumeData.volumeInfo;
@@ -70,7 +70,7 @@ export const start = async () => {
                 data.volumeInfo = {
                     create: {
                         jsonDump,
-                        title,
+                        title, subtitle,
                         authors, description, pageCount,
                         publisher, publishedDate,
                         categories, maturityRating, language,

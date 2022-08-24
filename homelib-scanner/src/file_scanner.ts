@@ -4,6 +4,7 @@ import scanDirectories from './directoryScanner';
 import scanFile from './fileScanner';
 import db from './database';
 import { recognizePages } from './ocr';
+import { getVolumeInfo } from './googleBooks';
 
 logger.info('starting scanner...');
 export const start = async () => {
@@ -54,6 +55,28 @@ export const start = async () => {
                 data.isbn = isbnData.isbn;
                 data.isbn10 = isbnData.isbn10;
                 data.isbn13 = isbnData.isbn13;
+            }
+            // 4.1 get additional info from Google Book API
+            const googleBookApiResponse = await getVolumeInfo(scannedObject);
+            if(googleBookApiResponse.items){
+                const volumeData = googleBookApiResponse.items[0];
+                const json = { items: googleBookApiResponse.items };
+                const { 
+                    title, authors, publisher, publishedDate, industryIdentifiers,
+                    description, pageCount, categories, maturityRating, language,
+                    imageLinks, previewLink, selfLink, canonicalVolumeLink
+                } = volumeData.volumeInfo;
+                const previewLinks = [ imageLinks.thumbnail, previewLink, selfLink, canonicalVolumeLink ];
+                data.volumeInfo = {
+                    create: {
+                        json,
+                        title,
+                        authors, description, pageCount,
+                        publisher, publishedDate,
+                        categories, maturityRating, language,
+                        industryIdentifiers, previewLinks
+                    }
+                }
             }
             try {            
                 await db.book.create({ data });

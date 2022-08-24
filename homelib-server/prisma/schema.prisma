@@ -58,5 +58,7 @@ model VolumeInfo {
   categories          String[]
   maturityRating      String
   language            String
+  previewLinks        String[]
+  json                Json
   book                Book     @relation(fields: [bookId], references: [id])
 }

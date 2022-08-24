@@ -88,7 +88,8 @@
         "Published Date": "Published Date",
         "Publisher": "Publisher",
         "Maturity Rating": "Maturity Rating",
-        "Links": "Links"
+        "Links": "Links",
+        "Language": "Language"
     },
     "Scanner": {
         "Scanner": "Scanner",

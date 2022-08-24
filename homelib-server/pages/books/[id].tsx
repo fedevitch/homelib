@@ -76,6 +76,7 @@ const Book: NextPage = () => {
         return <div>
             <p>{t("Title")}: {volumeInfo.title}</p>
             <p>{t("Subtitle")}: {volumeInfo.subtitle}</p>
+            <div>{t("Language")}: {volumeInfo.language}</div>
             <p>{t("Authors")}: {volumeInfo.categories.join(', ')}</p>
             <p>{t("Categories")}: {volumeInfo.categories.join(', ')}</p>
             <p>{t("Identifiers")}: {volumeInfo.industryIdentifiers.map(iid => `${iid.type}: ${iid.identifier}`).join(', ')}</p>

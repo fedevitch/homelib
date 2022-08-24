@@ -9,6 +9,7 @@ class FileEntry {
         this.path = _path;
         this.format = fileExtensions_1.FileExtensions.getFormat(this.name);
         this.supported = this.format !== null;
+        this.fileNameWithoutExt = this.name.replace(`.${this.format}`, '');
     }
 }
 exports.FileEntry = FileEntry;

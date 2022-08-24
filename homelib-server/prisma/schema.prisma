@@ -48,17 +48,17 @@ model CoverImage {
 model VolumeInfo {
   id                  Int      @id @default(autoincrement())
   bookId              Int      @unique
-  title               String
+  title               String?
   authors             String[]
-  publisher           String
-  publishedDate       String
-  description         String
+  publisher           String?
+  publishedDate       String?
+  description         String?
   industryIdentifiers Json[]
-  pageCount           String
+  pageCount           Int?
   categories          String[]
-  maturityRating      String
-  language            String
+  maturityRating      String?
+  language            String?
   previewLinks        String[]
-  json                Json
+  jsonDump            Json
   book                Book     @relation(fields: [bookId], references: [id])
 }

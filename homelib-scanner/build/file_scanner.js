@@ -10,6 +10,7 @@ const directoryScanner_1 = __importDefault(require("./directoryScanner"));
 const fileScanner_1 = __importDefault(require("./fileScanner"));
 const database_1 = __importDefault(require("./database"));
 const ocr_1 = require("./ocr");
+const googleBooks_1 = require("./googleBooks");
 logger_1.default.info('starting scanner...');
 const start = async () => {
     const fileList = await (0, directoryScanner_1.default)(scanConfig_1.default.SCAN_PATH);
@@ -56,6 +57,24 @@ const start = async () => {
                 data.isbn = isbnData.isbn;
                 data.isbn10 = isbnData.isbn10;
                 data.isbn13 = isbnData.isbn13;
+            }
+            // 4.1 get additional info from Google Book API
+            const googleBookApiResponse = await (0, googleBooks_1.getVolumeInfo)(scannedObject);
+            if (googleBookApiResponse.items) {
+                const volumeData = googleBookApiResponse.items[0];
+                const jsonDump = { items: googleBookApiResponse.items };
+                const { title, authors, publisher, publishedDate, industryIdentifiers, description, pageCount, categories, maturityRating, language, imageLinks, previewLink, selfLink, canonicalVolumeLink } = volumeData.volumeInfo;
+                const previewLinks = [imageLinks.thumbnail, previewLink, selfLink, canonicalVolumeLink].filter(l => !!l);
+                data.volumeInfo = {
+                    create: {
+                        jsonDump,
+                        title,
+                        authors, description, pageCount,
+                        publisher, publishedDate,
+                        categories, maturityRating, language,
+                        industryIdentifiers, previewLinks
+                    }
+                };
             }
             try {
                 await database_1.default.book.create({ data });

@@ -60,16 +60,16 @@ export const start = async () => {
             const googleBookApiResponse = await getVolumeInfo(scannedObject);
             if(googleBookApiResponse.items){
                 const volumeData = googleBookApiResponse.items[0];
-                const json = { items: googleBookApiResponse.items };
+                const jsonDump = { items: googleBookApiResponse.items };
                 const { 
                     title, authors, publisher, publishedDate, industryIdentifiers,
                     description, pageCount, categories, maturityRating, language,
                     imageLinks, previewLink, selfLink, canonicalVolumeLink
                 } = volumeData.volumeInfo;
-                const previewLinks = [ imageLinks.thumbnail, previewLink, selfLink, canonicalVolumeLink ];
+                const previewLinks = [ imageLinks.thumbnail, previewLink, selfLink, canonicalVolumeLink ].filter(l => !!l);
                 data.volumeInfo = {
                     create: {
-                        json,
+                        jsonDump,
                         title,
                         authors, description, pageCount,
                         publisher, publishedDate,

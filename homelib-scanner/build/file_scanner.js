@@ -75,6 +75,16 @@ const start = async () => {
                         industryIdentifiers, previewLinks
                     }
                 };
+                if (industryIdentifiers) {
+                    const isbn10 = industryIdentifiers.find(iid => iid.type === 'ISBN_10');
+                    const isbn13 = industryIdentifiers.find(iid => iid.type === 'ISBN_13');
+                    if (!data.isbn)
+                        data.isbn = isbn13 || isbn10;
+                    if (!data.isbn10)
+                        data.isbn10 = isbn10;
+                    if (!data.isbn13)
+                        data.isbn13 = isbn13;
+                }
             }
             try {
                 await database_1.default.book.create({ data });

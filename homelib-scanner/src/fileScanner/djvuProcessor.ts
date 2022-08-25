@@ -12,7 +12,7 @@ import { extractPreview, getPagesOCR } from './pdfProcessor';
 
 const djvuExtractPreview = async(fileName: string): Promise<Buffer> => {
     return new Promise((resolve, reject) => {
-        const previewPdfImageFileName = `/tmp/${randomUUID().replaceAll('-', '')}.pdf`;
+        const previewPdfImageFileName = `${randomUUID().replaceAll('-', '')}.pdf`;
         const dumpProcess = spawn('ddjvu', ['-format=pdf', '-page=1', fileName, previewPdfImageFileName]);
         dumpProcess.on('error', reject);
         dumpProcess.stderr.on('data', reject);

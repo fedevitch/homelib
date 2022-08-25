@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const promises_1 = require("fs/promises");
+const path_1 = require("path");
 const logger_1 = __importDefault(require("../logger"));
 const fileEntry_1 = require("./fileEntry");
 const processDir = async (directory) => {
@@ -18,7 +19,7 @@ const processDir = async (directory) => {
                 }
             }
             if (dirent.isDirectory()) {
-                const subDirFiles = await processDir(`${directory}/${dirent.name}`);
+                const subDirFiles = await processDir(`${directory}${path_1.sep}${dirent.name}`);
                 files.push(...subDirFiles);
             }
         }

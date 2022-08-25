@@ -14,7 +14,7 @@ const promises_1 = require("fs/promises");
 const pdfProcessor_1 = require("./pdfProcessor");
 const djvuExtractPreview = async (fileName) => {
     return new Promise((resolve, reject) => {
-        const previewPdfImageFileName = `/tmp/${(0, crypto_1.randomUUID)().replaceAll('-', '')}.pdf`;
+        const previewPdfImageFileName = `${(0, crypto_1.randomUUID)().replaceAll('-', '')}.pdf`;
         const dumpProcess = (0, child_process_1.spawn)('ddjvu', ['-format=pdf', '-page=1', fileName, previewPdfImageFileName]);
         dumpProcess.on('error', reject);
         dumpProcess.stderr.on('data', reject);

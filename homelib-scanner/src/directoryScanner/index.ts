@@ -1,4 +1,5 @@
 import { opendir } from 'fs/promises';
+import { sep } from 'path';
 import logger from '../logger';
 import { FileEntry } from './fileEntry';
 
@@ -17,7 +18,7 @@ const processDir = async (directory: string): Promise<Array<FileEntry>> => {
               }
           }
           if(dirent.isDirectory()) {
-            const subDirFiles = await processDir(`${directory}/${dirent.name}`);
+            const subDirFiles = await processDir(`${directory}${sep}${dirent.name}`);
             files.push(...subDirFiles);  
           }
         }

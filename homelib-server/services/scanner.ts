@@ -2,7 +2,7 @@ import { env } from 'process';
 import { ChildProcessWithoutNullStreams, spawn } from 'child_process';
 import ScannerEvents from '../components/schemas/scannerEvents';
 
-const scannerExecutablePath = `${__dirname.split('/homelib')[0]}/homelib/homelib-scanner/build/index.js`;
+const scannerExecutablePath = `${__dirname.split('homelib')[0]}/homelib/homelib-scanner/build/index.js`;
 
 const socketInit = (socket, io) => {
   socket.on('scanner-launch', () => {

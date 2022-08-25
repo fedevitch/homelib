@@ -13,7 +13,7 @@ const scanConfig_1 = __importDefault(require("../scanConfig"));
 const pngToJpeg = require('png-to-jpeg');
 const extractPreview = async (fileName, ratio = 50) => {
     return new Promise((resolve, reject) => {
-        let previewFileName = `/tmp/${(0, crypto_1.randomUUID)().replaceAll('-', '')}`;
+        let previewFileName = `${(0, crypto_1.randomUUID)().replaceAll('-', '')}`;
         const convertProcess = (0, child_process_1.spawn)('pdftopng', ['-f', '1', '-l', '1', '-r', ratio.toString(), fileName, previewFileName]);
         convertProcess.on('error', reject);
         convertProcess.stderr.on('data', reject);
@@ -31,7 +31,7 @@ exports.extractPreview = extractPreview;
 const getPagesOCR = async (fileName, firstPage, lastPage) => {
     return new Promise((resolve, reject) => {
         const fileNames = Array();
-        const prefix = `/tmp/${(0, crypto_1.randomUUID)().replaceAll('-', '')}`;
+        const prefix = `${(0, crypto_1.randomUUID)().replaceAll('-', '')}`;
         for (let i = firstPage; i < lastPage; i++) {
             const fileName = `${prefix}-${lodash_1.default.padStart(i.toString(), 6, '0')}.png`;
             fileNames.push(fileName);

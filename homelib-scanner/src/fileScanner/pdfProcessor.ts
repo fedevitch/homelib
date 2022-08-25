@@ -9,7 +9,7 @@ const pngToJpeg = require('png-to-jpeg');
 
 export const extractPreview = async(fileName: string, ratio = 50): Promise<Buffer> => {
     return new Promise((resolve, reject) => {
-        let previewFileName = `/tmp/${randomUUID().replaceAll('-', '')}`;
+        let previewFileName = `${randomUUID().replaceAll('-', '')}`;
         const convertProcess = spawn('pdftopng', ['-f', '1', '-l', '1', '-r', ratio.toString(), fileName, previewFileName]);
         convertProcess.on('error', reject);
         convertProcess.stderr.on('data', reject);
@@ -27,7 +27,7 @@ export const extractPreview = async(fileName: string, ratio = 50): Promise<Buffe
 export const getPagesOCR = async(fileName: string, firstPage: number, lastPage: number): Promise<Array<Buffer>> => {
     return new Promise((resolve, reject) => {
         const fileNames = Array<string>();
-        const prefix = `/tmp/${randomUUID().replaceAll('-', '')}`;
+        const prefix = `${randomUUID().replaceAll('-', '')}`;
         for(let i = firstPage; i < lastPage; i++){
             const fileName = `${prefix}-${_.padStart(i.toString(), 6, '0')}.png`;            
             fileNames.push(fileName);

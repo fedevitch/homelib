@@ -54,7 +54,7 @@ const Book: NextPage = () => {
                     <Button text={t("Download")} icon="download" />
                 </Link>
                 <Divider />
-                <Image src={getFormatIcon(book.format?.toString())} width={30} height={20} />
+                <Image src={getFormatIcon(book.format?.toString())} alt="format" width={30} height={20} />
                 <Divider />
                 <Tag large>{`${size.value} ${t(size.measure)}`}</Tag>
             </ButtonGroup>
@@ -84,7 +84,7 @@ const Book: NextPage = () => {
             <p>{t("Published Date")}: {volumeInfo.publishedDate}</p>
             <p>{t("Publisher")}: {volumeInfo.publisher}</p>
             <p>{t("Maturity Rating")}: {volumeInfo.maturityRating}</p>
-            <p>{t("Links")}: {volumeInfo.previewLinks.map(l => <p><Link href={l} >{l}</Link></p>)}</p>
+            <p>{t("Links")}: {volumeInfo.previewLinks.map((l, i) => <p key={i}><Link href={l}>{l}</Link></p>)}</p>
             <div>{t("Description")}: {volumeInfo.description}</div>
         </div>
     }
@@ -99,7 +99,7 @@ const Book: NextPage = () => {
             <div className={styles.container}>
                 <div className={styles.cover}>
                     <Card elevation={Elevation.TWO}>
-                        <Image src={cover} onError={onCoverError} 
+                        <Image src={cover} alt="cover" onError={onCoverError} 
                            placeholder="blur" blurDataURL={cover} 
                            width={300} height={400} layout="fixed" />
                     </Card>

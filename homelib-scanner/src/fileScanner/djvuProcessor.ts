@@ -11,6 +11,7 @@ import { rm } from 'fs/promises';
 import { extractPreview, getPagesOCR } from './pdfProcessor';
 
 const djvuExtractPreview = async(fileName: string): Promise<Buffer> => {
+    logger.debug('djvuExtractPreview');
     return new Promise((resolve, reject) => {
         const previewPdfImageFileName = `/tmp/${randomUUID().replaceAll('-', '')}.pdf`;
         const dumpProcess = spawn('ddjvu', ['-format=pdf', '-page=1', fileName, previewPdfImageFileName]);
@@ -27,6 +28,7 @@ const djvuExtractPreview = async(fileName: string): Promise<Buffer> => {
 }
 
 const djvuGetPagesOCR = async(fileName: string, pages: number): Promise<Array<Buffer>> => {
+    logger.debug('djvuGetPagesOCR');
     return new Promise((resolve, reject) => {
         const previewPdfImageFileName = `/tmp/${randomUUID().replaceAll('-', '')}.pdf`;
         const dumpProcess = spawn('ddjvu', ['-format=pdf', 
@@ -45,6 +47,7 @@ const djvuGetPagesOCR = async(fileName: string, pages: number): Promise<Array<Bu
 }
 
 const djvuDump = async(fileName: string): Promise<string> => {
+    logger.debug('djvuDump');
     return new Promise((resolve, reject) => {
         const dumpProcess = spawn('djvudump', [fileName])
         let dump = "";
@@ -56,6 +59,7 @@ const djvuDump = async(fileName: string): Promise<string> => {
 }
 
 const djvuTxt = async(fileName: string, pages: number): Promise<string> => {
+    logger.debug('djvuTxt');
     return new Promise((resolve, reject) => {
         const dumpProcess = spawn('djvutxt', [`-page=1-${config.TAKE_START_PAGES},${pages - config.TAKE_END_PAGES}-${pages}`, fileName])
         let text = "";
@@ -67,6 +71,7 @@ const djvuTxt = async(fileName: string, pages: number): Promise<string> => {
 }
 
 const parseDjvu = async (fileName: string): Promise<ProcessResult> => {
+    logger.debug('parseDjvu');
     const dump = await djvuDump(fileName);     
     const numbers = dump.match(/([0-9])\w+/g);
     const pages = Number.parseInt(_.get(numbers, '3', 0));

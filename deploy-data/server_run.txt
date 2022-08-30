@@ -1,0 +1,260 @@
+lyubomyr@lyubomyr-desktop:~/projects/homelib/homelib$ cd homelib-server/
+lyubomyr@lyubomyr-desktop:~/projects/homelib/homelib/homelib-server$ npm i
+npm WARN ERESOLVE overriding peer dependency
+npm WARN While resolving: react-popper@1.3.11
+npm WARN Found: react@18.1.0
+npm WARN node_modules/react
+npm WARN   react@"18.1.0" from the root project
+npm WARN   12 more (@blueprintjs/core, @blueprintjs/popover2, ...)
+npm WARN 
+npm WARN Could not resolve dependency:
+npm WARN peer react@"0.14.x || ^15.0.0 || ^16.0.0 || ^17.0.0" from react-popper@1.3.11
+npm WARN node_modules/@blueprintjs/core/node_modules/react-popper
+npm WARN   react-popper@"^1.3.7" from @blueprintjs/core@4.6.1
+npm WARN   node_modules/@blueprintjs/core
+npm WARN 
+npm WARN Conflicting peer dependency: react@17.0.2
+npm WARN node_modules/react
+npm WARN   peer react@"0.14.x || ^15.0.0 || ^16.0.0 || ^17.0.0" from react-popper@1.3.11
+npm WARN   node_modules/@blueprintjs/core/node_modules/react-popper
+npm WARN     react-popper@"^1.3.7" from @blueprintjs/core@4.6.1
+npm WARN     node_modules/@blueprintjs/core
+npm WARN deprecated @types/socket.io@3.0.2: This is a stub types definition. socket.io provides its own type definitions, so you do not need this installed.
+npm WARN deprecated @types/socket.io-client@3.0.0: This is a stub types definition. socket.io-client provides its own type definitions, so you do not need this installed.
+npm WARN deprecated popper.js@1.16.1: You can find the new Popper v2 at @popperjs/core, this package is dedicated to the legacy v1
+
+added 366 packages, and audited 367 packages in 21s
+
+74 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+lyubomyr@lyubomyr-desktop:~/projects/homelib/homelib/homelib-server$ npm run dev
+
+> homelib-server@0.1.0 dev
+> next dev
+
+ready - started server on 0.0.0.0:3000, url: http://localhost:3000
+info  - Loaded env from /home/lyubomyr/projects/homelib/homelib/homelib-server/.env
+wait  - compiling...
+event - compiled client and server successfully in 3.6s (175 modules)
+Attention: Next.js now collects completely anonymous telemetry regarding usage.
+This information is used to shape Next.js' roadmap and prioritize features.
+You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+https://nextjs.org/telemetry
+
+wait  - compiling / (client and server)...
+wait  - compiling...
+event - compiled client and server successfully in 3.7s (1654 modules)
+wait  - compiling /api...
+wait  - compiling...
+event - compiled client and server successfully in 341 ms (1662 modules)
+Unauthorized
+wait  - compiling /login (client and server)...
+wait  - compiling...
+PrismaClientKnownRequestError: 
+Invalid `prisma.book.count()` invocation:
+
+
+  The table `public.Book` does not exist in the current database.
+    at RequestHandler.handleRequestError (/home/lyubomyr/projects/homelib/homelib/homelib-server/node_modules/@prisma/client/runtime/index.js:49670:13)
+    at RequestHandler.request (/home/lyubomyr/projects/homelib/homelib/homelib-server/node_modules/@prisma/client/runtime/index.js:49652:12)
+    at async PrismaClient._request (/home/lyubomyr/projects/homelib/homelib/homelib-server/node_modules/@prisma/client/runtime/index.js:50572:18)
+    at async getStats (webpack-internal:///./services/books.ts:22:17)
+    at async handler (webpack-internal:///./pages/api/index.ts:15:23)
+    at async Object.apiResolver (/home/lyubomyr/projects/homelib/homelib/homelib-server/node_modules/next/dist/server/api-utils/node.js:185:9)
+    at async DevServer.runApi (/home/lyubomyr/projects/homelib/homelib/homelib-server/node_modules/next/dist/server/next-server.js:395:9)
+    at async Object.fn (/home/lyubomyr/projects/homelib/homelib/homelib-server/node_modules/next/dist/server/base-server.js:496:37)
+    at async Router.execute (/home/lyubomyr/projects/homelib/homelib/homelib-server/node_modules/next/dist/server/router.js:226:36)
+    at async DevServer.run (/home/lyubomyr/projects/homelib/homelib/homelib-server/node_modules/next/dist/server/base-server.js:606:29) {
+  code: 'P2021',
+  clientVersion: '4.0.0',
+  meta: { table: 'public.Book' }
+}
+error - Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+    at new NodeError (node:internal/errors:387:5)
+    at ServerResponse.setHeader (node:_http_outgoing:603:11)
+    at NodeNextResponse.setHeader (/home/lyubomyr/projects/homelib/homelib/homelib-server/node_modules/next/dist/server/base-http/node.js:59:19)
+    at DevServer.renderError (/home/lyubomyr/projects/homelib/homelib/homelib-server/node_modules/next/dist/server/base-server.js:1165:17)
+    at DevServer.renderError (/home/lyubomyr/projects/homelib/homelib/homelib-server/node_modules/next/dist/server/next-server.js:506:22)
+    at DevServer.run (/home/lyubomyr/projects/homelib/homelib/homelib-server/node_modules/next/dist/server/dev/next-dev-server.js:456:35)
+    at async DevServer.handleRequest (/home/lyubomyr/projects/homelib/homelib/homelib-server/node_modules/next/dist/server/base-server.js:321:20) {
+  code: 'ERR_HTTP_HEADERS_SENT'
+}
+event - compiled client and server successfully in 757 ms (1672 modules)
+wait  - compiling /signup...
+wait  - compiling...
+event - compiled client and server successfully in 333 ms (1675 modules)
+wait  - compiling /api/signup...
+wait  - compiling...
+event - compiled client and server successfully in 334 ms (1656 modules)
+^C
+lyubomyr@lyubomyr-desktop:~/projects/homelib/homelib/homelib-server$ npx prisma generate
+Environment variables loaded from .env
+Prisma schema loaded from prisma/schema.prisma
+warn Preview feature "extendedIndexes" is deprecated. The functionality can be used without specifying it as a preview feature.
+
+✔ Generated Prisma Client (4.0.0 | library) to ./node_modules/@prisma/client in 108ms
+You can now start using Prisma Client in your code. Reference: https://pris.ly/d/client
+```
+import { PrismaClient } from '@prisma/client'
+const prisma = new PrismaClient()
+```
+lyubomyr@lyubomyr-desktop:~/projects/homelib/homelib/homelib-server$ npx prisma migrate
+
+Update the database schema with migrations
+  
+Usage
+
+  $ prisma migrate [command] [options]
+
+Commands for development
+
+         dev   Create a migration from changes in Prisma schema, apply it to the database
+               trigger generators (e.g. Prisma Client)
+       reset   Reset your database and apply all migrations, all data will be lost
+
+Commands for production/staging
+
+      deploy   Apply pending migrations to the database 
+      status   Check the status of your database migrations
+     resolve   Resolve issues with database migrations, i.e. baseline, failed migration, hotfix
+
+Command for any stage
+
+        diff   Compare the database schema from two arbitrary sources
+
+Options
+
+  -h, --help   Display this help message
+    --schema   Custom path to your Prisma schema
+
+Examples
+
+  Create a migration from changes in Prisma schema, apply it to the database, trigger generators (e.g. Prisma Client)
+  $ prisma migrate dev
+
+  Reset your database and apply all migrations
+  $ prisma migrate reset
+
+  Apply pending migrations to the database in production/staging
+  $ prisma migrate deploy
+
+  Check the status of migrations in the production/staging database
+  $ prisma migrate status
+
+  Specify a schema
+  $ prisma migrate status --schema=./schema.prisma
+
+  Compare the database schema from two databases and render the diff as a SQL script
+  $ prisma migrate diff \
+    --from-url "$DATABASE_URL" \
+    --to-url "postgresql://login:password@localhost:5432/db" \
+    --script
+
+┌─────────────────────────────────────────────────────────┐
+│  Update available 4.0.0 -> 4.2.1                        │
+│  Run the following to update                            │
+│    npm i --save-dev prisma@latest                       │
+│    npm i @prisma/client@latest                          │
+└─────────────────────────────────────────────────────────┘
+lyubomyr@lyubomyr-desktop:~/projects/homelib/homelib/homelib-server$ npx prisma migrate deploy
+Environment variables loaded from .env
+Prisma schema loaded from prisma/schema.prisma
+Datasource "db": PostgreSQL database "homelib", schema "public" at "localhost:5432"
+
+12 migrations found in prisma/migrations
+
+Applying migration `20220610084723_first_migration`
+Applying migration `20220610084824_second_migration`
+Applying migration `20220610094534_undo_users`
+Applying migration `20220615172958_added_book`
+Applying migration `20220617122242_downgraded_size_to_int`
+Applying migration `20220705094047_added_pages_count`
+Applying migration `20220708152358_added_isbn_preview_image_volume_info`
+Applying migration `20220718111852_added_indexes`
+Applying migration `20220719105542_renamed_images_table`
+Applying migration `20220824112812_updates_for_google_book`
+Applying migration `20220824120351_updates_for_google_book_2`
+Applying migration `20220824131427_added_subtitle`
+
+The following migrations have been applied:
+
+migrations/
+  └─ 20220610084723_first_migration/
+    └─ migration.sql
+  └─ 20220610084824_second_migration/
+    └─ migration.sql
+  └─ 20220610094534_undo_users/
+    └─ migration.sql
+  └─ 20220615172958_added_book/
+    └─ migration.sql
+  └─ 20220617122242_downgraded_size_to_int/
+    └─ migration.sql
+  └─ 20220705094047_added_pages_count/
+    └─ migration.sql
+  └─ 20220708152358_added_isbn_preview_image_volume_info/
+    └─ migration.sql
+  └─ 20220718111852_added_indexes/
+    └─ migration.sql
+  └─ 20220719105542_renamed_images_table/
+    └─ migration.sql
+  └─ 20220824112812_updates_for_google_book/
+    └─ migration.sql
+  └─ 20220824120351_updates_for_google_book_2/
+    └─ migration.sql
+  └─ 20220824131427_added_subtitle/
+    └─ migration.sql
+      
+All migrations have been successfully applied.
+lyubomyr@lyubomyr-desktop:~/projects/homelib/homelib/homelib-server$ npm run dev
+
+> homelib-server@0.1.0 dev
+> next dev
+
+ready - started server on 0.0.0.0:3000, url: http://localhost:3000
+info  - Loaded env from /home/lyubomyr/projects/homelib/homelib/homelib-server/.env
+wait  - compiling...
+event - compiled client and server successfully in 704 ms (175 modules)
+wait  - compiling /_error (client and server)...
+wait  - compiling...
+wait  - compiling /signup (client and server)...
+wait  - compiling...
+event - compiled client and server successfully in 2.7s (1654 modules)
+wait  - compiling /api/signup...
+wait  - compiling...
+event - compiled client and server successfully in 258 ms (1670 modules)
+wait  - compiling /login...
+wait  - compiling...
+event - compiled client and server successfully in 362 ms (1673 modules)
+wait  - compiling /api/login...
+wait  - compiling...
+event - compiled client and server successfully in 203 ms (1674 modules)
+wait  - compiling /...
+wait  - compiling...
+event - compiled client and server successfully in 237 ms (1685 modules)
+wait  - compiling /api...
+wait  - compiling...
+event - compiled client and server successfully in 179 ms (1690 modules)
+wait  - compiling /scanner...
+wait  - compiling...
+event - compiled client and server successfully in 558 ms (1730 modules)
+wait  - compiling /api/scanner...
+wait  - compiling...
+event - compiled client and server successfully in 229 ms (1737 modules)
+Socket is initializing
+stderr data
+<Buffer 6e 6f 64 65 3a 69 6e 74 65 72 6e 61 6c 2f 6d 6f 64 75 6c 65 73 2f 63 6a 73 2f 6c 6f 61 64 65 72 3a 39 35 39 0a 20 20 74 68 72 6f 77 20 65 72 72 3b 0a ... 438 more bytes>
+node:internal/modules/cjs/loader:959
+  throw err;
+  ^
+
+Error: Cannot find module '/home/lyubomyr/projects/homelib/homelib-scanner/build/index.js'
+    at Function.Module._resolveFilename (node:internal/modules/cjs/loader:956:15)
+    at Function.Module._load (node:internal/modules/cjs/loader:804:27)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)
+    at node:internal/main/run_main_module:17:47 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}

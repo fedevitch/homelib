@@ -25,6 +25,7 @@ export const extractPreview = async(fileName: string, ratio = 50): Promise<Buffe
 }
 
 export const getPagesOCR = async(fileName: string, firstPage: number, lastPage: number): Promise<Array<Buffer>> => {
+    logger.debug('getPagesOCR');
     return new Promise((resolve, reject) => {
         const fileNames = Array<string>();
         const prefix = `/tmp/${randomUUID().replaceAll('-', '')}`;
@@ -40,9 +41,15 @@ export const getPagesOCR = async(fileName: string, firstPage: number, lastPage: 
         convertProcess.on('close', async () => {
             const data = Array<Buffer>();
             for(const fileName of fileNames){
-                const buffer = await readFile(fileName);
-                data.push(buffer);
-                await rm(fileName);
+                logger.debug('readFile');
+                try {
+                    const buffer = await readFile(fileName);
+                    data.push(buffer);
+                    logger.debug('rm');
+                    await rm(fileName);
+                } catch(e) {
+                    logger.error(`Error with file ${fileName}`);
+                }
             }
             resolve(data);           
         });

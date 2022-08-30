@@ -29,6 +29,7 @@ const extractPreview = async (fileName, ratio = 50) => {
 };
 exports.extractPreview = extractPreview;
 const getPagesOCR = async (fileName, firstPage, lastPage) => {
+    logger_1.default.debug('getPagesOCR');
     return new Promise((resolve, reject) => {
         const fileNames = Array();
         const prefix = `/tmp/${(0, crypto_1.randomUUID)().replaceAll('-', '')}`;
@@ -43,9 +44,16 @@ const getPagesOCR = async (fileName, firstPage, lastPage) => {
         convertProcess.on('close', async () => {
             const data = Array();
             for (const fileName of fileNames) {
-                const buffer = await (0, promises_1.readFile)(fileName);
-                data.push(buffer);
-                await (0, promises_1.rm)(fileName);
+                logger_1.default.debug('readFile');
+                try {
+                    const buffer = await (0, promises_1.readFile)(fileName);
+                    data.push(buffer);
+                    logger_1.default.debug('rm');
+                    await (0, promises_1.rm)(fileName);
+                }
+                catch (e) {
+                    logger_1.default.error(`Error with file ${fileName}`);
+                }
             }
             resolve(data);
         });

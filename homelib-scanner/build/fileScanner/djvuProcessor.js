@@ -13,6 +13,7 @@ const crypto_1 = require("crypto");
 const promises_1 = require("fs/promises");
 const pdfProcessor_1 = require("./pdfProcessor");
 const djvuExtractPreview = async (fileName) => {
+    logger_1.default.debug('djvuExtractPreview');
     return new Promise((resolve, reject) => {
         const previewPdfImageFileName = `/tmp/${(0, crypto_1.randomUUID)().replaceAll('-', '')}.pdf`;
         const dumpProcess = (0, child_process_1.spawn)('ddjvu', ['-format=pdf', '-page=1', fileName, previewPdfImageFileName]);
@@ -28,6 +29,7 @@ const djvuExtractPreview = async (fileName) => {
     });
 };
 const djvuGetPagesOCR = async (fileName, pages) => {
+    logger_1.default.debug('djvuGetPagesOCR');
     return new Promise((resolve, reject) => {
         const previewPdfImageFileName = `/tmp/${(0, crypto_1.randomUUID)().replaceAll('-', '')}.pdf`;
         const dumpProcess = (0, child_process_1.spawn)('ddjvu', ['-format=pdf',
@@ -45,6 +47,7 @@ const djvuGetPagesOCR = async (fileName, pages) => {
     });
 };
 const djvuDump = async (fileName) => {
+    logger_1.default.debug('djvuDump');
     return new Promise((resolve, reject) => {
         const dumpProcess = (0, child_process_1.spawn)('djvudump', [fileName]);
         let dump = "";
@@ -55,6 +58,7 @@ const djvuDump = async (fileName) => {
     });
 };
 const djvuTxt = async (fileName, pages) => {
+    logger_1.default.debug('djvuTxt');
     return new Promise((resolve, reject) => {
         const dumpProcess = (0, child_process_1.spawn)('djvutxt', [`-page=1-${scanConfig_1.default.TAKE_START_PAGES},${pages - scanConfig_1.default.TAKE_END_PAGES}-${pages}`, fileName]);
         let text = "";
@@ -65,6 +69,7 @@ const djvuTxt = async (fileName, pages) => {
     });
 };
 const parseDjvu = async (fileName) => {
+    logger_1.default.debug('parseDjvu');
     const dump = await djvuDump(fileName);
     const numbers = dump.match(/([0-9])\w+/g);
     const pages = Number.parseInt(lodash_1.default.get(numbers, '3', 0));

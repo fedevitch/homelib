@@ -13,6 +13,7 @@ process.on('uncaughtException', function handleError(err) {
     // handle the error safely
     logger.error('UNCAUGHT exception');
     logger.error(err);
+    logger.error(err.stack);
 });
 process.on('unhandledRejection', function handleError(err) {
     // handle the error safely

@@ -1,0 +1,458 @@
+lyubomyr@lyubomyr-desktop:~/projects/homelib/homelib/homelib-server$ sudo apt-get install p7zip-full 
+[sudo] пароль до lyubomyr: 
+Зчитування переліків пакунків... Виконано
+Побудова дерева залежностей                        
+Зчитування інформації про стан... Виконано
+Наступні пакунки були встановлені автоматично і більше не потрібні:
+  fonts-wine glib-networking:i386 gstreamer1.0-plugins-base:i386 gstreamer1.0-plugins-good:i386 gstreamer1.0-x:i386 i965-va-driver:i386 intel-media-va-driver:i386 libaa1:i386 libaom0:i386 libapparmor1:i386
+  libasn1-8-heimdal:i386 libasound2:i386 libasound2-plugins:i386 libasyncns0:i386 libatomic1:i386 libavahi-client3:i386 libavahi-common-data:i386 libavahi-common3:i386 libavc1394-0:i386 libavcodec58:i386
+  libavutil56:i386 libbrotli1:i386 libbsd0:i386 libcaca0:i386 libcairo-gobject2:i386 libcairo2:i386 libcap2:i386 libcapi20-3 libcapi20-3:i386 libcdparanoia0:i386 libcodec2-0.9:i386 libcups2:i386
+  libdatrie1:i386 libdbus-1-3:i386 libdrm-amdgpu1:i386 libdrm-intel1:i386 libdrm-nouveau2:i386 libdrm-radeon1:i386 libdrm2:i386 libdv4:i386 libedit2:i386 libelf1:i386 libexif12:i386 libexpat1:i386 libfaudio0
+  libfaudio0:i386 libffi7:i386 libflac8:i386 libfontconfig1:i386 libfreetype6:i386 libfribidi0:i386 libfwupdplugin1 libgd3:i386 libgdbm-compat4:i386 libgdbm6:i386 libgdk-pixbuf2.0-0:i386 libgl1:i386
+  libgl1-mesa-dri:i386 libglapi-mesa:i386 libglib2.0-0:i386 libglu1-mesa:i386 libglvnd0:i386 libglx-mesa0:i386 libglx0:i386 libgmp10:i386 libgnutls30:i386 libgomp1:i386 libgphoto2-6:i386 libgphoto2-port12:i386
+  libgraphite2-3:i386 libgsm1:i386 libgssapi-krb5-2:i386 libgssapi3-heimdal:i386 libgstreamer-plugins-base1.0-0:i386 libgstreamer-plugins-good1.0-0:i386 libgstreamer1.0-0:i386 libgudev-1.0-0:i386
+  libharfbuzz0b:i386 libhcrypto4-heimdal:i386 libheimbase1-heimdal:i386 libheimntlm0-heimdal:i386 libhogweed5:i386 libhx509-5-heimdal:i386 libicu66:i386 libiec61883-0:i386 libieee1284-3:i386 libigdgmm11:i386
+  libjack-jackd2-0:i386 libjbig0:i386 libjpeg-turbo8:i386 libjpeg8:i386 libk5crypto3:i386 libkeyutils1:i386 libkrb5-26-heimdal:i386 libkrb5-3:i386 libkrb5support0:i386 liblcms2-2:i386 libllvm10:i386 libllvm11
+  libllvm11:i386 libllvm12:i386 libltdl7:i386 libmp3lame0:i386 libmpg123-0:i386 libmysqlclient21:i386 libnettle7:i386 libnghttp2-14:i386 libnuma1:i386 libodbc1 libodbc1:i386 libogg0:i386 libopenal-data
+  libopenal1 libopenal1:i386 libopenjp2-7:i386 libopus0:i386 liborc-0.4-0:i386 libosmesa6 libosmesa6:i386 libp11-kit0:i386 libpango-1.0-0:i386 libpangocairo-1.0-0:i386 libpangoft2-1.0-0:i386 libpcap0.8:i386
+  libpci3:i386 libpciaccess0:i386 libperl5.30:i386 libpixman-1-0:i386 libpng16-16:i386 libproxy1v5:i386 libpsl5:i386 libpulse0:i386 libraw1394-11:i386 libroken18-heimdal:i386 librsvg2-2:i386
+  librsvg2-common:i386 librtmp1:i386 libsamplerate0:i386 libsdl2-2.0-0 libsdl2-2.0-0:i386 libsensors5:i386 libshine3:i386 libshout3:i386 libslang2:i386 libsnappy1v5:i386 libsndfile1:i386 libsndio7.0:i386
+  libsnmp35:i386 libsoup2.4-1:i386 libsoxr0:i386 libspeex1:i386 libsqlite3-0:i386 libssh-4:i386 libssl1.1:i386 libstb0 libstb0:i386 libstdc++6:i386 libswresample3:i386 libtag1v5:i386 libtag1v5-vanilla:i386
+  libtasn1-6:i386 libthai0:i386 libtheora0:i386 libtiff5:i386 libtwolame0:i386 libusb-1.0-0:i386 libv4l-0:i386 libv4lconvert0:i386 libva-drm2:i386 libva-x11-2:i386 libva2:i386 libvdpau1:i386
+  libvisual-0.4-0:i386 libvkd3d1 libvkd3d1:i386 libvorbis0a:i386 libvorbisenc2:i386 libvpx6:i386 libvulkan1:i386 libwavpack1:i386 libwayland-client0:i386 libwayland-cursor0:i386 libwayland-egl1:i386
+  libwebp6:i386 libwebpmux3:i386 libwind0-heimdal:i386 libwine libwrap0:i386 libx11-6:i386 libx11-xcb1:i386 libx264-155:i386 libx265-179:i386 libxau6:i386 libxcb-dri2-0:i386 libxcb-dri3-0:i386 libxcb-glx0:i386
+  libxcb-present0:i386 libxcb-randr0:i386 libxcb-render0:i386 libxcb-shm0:i386 libxcb-sync1:i386 libxcb-xfixes0:i386 libxcb1:i386 libxcomposite1:i386 libxcursor1:i386 libxdamage1:i386 libxdmcp6:i386
+  libxext6:i386 libxfixes3:i386 libxi6:i386 libxinerama1:i386 libxkbcommon0:i386 libxml2:i386 libxpm4:i386 libxrandr2:i386 libxrender1:i386 libxshmfence1:i386 libxslt1.1:i386 libxss1:i386 libxv1:i386
+  libxvidcore4:i386 libxxf86vm1:i386 libzvbi0:i386 linux-headers-5.4.0-94 linux-headers-5.4.0-94-generic linux-image-5.4.0-94-generic linux-modules-5.4.0-94-generic linux-modules-extra-5.4.0-94-generic
+  mesa-va-drivers:i386 mesa-vdpau-drivers:i386 mesa-vulkan-drivers:i386 ocl-icd-libopencl1:i386 shim va-driver-all:i386 vdpau-driver-all:i386 wine wine-stable wine64
+Використовуйте 'sudo apt autoremove' щоб видалити їх.
+Буде встановлено такі додаткові пакунки:
+  p7zip
+Пропоновані пакунки:
+  p7zip-rar
+НОВІ пакунки, які будуть встановлені:
+  p7zip p7zip-full
+оновлено 0, встановлено 2 нових, 0 відмічено для видалення і 6 не оновлено.
+Необхідно завантажити 1 545 kB архівів.
+Після цієї операції об'єм зайнятого дискового простору зросте на 5 896 kB.
+Бажаєте продовжити? [Y=ТАК/n=ні] y
+Отр:1 http://ua.archive.ubuntu.com/ubuntu focal/universe amd64 p7zip amd64 16.02+dfsg-7build1 [358 kB]
+Отр:2 http://ua.archive.ubuntu.com/ubuntu focal/universe amd64 p7zip-full amd64 16.02+dfsg-7build1 [1 187 kB]
+Отримано 1 545 kB за 0сB (9 795 kB/s)   
+Вибір раніше не обраного пакунку p7zip.
+(Читання бази даних ... на дану мить встановлено 276022 файли та каталоги.)
+Приготування до розпакування .../p7zip_16.02+dfsg-7build1_amd64.deb ...
+Розпакування p7zip (16.02+dfsg-7build1)...
+Вибір раніше не обраного пакунку p7zip-full.
+Приготування до розпакування .../p7zip-full_16.02+dfsg-7build1_amd64.deb ...
+Розпакування p7zip-full (16.02+dfsg-7build1)...
+Налаштовування p7zip (16.02+dfsg-7build1) ...
+Налаштовування p7zip-full (16.02+dfsg-7build1) ...
+Обробка тригерів doc-base (0.10.9)...
+Опрацювання 1 доданий файл doc-base...
+Обробка тригерів man-db (2.9.1-1)...
+lyubomyr@lyubomyr-desktop:~/projects/homelib/homelib/homelib-server$ sudo apt install djvulibre-bin
+Зчитування переліків пакунків... Виконано
+Побудова дерева залежностей                        
+Зчитування інформації про стан... Виконано
+Наступні пакунки були встановлені автоматично і більше не потрібні:
+  fonts-wine glib-networking:i386 gstreamer1.0-plugins-base:i386 gstreamer1.0-plugins-good:i386 gstreamer1.0-x:i386 i965-va-driver:i386 intel-media-va-driver:i386 libaa1:i386 libaom0:i386 libapparmor1:i386
+  libasn1-8-heimdal:i386 libasound2:i386 libasound2-plugins:i386 libasyncns0:i386 libatomic1:i386 libavahi-client3:i386 libavahi-common-data:i386 libavahi-common3:i386 libavc1394-0:i386 libavcodec58:i386
+  libavutil56:i386 libbrotli1:i386 libbsd0:i386 libcaca0:i386 libcairo-gobject2:i386 libcairo2:i386 libcap2:i386 libcapi20-3 libcapi20-3:i386 libcdparanoia0:i386 libcodec2-0.9:i386 libcups2:i386
+  libdatrie1:i386 libdbus-1-3:i386 libdrm-amdgpu1:i386 libdrm-intel1:i386 libdrm-nouveau2:i386 libdrm-radeon1:i386 libdrm2:i386 libdv4:i386 libedit2:i386 libelf1:i386 libexif12:i386 libexpat1:i386 libfaudio0
+  libfaudio0:i386 libffi7:i386 libflac8:i386 libfontconfig1:i386 libfreetype6:i386 libfribidi0:i386 libfwupdplugin1 libgd3:i386 libgdbm-compat4:i386 libgdbm6:i386 libgdk-pixbuf2.0-0:i386 libgl1:i386
+  libgl1-mesa-dri:i386 libglapi-mesa:i386 libglib2.0-0:i386 libglu1-mesa:i386 libglvnd0:i386 libglx-mesa0:i386 libglx0:i386 libgmp10:i386 libgnutls30:i386 libgomp1:i386 libgphoto2-6:i386 libgphoto2-port12:i386
+  libgraphite2-3:i386 libgsm1:i386 libgssapi-krb5-2:i386 libgssapi3-heimdal:i386 libgstreamer-plugins-base1.0-0:i386 libgstreamer-plugins-good1.0-0:i386 libgstreamer1.0-0:i386 libgudev-1.0-0:i386
+  libharfbuzz0b:i386 libhcrypto4-heimdal:i386 libheimbase1-heimdal:i386 libheimntlm0-heimdal:i386 libhogweed5:i386 libhx509-5-heimdal:i386 libicu66:i386 libiec61883-0:i386 libieee1284-3:i386 libigdgmm11:i386
+  libjack-jackd2-0:i386 libjbig0:i386 libjpeg-turbo8:i386 libjpeg8:i386 libk5crypto3:i386 libkeyutils1:i386 libkrb5-26-heimdal:i386 libkrb5-3:i386 libkrb5support0:i386 liblcms2-2:i386 libllvm10:i386 libllvm11
+  libllvm11:i386 libllvm12:i386 libltdl7:i386 libmp3lame0:i386 libmpg123-0:i386 libmysqlclient21:i386 libnettle7:i386 libnghttp2-14:i386 libnuma1:i386 libodbc1 libodbc1:i386 libogg0:i386 libopenal-data
+  libopenal1 libopenal1:i386 libopenjp2-7:i386 libopus0:i386 liborc-0.4-0:i386 libosmesa6 libosmesa6:i386 libp11-kit0:i386 libpango-1.0-0:i386 libpangocairo-1.0-0:i386 libpangoft2-1.0-0:i386 libpcap0.8:i386
+  libpci3:i386 libpciaccess0:i386 libperl5.30:i386 libpixman-1-0:i386 libpng16-16:i386 libproxy1v5:i386 libpsl5:i386 libpulse0:i386 libraw1394-11:i386 libroken18-heimdal:i386 librsvg2-2:i386
+  librsvg2-common:i386 librtmp1:i386 libsamplerate0:i386 libsdl2-2.0-0 libsdl2-2.0-0:i386 libsensors5:i386 libshine3:i386 libshout3:i386 libslang2:i386 libsnappy1v5:i386 libsndfile1:i386 libsndio7.0:i386
+  libsnmp35:i386 libsoup2.4-1:i386 libsoxr0:i386 libspeex1:i386 libsqlite3-0:i386 libssh-4:i386 libssl1.1:i386 libstb0 libstb0:i386 libstdc++6:i386 libswresample3:i386 libtag1v5:i386 libtag1v5-vanilla:i386
+  libtasn1-6:i386 libthai0:i386 libtheora0:i386 libtiff5:i386 libtwolame0:i386 libusb-1.0-0:i386 libv4l-0:i386 libv4lconvert0:i386 libva-drm2:i386 libva-x11-2:i386 libva2:i386 libvdpau1:i386
+  libvisual-0.4-0:i386 libvkd3d1 libvkd3d1:i386 libvorbis0a:i386 libvorbisenc2:i386 libvpx6:i386 libvulkan1:i386 libwavpack1:i386 libwayland-client0:i386 libwayland-cursor0:i386 libwayland-egl1:i386
+  libwebp6:i386 libwebpmux3:i386 libwind0-heimdal:i386 libwine libwrap0:i386 libx11-6:i386 libx11-xcb1:i386 libx264-155:i386 libx265-179:i386 libxau6:i386 libxcb-dri2-0:i386 libxcb-dri3-0:i386 libxcb-glx0:i386
+  libxcb-present0:i386 libxcb-randr0:i386 libxcb-render0:i386 libxcb-shm0:i386 libxcb-sync1:i386 libxcb-xfixes0:i386 libxcb1:i386 libxcomposite1:i386 libxcursor1:i386 libxdamage1:i386 libxdmcp6:i386
+  libxext6:i386 libxfixes3:i386 libxi6:i386 libxinerama1:i386 libxkbcommon0:i386 libxml2:i386 libxpm4:i386 libxrandr2:i386 libxrender1:i386 libxshmfence1:i386 libxslt1.1:i386 libxss1:i386 libxv1:i386
+  libxvidcore4:i386 libxxf86vm1:i386 libzvbi0:i386 linux-headers-5.4.0-94 linux-headers-5.4.0-94-generic linux-image-5.4.0-94-generic linux-modules-5.4.0-94-generic linux-modules-extra-5.4.0-94-generic
+  mesa-va-drivers:i386 mesa-vdpau-drivers:i386 mesa-vulkan-drivers:i386 ocl-icd-libopencl1:i386 shim va-driver-all:i386 vdpau-driver-all:i386 wine wine-stable wine64
+Використовуйте 'sudo apt autoremove' щоб видалити їх.
+Буде встановлено такі додаткові пакунки:
+  libgraphicsmagick++-q16-12 pdf2djvu
+Пропоновані пакунки:
+  djvulibre-desktop graphicsmagick-dbg
+НОВІ пакунки, які будуть встановлені:
+  djvulibre-bin libgraphicsmagick++-q16-12 pdf2djvu
+оновлено 0, встановлено 3 нових, 0 відмічено для видалення і 6 не оновлено.
+Необхідно завантажити 546 kB архівів.
+Після цієї операції об'єм зайнятого дискового простору зросте на 2 191 kB.
+Бажаєте продовжити? [Y=ТАК/n=ні] y
+Отр:1 http://ua.archive.ubuntu.com/ubuntu focal-updates/universe amd64 djvulibre-bin amd64 3.5.27.1-14ubuntu0.1 [285 kB]
+Отр:2 http://ua.archive.ubuntu.com/ubuntu focal/universe amd64 libgraphicsmagick++-q16-12 amd64 1.4+really1.3.35-1 [103 kB]
+Отр:3 http://ua.archive.ubuntu.com/ubuntu focal/universe amd64 pdf2djvu amd64 0.9.17-1build1 [158 kB]
+Отримано 546 kB за 0сB (3 845 kB/s)               
+Вибір раніше не обраного пакунку djvulibre-bin.
+(Читання бази даних ... на дану мить встановлено 276119 файлів та каталогів.)
+Приготування до розпакування .../djvulibre-bin_3.5.27.1-14ubuntu0.1_amd64.deb ...
+Розпакування djvulibre-bin (3.5.27.1-14ubuntu0.1)...
+Вибір раніше не обраного пакунку libgraphicsmagick++-q16-12.
+Приготування до розпакування .../libgraphicsmagick++-q16-12_1.4+really1.3.35-1_amd64.deb ...
+Розпакування libgraphicsmagick++-q16-12 (1.4+really1.3.35-1)...
+Вибір раніше не обраного пакунку pdf2djvu.
+Приготування до розпакування .../pdf2djvu_0.9.17-1build1_amd64.deb ...
+Розпакування pdf2djvu (0.9.17-1build1)...
+Налаштовування djvulibre-bin (3.5.27.1-14ubuntu0.1) ...
+Налаштовування libgraphicsmagick++-q16-12 (1.4+really1.3.35-1) ...
+Налаштовування pdf2djvu (0.9.17-1build1) ...
+Обробка тригерів man-db (2.9.1-1)...
+Обробка тригерів libc-bin (2.31-0ubuntu9.9)...
+lyubomyr@lyubomyr-desktop:~/projects/homelib/homelib/homelib-server$ sudo apt install xpdf
+Зчитування переліків пакунків... Виконано
+Побудова дерева залежностей                        
+Зчитування інформації про стан... Виконано
+Пакунок xpdf недоступний, але згадується у переліку залежностей іншого пакунка.
+Це може означати, що пакунок відсутній, застарів, або доступний з джерел, не згаданих в sources.list
+
+E: Для пакунка 'xpdf' не знайдено кандидатів на встановлення
+lyubomyr@lyubomyr-desktop:~/projects/homelib/homelib/homelib-server$ pdfinfo
+pdfinfo version 0.86.1
+Copyright 2005-2020 The Poppler Developers - http://poppler.freedesktop.org
+Copyright 1996-2011 Glyph & Cog, LLC
+Usage: pdfinfo [options] <PDF-file>
+  -f <int>             : first page to convert
+  -l <int>             : last page to convert
+  -box                 : print the page bounding boxes
+  -meta                : print the document metadata (XML)
+  -js                  : print all JavaScript in the PDF
+  -struct              : print the logical document structure (for tagged files)
+  -struct-text         : print text contents along with document structure (for tagged files)
+  -isodates            : print the dates in ISO-8601 format
+  -rawdates            : print the undecoded date strings directly from the PDF file
+  -dests               : print all named destinations in the PDF
+  -enc <string>        : output text encoding name
+  -listenc             : list available encodings
+  -opw <string>        : owner password (for encrypted files)
+  -upw <string>        : user password (for encrypted files)
+  -v                   : print copyright and version info
+  -h                   : print usage information
+  -help                : print usage information
+  --help               : print usage information
+  -?                   : print usage information
+lyubomyr@lyubomyr-desktop:~/projects/homelib/homelib/homelib-server$ sudo apt update
+В кеші:1 http://ua.archive.ubuntu.com/ubuntu focal InRelease
+В кеші:2 http://ua.archive.ubuntu.com/ubuntu focal-updates InRelease
+В кеші:3 http://ua.archive.ubuntu.com/ubuntu focal-backports InRelease
+В кеші:4 http://security.ubuntu.com/ubuntu focal-security InRelease
+Зчитування переліків пакунків... Виконано        
+Побудова дерева залежностей       
+Зчитування інформації про стан... Виконано
+6 пакунків можуть бути оновлені. Для перегляду виконайте 'apt list --upgradable'.
+lyubomyr@lyubomyr-desktop:~/projects/homelib/homelib/homelib-server$ sudo apt list --upgradable 
+Лістинґ... Виконано
+bolt/focal-updates 0.9.1-2~ubuntu20.04.1 amd64 [оновлюється з: 0.8-4ubuntu1]
+python-apt-common/focal-updates,focal-updates 2.0.0ubuntu0.20.04.8 all [оновлюється з: 2.0.0ubuntu0.20.04.7]
+python3-apt/focal-updates 2.0.0ubuntu0.20.04.8 amd64 [оновлюється з: 2.0.0ubuntu0.20.04.7]
+python3-distupgrade/focal-updates,focal-updates 1:20.04.39 all [оновлюється з: 1:20.04.37]
+ubuntu-release-upgrader-core/focal-updates,focal-updates 1:20.04.39 all [оновлюється з: 1:20.04.37]
+ubuntu-release-upgrader-gtk/focal-updates,focal-updates 1:20.04.39 all [оновлюється з: 1:20.04.37]
+lyubomyr@lyubomyr-desktop:~/projects/homelib/homelib/homelib-server$ sudo apt install -f  xpdf
+Зчитування переліків пакунків... Виконано
+Побудова дерева залежностей                        
+Зчитування інформації про стан... Виконано
+Пакунок xpdf недоступний, але згадується у переліку залежностей іншого пакунка.
+Це може означати, що пакунок відсутній, застарів, або доступний з джерел, не згаданих в sources.list
+
+E: Для пакунка 'xpdf' не знайдено кандидатів на встановлення
+lyubomyr@lyubomyr-desktop:~/projects/homelib/homelib/homelib-server$ pdftopng
+pdftopng: команду не знайдено
+lyubomyr@lyubomyr-desktop:~/projects/homelib/homelib/homelib-server$ pdftotext
+pdftotext version 0.86.1
+Copyright 2005-2020 The Poppler Developers - http://poppler.freedesktop.org
+Copyright 1996-2011 Glyph & Cog, LLC
+Usage: pdftotext [options] <PDF-file> [<text-file>]
+  -f <int>             : first page to convert
+  -l <int>             : last page to convert
+  -r <fp>              : resolution, in DPI (default is 72)
+  -x <int>             : x-coordinate of the crop area top left corner
+  -y <int>             : y-coordinate of the crop area top left corner
+  -W <int>             : width of crop area in pixels (default is 0)
+  -H <int>             : height of crop area in pixels (default is 0)
+  -layout              : maintain original physical layout
+  -fixed <fp>          : assume fixed-pitch (or tabular) text
+  -raw                 : keep strings in content stream order
+  -nodiag              : discard diagonal text
+  -htmlmeta            : generate a simple HTML file, including the meta information
+  -enc <string>        : output text encoding name
+  -listenc             : list available encodings
+  -eol <string>        : output end-of-line convention (unix, dos, or mac)
+  -nopgbrk             : don't insert page breaks between pages
+  -bbox                : output bounding box for each word and page size to html.  Sets -htmlmeta
+  -bbox-layout         : like -bbox but with extra layout bounding box data.  Sets -htmlmeta
+  -opw <string>        : owner password (for encrypted files)
+  -upw <string>        : user password (for encrypted files)
+  -q                   : don't print any messages or errors
+  -v                   : print copyright and version info
+  -h                   : print usage information
+  -help                : print usage information
+  --help               : print usage information
+  -?                   : print usage information
+lyubomyr@lyubomyr-desktop:~/projects/homelib/homelib/homelib-server$ pdftopng
+pdftopng: команду не знайдено
+lyubomyr@lyubomyr-desktop:~/projects/homelib/homelib/homelib-server$ pdftopng
+pdftopng version 4.04 [www.xpdfreader.com]
+Copyright 1996-2022 Glyph & Cog, LLC
+Usage: pdftopng [options] <PDF-file> <PNG-root>
+  -f <int>          : first page to print
+  -l <int>          : last page to print
+  -r <number>       : resolution, in DPI (default is 150)
+  -mono             : generate a monochrome PNG file
+  -gray             : generate a grayscale PNG file
+  -alpha            : include an alpha channel in the PNG file
+  -rot <int>        : set page rotation: 0, 90, 180, or 270
+  -freetype <string>: enable FreeType font rasterizer: yes, no
+  -aa <string>      : enable font anti-aliasing: yes, no
+  -aaVector <string>: enable vector anti-aliasing: yes, no
+  -opw <string>     : owner password (for encrypted files)
+  -upw <string>     : user password (for encrypted files)
+  -verbose          : print per-page status information
+  -q                : don't print any messages or errors
+  -cfg <string>     : configuration file to use in place of .xpdfrc
+  -v                : print copyright and version info
+  -h                : print usage information
+  -help             : print usage information
+  --help            : print usage information
+  -?                : print usage information
+lyubomyr@lyubomyr-desktop:~/projects/homelib/homelib/homelib-server$ sudo curl https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo apt-key add
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  3935  100  3935    0     0   5581      0 --:--:-- --:--:-- --:--:--  5573
+OK
+lyubomyr@lyubomyr-desktop:~/projects/homelib/homelib/homelib-server$ sudo sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt update'
+В кеші:1 http://ua.archive.ubuntu.com/ubuntu focal InRelease
+В кеші:2 http://ua.archive.ubuntu.com/ubuntu focal-updates InRelease
+В кеші:3 http://ua.archive.ubuntu.com/ubuntu focal-backports InRelease
+В кеші:4 http://security.ubuntu.com/ubuntu focal-security InRelease                                       
+Отр:5 https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/focal pgadmin4 InRelease [4 217 B]              
+Отр:6 https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/focal pgadmin4/main amd64 Packages [4 869 B]
+Отр:7 https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/focal pgadmin4/main all Packages [3 472 B]
+Отримано 12,6 kB за 1сB (19,9 kB/s)               
+Зчитування переліків пакунків... Виконано
+Побудова дерева залежностей       
+Зчитування інформації про стан... Виконано
+7 пакунків можуть бути оновлені. Для перегляду виконайте 'apt list --upgradable'.
+lyubomyr@lyubomyr-desktop:~/projects/homelib/homelib/homelib-server$ sudo apt install pgadmin4
+Зчитування переліків пакунків... Виконано
+Побудова дерева залежностей                        
+Зчитування інформації про стан... Виконано
+Наступні пакунки були встановлені автоматично і більше не потрібні:
+  fonts-wine glib-networking:i386 gstreamer1.0-plugins-base:i386 gstreamer1.0-plugins-good:i386 gstreamer1.0-x:i386 i965-va-driver:i386 intel-media-va-driver:i386 libaa1:i386 libaom0:i386 libapparmor1:i386
+  libasn1-8-heimdal:i386 libasound2:i386 libasound2-plugins:i386 libasyncns0:i386 libatomic1:i386 libavahi-client3:i386 libavahi-common-data:i386 libavahi-common3:i386 libavc1394-0:i386 libavcodec58:i386
+  libavutil56:i386 libbrotli1:i386 libbsd0:i386 libcaca0:i386 libcairo-gobject2:i386 libcairo2:i386 libcap2:i386 libcapi20-3 libcapi20-3:i386 libcdparanoia0:i386 libcodec2-0.9:i386 libcups2:i386
+  libdatrie1:i386 libdbus-1-3:i386 libdrm-amdgpu1:i386 libdrm-intel1:i386 libdrm-nouveau2:i386 libdrm-radeon1:i386 libdrm2:i386 libdv4:i386 libedit2:i386 libelf1:i386 libexif12:i386 libexpat1:i386 libfaudio0
+  libfaudio0:i386 libffi7:i386 libflac8:i386 libfontconfig1:i386 libfreetype6:i386 libfribidi0:i386 libfwupdplugin1 libgd3:i386 libgdbm-compat4:i386 libgdbm6:i386 libgdk-pixbuf2.0-0:i386 libgl1:i386
+  libgl1-mesa-dri:i386 libglapi-mesa:i386 libglib2.0-0:i386 libglu1-mesa:i386 libglvnd0:i386 libglx-mesa0:i386 libglx0:i386 libgmp10:i386 libgnutls30:i386 libgomp1:i386 libgphoto2-6:i386 libgphoto2-port12:i386
+  libgraphite2-3:i386 libgsm1:i386 libgssapi-krb5-2:i386 libgssapi3-heimdal:i386 libgstreamer-plugins-base1.0-0:i386 libgstreamer-plugins-good1.0-0:i386 libgstreamer1.0-0:i386 libgudev-1.0-0:i386
+  libharfbuzz0b:i386 libhcrypto4-heimdal:i386 libheimbase1-heimdal:i386 libheimntlm0-heimdal:i386 libhogweed5:i386 libhx509-5-heimdal:i386 libicu66:i386 libiec61883-0:i386 libieee1284-3:i386 libigdgmm11:i386
+  libjack-jackd2-0:i386 libjbig0:i386 libjpeg-turbo8:i386 libjpeg8:i386 libk5crypto3:i386 libkeyutils1:i386 libkrb5-26-heimdal:i386 libkrb5-3:i386 libkrb5support0:i386 liblcms2-2:i386 libllvm10:i386 libllvm11
+  libllvm11:i386 libllvm12:i386 libltdl7:i386 libmp3lame0:i386 libmpg123-0:i386 libmysqlclient21:i386 libnettle7:i386 libnghttp2-14:i386 libnuma1:i386 libodbc1 libodbc1:i386 libogg0:i386 libopenal-data
+  libopenal1 libopenal1:i386 libopenjp2-7:i386 libopus0:i386 liborc-0.4-0:i386 libosmesa6 libosmesa6:i386 libp11-kit0:i386 libpango-1.0-0:i386 libpangocairo-1.0-0:i386 libpangoft2-1.0-0:i386 libpcap0.8:i386
+  libpci3:i386 libpciaccess0:i386 libperl5.30:i386 libpixman-1-0:i386 libpng16-16:i386 libproxy1v5:i386 libpsl5:i386 libpulse0:i386 libraw1394-11:i386 libroken18-heimdal:i386 librsvg2-2:i386
+  librsvg2-common:i386 librtmp1:i386 libsamplerate0:i386 libsdl2-2.0-0 libsdl2-2.0-0:i386 libsensors5:i386 libshine3:i386 libshout3:i386 libslang2:i386 libsnappy1v5:i386 libsndfile1:i386 libsndio7.0:i386
+  libsnmp35:i386 libsoup2.4-1:i386 libsoxr0:i386 libspeex1:i386 libsqlite3-0:i386 libssh-4:i386 libssl1.1:i386 libstb0 libstb0:i386 libstdc++6:i386 libswresample3:i386 libtag1v5:i386 libtag1v5-vanilla:i386
+  libtasn1-6:i386 libthai0:i386 libtheora0:i386 libtiff5:i386 libtwolame0:i386 libusb-1.0-0:i386 libv4l-0:i386 libv4lconvert0:i386 libva-drm2:i386 libva-x11-2:i386 libva2:i386 libvdpau1:i386
+  libvisual-0.4-0:i386 libvkd3d1 libvkd3d1:i386 libvorbis0a:i386 libvorbisenc2:i386 libvpx6:i386 libvulkan1:i386 libwavpack1:i386 libwayland-client0:i386 libwayland-cursor0:i386 libwayland-egl1:i386
+  libwebp6:i386 libwebpmux3:i386 libwind0-heimdal:i386 libwine libwrap0:i386 libx11-6:i386 libx11-xcb1:i386 libx264-155:i386 libx265-179:i386 libxau6:i386 libxcb-dri2-0:i386 libxcb-dri3-0:i386 libxcb-glx0:i386
+  libxcb-present0:i386 libxcb-randr0:i386 libxcb-render0:i386 libxcb-shm0:i386 libxcb-sync1:i386 libxcb-xfixes0:i386 libxcb1:i386 libxcomposite1:i386 libxcursor1:i386 libxdamage1:i386 libxdmcp6:i386
+  libxext6:i386 libxfixes3:i386 libxi6:i386 libxinerama1:i386 libxkbcommon0:i386 libxml2:i386 libxpm4:i386 libxrandr2:i386 libxrender1:i386 libxshmfence1:i386 libxslt1.1:i386 libxss1:i386 libxv1:i386
+  libxvidcore4:i386 libxxf86vm1:i386 libzvbi0:i386 linux-headers-5.4.0-94 linux-headers-5.4.0-94-generic linux-image-5.4.0-94-generic linux-modules-5.4.0-94-generic linux-modules-extra-5.4.0-94-generic
+  mesa-va-drivers:i386 mesa-vdpau-drivers:i386 mesa-vulkan-drivers:i386 ocl-icd-libopencl1:i386 shim va-driver-all:i386 vdpau-driver-all:i386 wine wine-stable wine64
+Використовуйте 'sudo apt autoremove' щоб видалити їх.
+Буде встановлено такі додаткові пакунки:
+  apache2 apache2-data apache2-utils libapache2-mod-wsgi-py3 pgadmin4-desktop pgadmin4-server pgadmin4-web
+Пропоновані пакунки:
+  apache2-doc apache2-suexec-pristine | apache2-suexec-custom
+НОВІ пакунки, які будуть встановлені:
+  apache2 apache2-data apache2-utils libapache2-mod-wsgi-py3 pgadmin4 pgadmin4-desktop pgadmin4-server pgadmin4-web
+оновлено 0, встановлено 8 нових, 0 відмічено для видалення і 7 не оновлено.
+Необхідно завантажити 191 MB архівів.
+Після цієї операції об'єм зайнятого дискового простору зросте на 2 119 kB.
+Бажаєте продовжити? [Y=ТАК/n=ні] y
+Отр:1 http://ua.archive.ubuntu.com/ubuntu focal-updates/main amd64 apache2-data all 2.4.41-4ubuntu3.12 [159 kB]
+Отр:2 http://ua.archive.ubuntu.com/ubuntu focal-updates/main amd64 apache2-utils amd64 2.4.41-4ubuntu3.12 [84,5 kB]
+Отр:3 http://ua.archive.ubuntu.com/ubuntu focal-updates/main amd64 apache2 amd64 2.4.41-4ubuntu3.12 [95,6 kB]
+Отр:4 http://ua.archive.ubuntu.com/ubuntu focal-updates/main amd64 libapache2-mod-wsgi-py3 amd64 4.6.8-1ubuntu3.1 [93,8 kB]
+Отр:5 https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/focal pgadmin4/main amd64 pgadmin4-server amd64 6.12 [99,6 MB]
+Отр:6 https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/focal pgadmin4/main amd64 pgadmin4-desktop amd64 6.12 [90,7 MB]                                                                                         
+Отр:7 https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/focal pgadmin4/main all pgadmin4-web all 6.12 [2 720 B]                                                                                                 
+Отр:8 https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/focal pgadmin4/main all pgadmin4 all 6.12 [860 B]                                                                                                       
+Отримано 191 MB за 23сB (8 208 kB/s)                                                                                                                                                                              
+Вибір раніше не обраного пакунку apache2-data.
+(Читання бази даних ... на дану мить встановлено 276184 файли та каталоги.)
+Приготування до розпакування .../0-apache2-data_2.4.41-4ubuntu3.12_all.deb ...
+Розпакування apache2-data (2.4.41-4ubuntu3.12)...
+Вибір раніше не обраного пакунку apache2-utils.
+Приготування до розпакування .../1-apache2-utils_2.4.41-4ubuntu3.12_amd64.deb ...
+Розпакування apache2-utils (2.4.41-4ubuntu3.12)...
+Вибір раніше не обраного пакунку apache2.
+Приготування до розпакування .../2-apache2_2.4.41-4ubuntu3.12_amd64.deb ...
+Розпакування apache2 (2.4.41-4ubuntu3.12)...
+Вибір раніше не обраного пакунку libapache2-mod-wsgi-py3.
+Приготування до розпакування .../3-libapache2-mod-wsgi-py3_4.6.8-1ubuntu3.1_amd64.deb ...
+Розпакування libapache2-mod-wsgi-py3 (4.6.8-1ubuntu3.1)...
+Вибір раніше не обраного пакунку pgadmin4-server.
+Приготування до розпакування .../4-pgadmin4-server_6.12_amd64.deb ...
+Розпакування pgadmin4-server (6.12)...
+Вибір раніше не обраного пакунку pgadmin4-desktop.
+Приготування до розпакування .../5-pgadmin4-desktop_6.12_amd64.deb ...
+Розпакування pgadmin4-desktop (6.12)...
+Вибір раніше не обраного пакунку pgadmin4-web.
+Приготування до розпакування .../6-pgadmin4-web_6.12_all.deb ...
+Розпакування pgadmin4-web (6.12)...
+Вибір раніше не обраного пакунку pgadmin4.
+Приготування до розпакування .../7-pgadmin4_6.12_all.deb ...
+Розпакування pgadmin4 (6.12)...
+Налаштовування pgadmin4-server (6.12) ...
+Налаштовування libapache2-mod-wsgi-py3 (4.6.8-1ubuntu3.1) ...
+Package apache2 is not configured yet. Will defer actions by package libapache2-mod-wsgi-py3.
+Налаштовування pgadmin4-desktop (6.12) ...
+Налаштовування apache2-data (2.4.41-4ubuntu3.12) ...
+Налаштовування apache2-utils (2.4.41-4ubuntu3.12) ...
+Налаштовування apache2 (2.4.41-4ubuntu3.12) ...
+Enabling module mpm_event.
+Enabling module authz_core.
+Enabling module authz_host.
+Enabling module authn_core.
+Enabling module auth_basic.
+Enabling module access_compat.
+Enabling module authn_file.
+Enabling module authz_user.
+Enabling module alias.
+Enabling module dir.
+Enabling module autoindex.
+Enabling module env.
+Enabling module mime.
+Enabling module negotiation.
+Enabling module setenvif.
+Enabling module filter.
+Enabling module deflate.
+Enabling module status.
+Enabling module reqtimeout.
+Enabling conf charset.
+Enabling conf localized-error-pages.
+Enabling conf other-vhosts-access-log.
+Enabling conf security.
+Enabling conf serve-cgi-bin.
+Enabling site 000-default.
+info: Executing deferred 'a2enmod wsgi' for package libapache2-mod-wsgi-py3
+Enabling module wsgi.
+Created symlink /etc/systemd/system/multi-user.target.wants/apache2.service → /lib/systemd/system/apache2.service.
+Created symlink /etc/systemd/system/multi-user.target.wants/apache-htcacheclean.service → /lib/systemd/system/apache-htcacheclean.service.
+Job for apache2.service failed because the control process exited with error code.
+See "systemctl status apache2.service" and "journalctl -xe" for details.
+invoke-rc.d: initscript apache2, action "start" failed.
+● apache2.service - The Apache HTTP Server
+     Loaded: loaded (/lib/systemd/system/apache2.service; enabled; vendor preset: enabled)
+     Active: failed (Result: exit-code) since Thu 2022-08-25 13:33:19 EEST; 7ms ago
+       Docs: https://httpd.apache.org/docs/2.4/
+    Process: 87112 ExecStart=/usr/sbin/apachectl start (code=exited, status=1/FAILURE)
+
+сер 25 13:33:19 lyubomyr-desktop apachectl[87139]: AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 127.0.1.1. Set the 'ServerName' directive globally to suppress th
+is message
+сер 25 13:33:19 lyubomyr-desktop apachectl[87139]: (98)Address already in use: AH00072: make_sock: could not bind to address [::]:80
+сер 25 13:33:19 lyubomyr-desktop apachectl[87139]: (98)Address already in use: AH00072: make_sock: could not bind to address 0.0.0.0:80
+сер 25 13:33:19 lyubomyr-desktop apachectl[87139]: no listening sockets available, shutting down
+сер 25 13:33:19 lyubomyr-desktop apachectl[87139]: AH00015: Unable to open logs
+сер 25 13:33:19 lyubomyr-desktop apachectl[87112]: Action 'start' failed.
+сер 25 13:33:19 lyubomyr-desktop apachectl[87112]: The Apache error log may have more information.
+сер 25 13:33:19 lyubomyr-desktop systemd[1]: apache2.service: Control process exited, code=exited, status=1/FAILURE
+сер 25 13:33:19 lyubomyr-desktop systemd[1]: apache2.service: Failed with result 'exit-code'.
+сер 25 13:33:19 lyubomyr-desktop systemd[1]: Failed to start The Apache HTTP Server.
+Налаштовування pgadmin4-web (6.12) ...
+Налаштовування pgadmin4 (6.12) ...
+Обробка тригерів bamfdaemon (0.5.3+18.04.20180207.2-0ubuntu2)...
+Rebuilding /usr/share/applications/bamf-2.index...
+Обробка тригерів desktop-file-utils (0.24-1ubuntu3)...
+Обробка тригерів mime-support (3.64ubuntu1)...
+Обробка тригерів hicolor-icon-theme (0.17-2)...
+Обробка тригерів gnome-menus (3.36.0-1ubuntu1)...
+Обробка тригерів ufw (0.36-6ubuntu1)...
+Обробка тригерів systemd (245.4-4ubuntu3.17)...
+Обробка тригерів man-db (2.9.1-1)...
+lyubomyr@lyubomyr-desktop:~/projects/homelib/homelib/homelib-server$ sudo apt install pgadmin4-web 
+Зчитування переліків пакунків... Виконано
+Побудова дерева залежностей                        
+Зчитування інформації про стан... Виконано
+pgadmin4-web вже є новою версією (6.12).
+pgadmin4-web позначений як встановлений вручну.
+Наступні пакунки були встановлені автоматично і більше не потрібні:
+  fonts-wine glib-networking:i386 gstreamer1.0-plugins-base:i386 gstreamer1.0-plugins-good:i386 gstreamer1.0-x:i386 i965-va-driver:i386 intel-media-va-driver:i386 libaa1:i386 libaom0:i386 libapparmor1:i386
+  libasn1-8-heimdal:i386 libasound2:i386 libasound2-plugins:i386 libasyncns0:i386 libatomic1:i386 libavahi-client3:i386 libavahi-common-data:i386 libavahi-common3:i386 libavc1394-0:i386 libavcodec58:i386
+  libavutil56:i386 libbrotli1:i386 libbsd0:i386 libcaca0:i386 libcairo-gobject2:i386 libcairo2:i386 libcap2:i386 libcapi20-3 libcapi20-3:i386 libcdparanoia0:i386 libcodec2-0.9:i386 libcups2:i386
+  libdatrie1:i386 libdbus-1-3:i386 libdrm-amdgpu1:i386 libdrm-intel1:i386 libdrm-nouveau2:i386 libdrm-radeon1:i386 libdrm2:i386 libdv4:i386 libedit2:i386 libelf1:i386 libexif12:i386 libexpat1:i386 libfaudio0
+  libfaudio0:i386 libffi7:i386 libflac8:i386 libfontconfig1:i386 libfreetype6:i386 libfribidi0:i386 libfwupdplugin1 libgd3:i386 libgdbm-compat4:i386 libgdbm6:i386 libgdk-pixbuf2.0-0:i386 libgl1:i386
+  libgl1-mesa-dri:i386 libglapi-mesa:i386 libglib2.0-0:i386 libglu1-mesa:i386 libglvnd0:i386 libglx-mesa0:i386 libglx0:i386 libgmp10:i386 libgnutls30:i386 libgomp1:i386 libgphoto2-6:i386 libgphoto2-port12:i386
+  libgraphite2-3:i386 libgsm1:i386 libgssapi-krb5-2:i386 libgssapi3-heimdal:i386 libgstreamer-plugins-base1.0-0:i386 libgstreamer-plugins-good1.0-0:i386 libgstreamer1.0-0:i386 libgudev-1.0-0:i386
+  libharfbuzz0b:i386 libhcrypto4-heimdal:i386 libheimbase1-heimdal:i386 libheimntlm0-heimdal:i386 libhogweed5:i386 libhx509-5-heimdal:i386 libicu66:i386 libiec61883-0:i386 libieee1284-3:i386 libigdgmm11:i386
+  libjack-jackd2-0:i386 libjbig0:i386 libjpeg-turbo8:i386 libjpeg8:i386 libk5crypto3:i386 libkeyutils1:i386 libkrb5-26-heimdal:i386 libkrb5-3:i386 libkrb5support0:i386 liblcms2-2:i386 libllvm10:i386 libllvm11
+  libllvm11:i386 libllvm12:i386 libltdl7:i386 libmp3lame0:i386 libmpg123-0:i386 libmysqlclient21:i386 libnettle7:i386 libnghttp2-14:i386 libnuma1:i386 libodbc1 libodbc1:i386 libogg0:i386 libopenal-data
+  libopenal1 libopenal1:i386 libopenjp2-7:i386 libopus0:i386 liborc-0.4-0:i386 libosmesa6 libosmesa6:i386 libp11-kit0:i386 libpango-1.0-0:i386 libpangocairo-1.0-0:i386 libpangoft2-1.0-0:i386 libpcap0.8:i386
+  libpci3:i386 libpciaccess0:i386 libperl5.30:i386 libpixman-1-0:i386 libpng16-16:i386 libproxy1v5:i386 libpsl5:i386 libpulse0:i386 libraw1394-11:i386 libroken18-heimdal:i386 librsvg2-2:i386
+  librsvg2-common:i386 librtmp1:i386 libsamplerate0:i386 libsdl2-2.0-0 libsdl2-2.0-0:i386 libsensors5:i386 libshine3:i386 libshout3:i386 libslang2:i386 libsnappy1v5:i386 libsndfile1:i386 libsndio7.0:i386
+  libsnmp35:i386 libsoup2.4-1:i386 libsoxr0:i386 libspeex1:i386 libsqlite3-0:i386 libssh-4:i386 libssl1.1:i386 libstb0 libstb0:i386 libstdc++6:i386 libswresample3:i386 libtag1v5:i386 libtag1v5-vanilla:i386
+  libtasn1-6:i386 libthai0:i386 libtheora0:i386 libtiff5:i386 libtwolame0:i386 libusb-1.0-0:i386 libv4l-0:i386 libv4lconvert0:i386 libva-drm2:i386 libva-x11-2:i386 libva2:i386 libvdpau1:i386
+  libvisual-0.4-0:i386 libvkd3d1 libvkd3d1:i386 libvorbis0a:i386 libvorbisenc2:i386 libvpx6:i386 libvulkan1:i386 libwavpack1:i386 libwayland-client0:i386 libwayland-cursor0:i386 libwayland-egl1:i386
+  libwebp6:i386 libwebpmux3:i386 libwind0-heimdal:i386 libwine libwrap0:i386 libx11-6:i386 libx11-xcb1:i386 libx264-155:i386 libx265-179:i386 libxau6:i386 libxcb-dri2-0:i386 libxcb-dri3-0:i386 libxcb-glx0:i386
+  libxcb-present0:i386 libxcb-randr0:i386 libxcb-render0:i386 libxcb-shm0:i386 libxcb-sync1:i386 libxcb-xfixes0:i386 libxcb1:i386 libxcomposite1:i386 libxcursor1:i386 libxdamage1:i386 libxdmcp6:i386
+  libxext6:i386 libxfixes3:i386 libxi6:i386 libxinerama1:i386 libxkbcommon0:i386 libxml2:i386 libxpm4:i386 libxrandr2:i386 libxrender1:i386 libxshmfence1:i386 libxslt1.1:i386 libxss1:i386 libxv1:i386
+  libxvidcore4:i386 libxxf86vm1:i386 libzvbi0:i386 linux-headers-5.4.0-94 linux-headers-5.4.0-94-generic linux-image-5.4.0-94-generic linux-modules-5.4.0-94-generic linux-modules-extra-5.4.0-94-generic
+  mesa-va-drivers:i386 mesa-vdpau-drivers:i386 mesa-vulkan-drivers:i386 ocl-icd-libopencl1:i386 shim va-driver-all:i386 vdpau-driver-all:i386 wine wine-stable wine64
+Використовуйте 'sudo apt autoremove' щоб видалити їх.
+оновлено 0, встановлено 0 нових, 0 відмічено для видалення і 7 не оновлено.
+lyubomyr@lyubomyr-desktop:~/projects/homelib/homelib/homelib-server$ sudo /usr/pgadmin4/bin/setup-web.sh
+Setting up pgAdmin 4 in web mode on a Debian based platform...
+Creating configuration database...
+NOTE: Configuring authentication for SERVER mode.
+
+Enter the email address and password to use for the initial pgAdmin user account:
+
+Email address: lyubomyr.fedevitch@gmail.com
+Password: 
+Retype password:
+pgAdmin 4 - Application Initialisation
+======================================
+
+Creating storage and log directories...
+We can now configure the Apache Web server for you. This involves enabling the wsgi module and configuring the pgAdmin 4 application to mount at /pgadmin4. Do you wish to continue (y/n)? y
+The Apache web server is not running. We can enable and start the web server for you to finish pgAdmin 4 installation. Continue (y/n)? y
+Synchronizing state of apache2.service with SysV service script with /lib/systemd/systemd-sysv-install.
+Executing: /lib/systemd/systemd-sysv-install enable apache2
+Apache successfully enabled.
+Job for apache2.service failed because the control process exited with error code.
+See "systemctl status apache2.service" and "journalctl -xe" for details.
+Error starting apache2. Please check the systemd logs
+lyubomyr@lyubomyr-desktop:~/projects/homelib/homelib/homelib-server$ postgres
+
+Команду «postgres» не знайдено, ви мали на увазі:
+
+  команда «postgrey» з deb postgrey (1.36-5.1)
+
+Спробуйте: sudo apt install <назва deb>
+
+lyubomyr@lyubomyr-desktop:~/projects/homelib/homelib/homelib-server$ psql
+psql: error: FATAL:  role "lyubomyr" does not exist
+lyubomyr@lyubomyr-desktop:~/projects/homelib/homelib/homelib-server$ sudo -u postgres psql
+psql (12.12 (Ubuntu 12.12-0ubuntu0.20.04.1), server 9.5.14)
+Type "help" for help.
+
+postgres=# create user lyubomyr with password 'lyubomyr5';
+CREATE ROLE
+postgres=# create user homelib with password 'lyubomyr5';
+CREATE ROLE
+postgres=# create user postgres with password 'lyubomyr5';
+ERROR:  role "postgres" already exists
+postgres=# alter user postgres with password 'lyubomyr5';
+ALTER ROLE
+postgres=# create database homelib with owner homelib;
+CREATE DATABASE
+postgres=#

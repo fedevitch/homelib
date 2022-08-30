@@ -63,7 +63,7 @@ const Scanner: NextPage = () => {
     { ocrProgress > 0 && <FormGroup label={t("OCR progress")}>
       <ProgressBar className={styles.progressBar} value={ocrProgress} intent={Intent.SUCCESS} stripes={false} />
     </FormGroup> }
-    { errors.length > 0 && <Callout className={styles.error} intent={Intent.DANGER}>{errors.map(e => (<span>{e}</span>) )}</Callout>}
+    { errors.length > 0 && <Callout className={styles.error} intent={Intent.DANGER}>{errors.map((e, i) => (<span key={i}>{e}</span>) )}</Callout>}
   </div>
 
   return <AppLayout title={t("Scanner")}>

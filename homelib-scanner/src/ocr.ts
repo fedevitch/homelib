@@ -10,7 +10,7 @@ export const recognizePages = async(fileData: FileData): Promise<string> => {
         let result = "", tasks = Array<Promise<string>>();
         if(!fileData.pagesListToOCR) return result;
         for(const page of fileData.pagesListToOCR){
-            tasks.push(new Promise((resolve, reject) => {
+            const pageResult = await new Promise((resolve, reject) => {
                 logger.debug(`OCR for file ${page}`);    
                 let taskResult = "";
                 const ocrProcess = spawn('tesseract', [page.toString(), '-', '-l', 'eng+ukr']);
@@ -21,10 +21,11 @@ export const recognizePages = async(fileData: FileData): Promise<string> => {
                 });
                 ocrProcess.on('error', reject);
                 ocrProcess.stderr.on('data', err => reject(err.toString()));           
-            }));        
+            });
+            result += pageResult;        
         }
-        const recognized = await Promise.all(tasks);
-        return recognized.join();
+        //const recognized = await Promise(tasks);
+        return result;
     } catch(e) {
         logger.error(e);
         return "";

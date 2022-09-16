@@ -13,7 +13,7 @@ const recognizePages = async (fileData) => {
         if (!fileData.pagesListToOCR)
             return result;
         for (const page of fileData.pagesListToOCR) {
-            tasks.push(new Promise((resolve, reject) => {
+            const pageResult = await new Promise((resolve, reject) => {
                 logger_1.default.debug(`OCR for file ${page}`);
                 let taskResult = "";
                 const ocrProcess = (0, child_process_1.spawn)('tesseract', [page.toString(), '-', '-l', 'eng+ukr']);
@@ -24,10 +24,11 @@ const recognizePages = async (fileData) => {
                 });
                 ocrProcess.on('error', reject);
                 ocrProcess.stderr.on('data', err => reject(err.toString()));
-            }));
+            });
+            result += pageResult;
         }
-        const recognized = await Promise.all(tasks);
-        return recognized.join();
+        //const recognized = await Promise(tasks);
+        return result;
     }
     catch (e) {
         logger_1.default.error(e);

@@ -22,8 +22,14 @@ const recognizePages = async (fileData) => {
                     logger_1.default.debug(`OCR completed for ${page}`);
                     resolve(taskResult);
                 });
-                ocrProcess.on('error', reject);
-                ocrProcess.stderr.on('data', err => reject(err.toString()));
+                ocrProcess.on('error', e => {
+                    logger_1.default.error(`OCR error for ${page} ${e}`);
+                    resolve(taskResult);
+                });
+                ocrProcess.stderr.on('data', err => {
+                    logger_1.default.error(err.toString());
+                    resolve(taskResult);
+                });
             });
             result += pageResult;
         }

@@ -24,7 +24,7 @@ export const extractPreview = async(fileName: string, ratio = 50): Promise<Buffe
     });
 }
 
-export const getPagesOCR = async(fileName: string, firstPage: number, lastPage: number): Promise<Array<Buffer>> => {
+export const getPagesOCR = async(fileName: string, firstPage: number, lastPage: number): Promise<Array<String>> => {
     logger.debug('getPagesOCR');
     return new Promise((resolve, reject) => {
         const fileNames = Array<string>();
@@ -38,21 +38,22 @@ export const getPagesOCR = async(fileName: string, firstPage: number, lastPage: 
         convertProcess.on('error', reject);
         convertProcess.stderr.on('data', reject);
         convertProcess.stderr.on('error', reject);
-        convertProcess.on('close', async () => {
-            const data = Array<Buffer>();
-            for(const fileName of fileNames){
-                logger.debug('readFile');
-                try {
-                    const buffer = await readFile(fileName);
-                    data.push(buffer);
-                    logger.debug('rm');
-                    await rm(fileName);
-                } catch(e) {
-                    logger.error(`Error with file ${fileName}`);
-                }
-            }
-            resolve(data);           
-        });
+        convertProcess.on('close', () => resolve(fileNames));
+        // async () => {
+        //     const data = Array<Buffer>();
+        //     for(const fileName of fileNames){
+        //         logger.debug('readFile');
+        //         try {
+        //             const buffer = await readFile(fileName);
+        //             data.push(buffer);
+        //             logger.debug('rm');
+        //             await rm(fileName);
+        //         } catch(e) {
+        //             logger.error(`Error with file ${fileName}`);
+        //         }
+        //     }
+        //     resolve(data);           
+        // });
     });
 }
 
@@ -95,7 +96,7 @@ const parsePdf = async (fileName: string): Promise<ProcessResult> => {
     const bookAppendix = await getPdfText(fileName, pages - config.TAKE_END_PAGES, pages);
 
     const preview = await extractPreview(fileName);
-    let pagesToOCR = Array<Buffer>();
+    let pagesToOCR = Array<String>();
     if(!bookIndex && !bookAppendix && config.OCR) {
         const firstPages = await getPagesOCR(fileName, 1, config.TAKE_START_PAGES);
         const lastPages = await getPagesOCR(fileName, pages - config.TAKE_END_PAGES, pages);

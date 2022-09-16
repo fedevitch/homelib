@@ -41,22 +41,22 @@ const getPagesOCR = async (fileName, firstPage, lastPage) => {
         convertProcess.on('error', reject);
         convertProcess.stderr.on('data', reject);
         convertProcess.stderr.on('error', reject);
-        convertProcess.on('close', async () => {
-            const data = Array();
-            for (const fileName of fileNames) {
-                logger_1.default.debug('readFile');
-                try {
-                    const buffer = await (0, promises_1.readFile)(fileName);
-                    data.push(buffer);
-                    logger_1.default.debug('rm');
-                    await (0, promises_1.rm)(fileName);
-                }
-                catch (e) {
-                    logger_1.default.error(`Error with file ${fileName}`);
-                }
-            }
-            resolve(data);
-        });
+        convertProcess.on('close', () => resolve(fileNames));
+        // async () => {
+        //     const data = Array<Buffer>();
+        //     for(const fileName of fileNames){
+        //         logger.debug('readFile');
+        //         try {
+        //             const buffer = await readFile(fileName);
+        //             data.push(buffer);
+        //             logger.debug('rm');
+        //             await rm(fileName);
+        //         } catch(e) {
+        //             logger.error(`Error with file ${fileName}`);
+        //         }
+        //     }
+        //     resolve(data);           
+        // });
     });
 };
 exports.getPagesOCR = getPagesOCR;

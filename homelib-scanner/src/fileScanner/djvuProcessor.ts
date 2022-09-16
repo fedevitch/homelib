@@ -27,7 +27,7 @@ const djvuExtractPreview = async(fileName: string): Promise<Buffer> => {
     })
 }
 
-const djvuGetPagesOCR = async(fileName: string, pages: number): Promise<Array<Buffer>> => {
+const djvuGetPagesOCR = async(fileName: string, pages: number): Promise<Array<String>> => {
     logger.debug('djvuGetPagesOCR');
     return new Promise((resolve, reject) => {
         const previewPdfImageFileName = `/tmp/${randomUUID().replaceAll('-', '')}.pdf`;
@@ -79,7 +79,7 @@ const parseDjvu = async (fileName: string): Promise<ProcessResult> => {
     const rawText = await djvuTxt(fileName, pages);    
 
     const preview = await djvuExtractPreview(fileName);
-    let pagesToOCR = Array<Buffer>();
+    let pagesToOCR = Array<String>();
     if(!rawText && config.OCR){
         pagesToOCR = await djvuGetPagesOCR(fileName, pages);
     }

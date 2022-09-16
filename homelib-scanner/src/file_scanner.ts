@@ -66,7 +66,7 @@ export const start = async () => {
                     description, pageCount, categories, maturityRating, language,
                     imageLinks, previewLink, selfLink, canonicalVolumeLink
                 } = volumeData.volumeInfo;
-                const previewLinks = [ imageLinks.thumbnail, previewLink, selfLink, canonicalVolumeLink ].filter(l => !!l);
+                const previewLinks = [ imageLinks?.thumbnail, previewLink, selfLink, canonicalVolumeLink ].filter(l => !!l);
                 data.volumeInfo = {
                     create: {
                         jsonDump,

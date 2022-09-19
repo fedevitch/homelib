@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.recognizePages = void 0;
 const logger_1 = __importDefault(require("./logger"));
 const child_process_1 = require("child_process");
+const timeout = 3 * 60 * 1000;
 const recognizePages = async (fileData) => {
     logger_1.default.debug(`Running Tesseract OCR for file ${fileData.entry.name}`);
     try {
@@ -13,7 +14,8 @@ const recognizePages = async (fileData) => {
         if (!fileData.pagesListToOCR)
             return result;
         for (const page of fileData.pagesListToOCR) {
-            const pageResult = await new Promise((resolve, reject) => {
+            const timer = new Promise(resolve => setTimeout(resolve, timeout, ""));
+            const ocrTask = await new Promise((resolve, reject) => {
                 logger_1.default.debug(`OCR for file ${page}`);
                 let taskResult = "";
                 const ocrProcess = (0, child_process_1.spawn)('tesseract', [page.toString(), '-', '-l', 'eng+ukr']);
@@ -31,6 +33,7 @@ const recognizePages = async (fileData) => {
                     resolve(taskResult);
                 });
             });
+            const pageResult = await Promise.race([ocrTask, timer]);
             result += pageResult;
         }
         //const recognized = await Promise(tasks);

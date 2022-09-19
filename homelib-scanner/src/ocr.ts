@@ -1,6 +1,7 @@
 import logger from './logger';
 import { FileData } from './models/fileData';
 import { spawn } from "child_process";
+const timeout = 3 * 60 * 1000;
 
 
 export const recognizePages = async(fileData: FileData): Promise<string> => {
@@ -10,7 +11,8 @@ export const recognizePages = async(fileData: FileData): Promise<string> => {
         let result = "", tasks = Array<Promise<string>>();
         if(!fileData.pagesListToOCR) return result;
         for(const page of fileData.pagesListToOCR){
-            const pageResult = await new Promise((resolve, reject) => {
+            const timer = new Promise(resolve => setTimeout(resolve, timeout, ""));
+            const ocrTask = await new Promise((resolve, reject) => {
                 logger.debug(`OCR for file ${page}`);    
                 let taskResult = "";
                 const ocrProcess = spawn('tesseract', [page.toString(), '-', '-l', 'eng+ukr']);
@@ -28,6 +30,7 @@ export const recognizePages = async(fileData: FileData): Promise<string> => {
                     resolve(taskResult);
                 });           
             });
+            const pageResult = await Promise.race([ocrTask, timer]);
             result += pageResult;        
         }
         //const recognized = await Promise(tasks);

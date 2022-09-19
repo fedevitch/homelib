@@ -5,14 +5,13 @@ const timeout = 3 * 60 * 1000;
 
 
 export const recognizePages = async(fileData: FileData): Promise<string> => {
-    logger.debug(`Running Tesseract OCR for file ${fileData.entry.name}`);
-
     try {
         let result = "", tasks = Array<Promise<string>>();
         if(!fileData.pagesListToOCR) return result;
+        logger.debug(`Running Tesseract OCR for file ${fileData.entry.name}`);
         for(const page of fileData.pagesListToOCR){
             const timer = new Promise(resolve => setTimeout(resolve, timeout, ""));
-            const ocrTask = await new Promise((resolve, reject) => {
+            const ocrTask = new Promise((resolve) => {
                 logger.debug(`OCR for file ${page}`);    
                 let taskResult = "";
                 const ocrProcess = spawn('tesseract', [page.toString(), '-', '-l', 'eng+ukr']);
